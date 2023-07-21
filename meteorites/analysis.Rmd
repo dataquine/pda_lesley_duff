@@ -7,4 +7,10 @@ author: "Lesley Duff"
 ---
 # Meteorites Analysis
 
-We have data from [NASA](https://www.nasa.gov/) which has information on meteorites that have been found up to the year 2013.
+We have data from [NASA](https://www.nasa.gov/) which has information on 
+meteorites that have been found up to the year 2013.
+
+```{r}
+source("cleaning.R")
+```
+
