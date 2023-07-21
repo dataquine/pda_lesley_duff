@@ -45,3 +45,33 @@ meteorite_landings %>%
 # Use janitor to clean the names
 meteorite_landings <- meteorite_landings %>% 
   janitor::clean_names()
+
+#names(meteorite_landings)
+
+# 3. Split in column GeoLocation into latitude and longitude, the new latitude 
+# and longitude columns should be numeric.  
+# head(meteorite_landings)  
+# geo_location values e.g (50.775, -6.08333) 
+# Need to get rid of brackets and comma
+# Looks like a pattern for numbers: 
+# optional minus, 
+# 1 or more digits
+# fullstop
+# one or more digits
+# Check that (Latitude between -90 and 90, longitude between -180 and 180)
+meteorite_landings_new <- meteorite_landings %>% 
+  # Get rid of bracket at start and end
+  mutate(geo_location_new = str_sub(geo_location, start = 2, end = -2)) %>% 
+  # e.g. now looks like  "54.21667, -113.02" 
+  # ?separate
+  separate(col = "geo_location_new", 
+           into = c("latitude", "longitude"),
+           sep = ", ") %>% 
+  # Convert type of columns into numeric
+  # ?as.numeric
+  mutate(latitude = as.numeric(latitude),
+         longitude = as.numeric(longitude))
+
+  # Replace any missing values in latitude and longitude with zeros.
+
+meteorite_landings_new
