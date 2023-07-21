@@ -1,0 +1,10 @@
+---
+title: "Meteorites Weekend Homework"
+subtitle: "Analysis"
+output: html_notebook
+date: "`r format(Sys.Date())`"
+author: "Lesley Duff"
+---
+# Meteorites Analysis
+
+We have data from [NASA](https://www.nasa.gov/) which has information on meteorites that have been found up to the year 2013.
