@@ -4,6 +4,7 @@
 # Description:
 #   Data comes from NASA and has information on meteorites that have been found
 # up to the year 2013.
+# Creates cleaned data frame meteorite_landings_clean
 #
 # Tasks to be completed
 # 1. Read the data into R
@@ -61,7 +62,7 @@ meteorite_landings <- meteorite_landings %>%
 # 1 or more digits
 # fullstop
 # one or more digits
-meteorite_landings_new <- meteorite_landings %>%
+meteorite_landings_clean <- meteorite_landings %>%
   # Get rid of bracket at start and end
   mutate(geo_location_new = str_sub(geo_location, start = 2, end = -2)) %>%
   # e.g. now looks like  "54.21667, -113.02"
@@ -72,26 +73,20 @@ meteorite_landings_new <- meteorite_landings %>%
     into = c("latitude", "longitude"),
     sep = ", "
   ) %>%
-
   # Convert type of columns into numeric
   # Replace any missing values in latitude and longitude with zeros.
-  mutate(
-    latitude = coalesce(as.numeric(latitude), 0),
-    longitude = coalesce(as.numeric(longitude), 0)
-  ) %>% 
-  
+  mutate(latitude = coalesce(as.numeric(latitude), 0),
+    longitude = coalesce(as.numeric(longitude), 0)) %>%
   # Remove meteorites less than 1000g in weight from the data.
   filter(mass_g >= 1000) %>%
-  
-  # Latitude and longitude are valid values. 
+  # Latitude and longitude are valid values.
   # (Latitude between -90 and 90, longitude between -180 and 180).
-  verify(latitude >= -90 & latitude <= 90) %>% 
-  verify(longitude >= -180 & longitude <= 180)
-  #  N.B. Earlier in testing longitude failed on one row, 
+  verify(latitude >= -90 & latitude <= 90) %>%
+  verify(longitude >= -180 & longitude <= 180) %>%
+  #  N.B. Earlier in testing longitude failed on one row,
   # index 29436 32789 Meridiani Planum - These coordinates would appear to
-  # be on Mars! 
+  # be on Mars!
   # However this row was removed from the data when we added the weight filter
 
-meteorite_landings_new
-
-
+  # Order the data by the year of discovery
+  arrange(year)
