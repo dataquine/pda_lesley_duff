@@ -80,16 +80,17 @@ meteorite_landings_new <- meteorite_landings %>%
     longitude = coalesce(as.numeric(longitude), 0)
   ) %>% 
   
-  
-
+  # Remove meteorites less than 1000g in weight from the data.
+  filter(mass_g >= 1000) %>%
   
   # Latitude and longitude are valid values. 
   # (Latitude between -90 and 90, longitude between -180 and 180).
   verify(latitude >= -90 & latitude <= 90) %>% 
   verify(longitude >= -180 & longitude <= 180)
-  #  N.B. Earlier in testing  longitude failed on one row, 
+  #  N.B. Earlier in testing longitude failed on one row, 
   # index 29436 32789 Meridiani Planum - These coordinates would appear to
   # be on Mars! 
+  # However this row was removed from the data when we added the weight filter
 
 meteorite_landings_new
 
