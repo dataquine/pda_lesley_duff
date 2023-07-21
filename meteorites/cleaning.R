@@ -20,10 +20,11 @@
 # 2. Latitude and longitude are valid values. (Latitude between -90 and 90, 
 # longitude between -180 and 180).
 
+library(assertr)
 library(janitor)
 library(tidyverse)
 
-# Read the data into R
+# 1. Read the data into R
 meteorite_landings <- read_csv("data/meteorite_landings.csv")
 
 # check the data
@@ -32,10 +33,15 @@ meteorite_landings <- read_csv("data/meteorite_landings.csv")
 # head(meteorite_landings)
 # names(meteorite_landings)
 
-# Change the names of the variables to follow our naming standards.
+# make sure that the data has the variable names we expect 
+expected_variable_names = c("id", "name", "mass (g)", "fall", "year", 
+                            "GeoLocation")
+
+meteorite_landings %>%
+  verify(names(.) == expected_variable_names) 
+
+# 2. Change the names of the variables to follow our naming standards.
 # mass (g) has spaces, GeoLocation is mixed case.
 # Use janitor to clean the names
 meteorite_landings <- meteorite_landings %>% 
   janitor::clean_names()
-
-#names(meteorite_landings)
