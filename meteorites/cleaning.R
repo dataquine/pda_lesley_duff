@@ -79,10 +79,18 @@ meteorite_landings_new <- meteorite_landings %>%
     latitude = coalesce(as.numeric(latitude), 0),
     longitude = coalesce(as.numeric(longitude), 0)
   ) %>% 
+  
+  
 
+  
   # Latitude and longitude are valid values. 
   # (Latitude between -90 and 90, longitude between -180 and 180).
-  verify(latitude >= -90 & latitude <= 90)
+  verify(latitude >= -90 & latitude <= 90) %>% 
+  verify(longitude >= -180 & longitude <= 180)
+  #  N.B. Earlier in testing  longitude failed on one row, 
+  # index 29436 32789 Meridiani Planum - These coordinates would appear to
+  # be on Mars! 
 
-#View(meteorite_landings_new)
+meteorite_landings_new
+
 
