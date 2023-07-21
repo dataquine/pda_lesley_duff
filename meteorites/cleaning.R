@@ -39,8 +39,9 @@ expected_variable_names <- c(
   "GeoLocation"
 )
 
-meteorite_landings %>%
-  verify(names(.) == expected_variable_names)
+stopifnot(
+  names(meteorite_landings) == expected_variable_names
+)
 
 # Change the names of the variables to follow our naming standards.
 # mass (g) has spaces, GeoLocation is mixed case.
@@ -60,7 +61,6 @@ meteorite_landings <- meteorite_landings %>%
 # 1 or more digits
 # fullstop
 # one or more digits
-# Check that (Latitude between -90 and 90, longitude between -180 and 180)
 meteorite_landings_new <- meteorite_landings %>%
   # Get rid of bracket at start and end
   mutate(geo_location_new = str_sub(geo_location, start = 2, end = -2)) %>%
@@ -78,4 +78,11 @@ meteorite_landings_new <- meteorite_landings %>%
   mutate(
     latitude = coalesce(as.numeric(latitude), 0),
     longitude = coalesce(as.numeric(longitude), 0)
-  )
+  ) %>% 
+
+  # Latitude and longitude are valid values. 
+  # (Latitude between -90 and 90, longitude between -180 and 180).
+  verify(latitude >= -90 & latitude <= 90)
+
+#View(meteorite_landings_new)
+
