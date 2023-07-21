@@ -17,7 +17,7 @@
 # We would also like you to include assertive programming to make sure that:
 # 1. The data has the variable names we expect (“id”, “name”, “mass (g)”, “fall”
 # , “year”, “GeoLocation”).
-# 2. Latitude and longitudezxc are valid values. (Latitude between -90 and 90, 
+# 2. Latitude and longitude are valid values. (Latitude between -90 and 90, 
 # longitude between -180 and 180).
 
 library(tidyverse)
