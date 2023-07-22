@@ -55,8 +55,8 @@ meteorite_data %>%
 get_meteorite_count <- function(dataframe, input_year){
   output <- ""
 
-#  number_of_meteorites <- 1
-  number_of_meteorites <- 0
+  number_of_meteorites <- 2
+#  number_of_meteorites <- 0
   
   if (number_of_meteorites >= 1) {
     output <- str_c("In ", input_year, ", there were ", number_of_meteorites, 
