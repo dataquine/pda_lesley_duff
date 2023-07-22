@@ -82,4 +82,4 @@ process_meteorite_landings_file <- function(path) {
 }
 
 # Test call of cleaning function
-#meteorite_data <- process_meteorite_file("data/meteorite_landings.csv")
+#meteorite_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
