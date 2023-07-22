@@ -16,4 +16,11 @@ source("cleaning.R")
 # Read the cleaned data into R.
 meteorite_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
 ```
+## Names and years for the 10 largest meteorites
+
+```{r}
+meteorite_data %>% 
+  slice_max(mass_g, n = 10) %>% 
+  select(name, year)
+```
 
