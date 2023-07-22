@@ -11,7 +11,11 @@ We have data from [NASA](https://www.nasa.gov/) which has information on
 meteorites that have been found up to the year 2013.
 
 ```{r}
-source("cleaning.R")
+library(testthat)
+```
+
+```{r}
+source("cleaning.R") # brings in libraries assertr/janitor/tidyverse
 
 # Read the cleaned data into R.
 meteorite_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
@@ -76,21 +80,134 @@ get_meteorite_count <- function(dataframe, input_year) {
 }
 
 count_meteorite <- get_meteorite_count(meteorite_data, 2009)
+# count_meteorite <- get_meteorite_count(meteorite_data, 2020)
 #count_meteorite <- get_meteorite_count(meteorite_data, NA)
 #count_meteorite <- get_meteorite_count(meteorite_data, -1000)
 print(count_meteorite)
 ```
 ### test plans
 
+#### How to test that function is working as expected 
+
+```{r}
+test_that("Years with meteorites return count", {
+  expect_equal(get_meteorite_count(meteorite_data, 2009), 
+               "In 2009, there were 103 meteorites.")
+  expect_equal(get_meteorite_count(meteorite_data, 2013), 
+               "In 2013, there were 2 meteorites.")
+})
+
+test_that("Years with no meteorites return no meteorites message", {
+  expect_equal(get_meteorite_count(meteorite_data, 1584), 
+               "As far as we know, there were no meteorites that year")
+})
+```
+
+
 How the function could be improved.
 
-1. We know there are several years in the dataset with NAs, if NA is passed as 
-a year the message could be improved to show something sensible when the year is
-unknown. Check whether NA passed as year parameter and return new output
+1. If NA is passed as a year we should return a count of how many without a year.
+
+```{r}
+# Work out how many NA years
+landings_without_year <- meteorite_data %>% 
+  summarise(count = sum(is.na(year))) %>% 
+  pull()
+landings_without_year
+
+# landings_without_year = 57
+
+test_that("If year is NA return count of landings without year", {
+  expect_equal(get_meteorite_count(meteorite_data, NA), 
+               "We have 57 meteorites with no known year")
+})
+```
+
 
 2. The simple if statement means negative numbers are treated the same as zero.
 Add an extra test explicitly for zero and indicate anything else is a negative 
-number and an error. Create a new output if year is numeric but < 0
+number and an error.
 
-3. There is no type checking of parameters. Would check if first argument is 
-dataframe and year is numeric.
+```{r}
+test_that("Year cannot be negative", {
+  expect_equal(get_meteorite_count(meteorite_data, 0), 
+               "As far as we know, there were no meteorites that year")
+  expect_error(get_meteorite_count(meteorite_data, -2013))
+})
+```
+3. If year given is newer than dataset (newer than 2013) It would be maybe 
+better to indicate that no data is available rather than suggest there might be
+no meteors that year. Test whether year supplied is more recent than 2013 create
+new output to indicate no data available and that year should be <= 2013.
+
+```{r}
+test_that("Years too recent for dataset", {
+  expect_equal(get_meteorite_count(meteorite_data, 2020), 
+               "We have no data for years later than 2013")
+})
+```
+
+### unit test
+
+A unit test for your function to check whether non-numeric inputs 
+(character and logical) for the year argument return an error.
+
+```{r}
+test_that("non-numeric inputs for the year argument return an error", {
+  expect_error(get_meteorite_count(meteorite_data, TRUE))
+  expect_error(get_meteorite_count(meteorite_data, "2009"))
+})
+```
+
+### refactor_get_meteorite_count
+
+```{r}
+refactor_get_meteorite_count <- function(dataframe, input_year){
+
+  # add a condition, make sure input_year ONLY takes in numeric input
+  if (!is.numeric(input_year)){
+    stop("Non-numeric year 😿")
+  }
+
+  output <- ""
+  
+  # Extract number_of_meteorites that year
+  number_of_meteorites <- dataframe %>%
+    filter(year == input_year) %>%
+    summarise(number_of_meteorites = n()) %>%
+    pull()
+
+  if (number_of_meteorites >= 1) {
+    output <- str_c(
+      "In ", input_year, ", there were ", number_of_meteorites,
+      " meteorites."
+    )
+  } else {
+    output <- "As far as we know, there were no meteorites that year"
+  }
+
+  return(output)
+}
+
+# Test your function to make sure it now gives an error when you input a logical or character value as the year.
+test_that("Non-numeric input returns an error", {
+  expect_error(refactor_get_meteorite_count(meteorite_data, "year"))
+  expect_error(refactor_get_meteorite_count(meteorite_data, TRUE))
+})
+
+# Check working as expected
+test_that("Years with meteorites return count", {
+  expect_equal(get_meteorite_count(meteorite_data, 2009), 
+               "In 2009, there were 103 meteorites.")
+  expect_equal(get_meteorite_count(meteorite_data, 2013), 
+               "In 2013, there were 2 meteorites.")
+})
+
+test_that("Years with no meteorites return no meteorites message", {
+  expect_equal(get_meteorite_count(meteorite_data, 1584), 
+               "As far as we know, there were no meteorites that year")
+})
+
+
+```
+
