@@ -1763,10 +1763,11 @@ display: none;
 information on meteorites that have been found up to the year 2013.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBSZWFkIHRoZSBjbGVhbmVkIGRhdGEgaW50byBSLlxubWV0ZW9yaXRlX2RhdGEgPC0gcHJvY2Vzc19tZXRlb3JpdGVfbGFuZGluZ3NfZmlsZShcImRhdGEvbWV0ZW9yaXRlX2xhbmRpbmdzLmNzdlwiKVxuXG5gYGAifQ== -->
-<pre class="r"><code># Read the cleaned data into R.
-meteorite_data &lt;- process_meteorite_landings_file(&quot;data/meteorite_landings.csv&quot;)
-</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc291cmNlKFwiY2xlYW5pbmcuUlwiKVxuXG4jIFJlYWQgdGhlIGNsZWFuZWQgZGF0YSBpbnRvIFIuXG5tZXRlb3JpdGVfZGF0YSA8LSBwcm9jZXNzX21ldGVvcml0ZV9sYW5kaW5nc19maWxlKFwiZGF0YS9tZXRlb3JpdGVfbGFuZGluZ3MuY3N2XCIpXG5gYGAifQ== -->
+<pre class="r"><code>source(&quot;cleaning.R&quot;)
+
+# Read the cleaned data into R.
+meteorite_data &lt;- process_meteorite_landings_file(&quot;data/meteorite_landings.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiUm93czogNDU3MTYgQ29sdW1uczogNuKUgOKUgCBDb2x1bW4gc3BlY2lmaWNhdGlvbiDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIDilIBcbkRlbGltaXRlcjogXCIsXCJcbmNociAoMyk6IG5hbWUsIGZhbGwsIEdlb0xvY2F0aW9uXG5kYmwgKDMpOiBpZCwgbWFzcyAoZyksIHllYXJcbuKEuSBVc2UgYHNwZWMoKWAgdG8gcmV0cmlldmUgdGhlIGZ1bGwgY29sdW1uIHNwZWNpZmljYXRpb24gZm9yIHRoaXMgZGF0YS5cbuKEuSBTcGVjaWZ5IHRoZSBjb2x1bW4gdHlwZXMgb3Igc2V0IGBzaG93X2NvbF90eXBlcyA9IEZBTFNFYCB0byBxdWlldCB0aGlzIG1lc3NhZ2UuXG4ifQ== -->
 <pre><code>Rows: 45716 Columns: 6── Column specification ───────────────────────────────────────────────────────────
@@ -1782,30 +1783,47 @@ dbl (3): id, mass (g), year
 <h2>Names and years for the 10 largest meteorites</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI25hbWVzKG1ldGVvcml0ZV9kYXRhKVxubWV0ZW9yaXRlX2RhdGEgJT4lIFxuICMgP3NsaWNlX21heFxuICBzbGljZV9tYXgobWFzc19nLCBuID0gMTApICU+JSBcbiAgc2VsZWN0KG5hbWUsIHllYXIsIG1hc3NfZylcbmBgYCJ9 -->
-<pre class="r"><code>#names(meteorite_data)
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBGaW5kIHRoZSBuYW1lcyBhbmQgeWVhcnMgZm91bmQgZm9yIHRoZSAxMCBsYXJnZXN0IG1ldGVvcml0ZXMgaW4gdGhlIGRhdGEuXG5tZXRlb3JpdGVfZGF0YSAlPiUgXG4gIHNsaWNlX21heChtYXNzX2csIG4gPSAxMCkgJT4lIFxuICBzZWxlY3QobmFtZSwgeWVhcilcbmBgYCJ9 -->
+<pre class="r"><code># Find the names and years found for the 10 largest meteorites in the data.
 meteorite_data %&gt;% 
- # ?slice_max
   slice_max(mass_g, n = 10) %&gt;% 
-  select(name, year, mass_g)</code></pre>
+  select(name, year)</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MTAsIm5jb2wiOjMsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMTAgw5cgMyJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMVN2VTRjTVJDZXU3M2xkQnNPSXRHa1NIRVBrTHNtRXFKSWNjdWlRRU9USHdtcXhIdnJjTmI1N0pYWEc3Z0lRWXBJRk9FUmdJS0tNbEplSUQwUGtDWWREd0JWbWtoY2JPOFlKV3ZKL3ViNzdKbnhqUDFxWStkNXRCTUJRQUN0b0FGQmFFd0kzNzU1MlY4RGFEVU5hVUFMT2hZUHpLRVZkeExnc1prUmJyUzJaRXJRN2lRa3A3MWRxU1lvTENka21zdGVSbmt2WVpSTGxMc0pFVE1wZWh1TXBBOWlPMVpUSXZRTTZjSW1TNmtVeUtKa1hPWWtvMG9XcUR6YUxrV21TTW80OStrWFg3UEpXR3JhanpsN2NGd25vekpsaW1scDJKSlZoaGZneHZCczdQRDR6cTd0eStINWFhV2ZYK0grTjhRNzFIOVZlTUdSUHdVY0xtNThlclptU2Z6MXg1SERrNTlmSEI2aS91bTdDeFFmWExzRThmNHpkNVA0NDgxN2grWHRDNGY2ejVNcTdIOHZFQW95cFFWMlAvRGR0NkszWjVRbzM3MHBLWXAzZTdVUUhTWDNCejVNMTh6bVo3UE01L1BmOVZ3amJ2d3hseGVqakdneStLQnNSb0Q3bWt0YjVwcEpZWnlhOXB1RU5lZUdxZ25McGJBM3lmcWpjU2ttL1ZYM3BleDJOYnBvUi8vWVFaV3lPY2RRb1MrV2lqMG1mQnRDVGxMS2tTeVppbDNCZzF3eG9YMGxSaTBHV21yaXowVWp5YjNpYW9QN3Y1ZWpDbjRkQXdBQSJ9 -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MTAsIm5jb2wiOjIsInN1bW1hcnkiOnsiQSB0aWJibGUiOlsiMTAgw5cgMiJdfX0sInJkZiI6Ikg0c0lBQUFBQUFBQUExMlJ2VTdETUJESDNUU2hhcUFGaVpVaEw1QU1zREMycEFJV0ZqNmtNbDRTUTZ5NmR1UWtnazd3QUR3QzdjREV5QVB4RUowWUcrekVyaUNXNHJ2N25mL25uTzk2TWoxeHB5NUNxSXZzYmdkMUhla2k1KzcyM0Q5RnlMWmswRUUyNml2N0xBOGRTa2ZCQS9tNU9tRmY4Z2kwM3c4aHc5NDlGek1OOWtPWVo5eExNUFZDZ2luWGVCQUNXM0RtVFFoRVc5Z2Jpem13WXFIRG5Rc1NZYzUwNUlacG1VR0NCYzgxMmIwcVdTSWdJcFNhNi9kdXlDemxCZmJIbEd5Rlp4Q1hFUkdrNERJYUtqSmFvWHFOM3RQYXZxelYzdnNZTGQ4YXZ2elUrUzl0MTVwL04zWkZkWHpVRlByL1VnNkRPYzcxSzFubWxSUTAvZ0tEYUluNmdqOEZSamhRd2xlNVZWWDEwNjRlVThoTmRRUGRCQW9JSG9TNkE2Rk5TOUxqV1VFNGt5SkxEZEJwaVR1aUJmWkxwdjRrOGVPMFpEUC91QjYyU2pkcm9IMzNqMjgxVjFxVkx1V1lJV0wyU0pocDNLRVFZYXFEb2V5NGJqaklCR0dGNlVUU1BDaDRBZWFjRzNOcVNOMGIydndDMFhGcGZMY0NBQUE9In0= -->
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">
-{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]},{"label":["mass_g"],"name":[3],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hoba","2":"1920","3":"60000000"},{"1":"Cape York","2":"1818","3":"58200000"},{"1":"Campo del Cielo","2":"NA","3":"50000000"},{"1":"Canyon Diablo","2":"1891","3":"30000000"},{"1":"Armanty","2":"1898","3":"28000000"},{"1":"Gibeon","2":"1836","3":"26000000"},{"1":"Chupaderos","2":"1852","3":"24300000"},{"1":"Mundrabilla","2":"1911","3":"24000000"},{"1":"Sikhote-Alin","2":"1947","3":"23000000"},{"1":"Bacubirito","2":"1863","3":"22000000"}],"options":{"columns":{"min":{},"max":[10],"total":[3]},"rows":{"min":[10],"max":[10],"total":[10]},"pages":{}}}
+{"columns":[{"label":["name"],"name":[1],"type":["chr"],"align":["left"]},{"label":["year"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Hoba","2":"1920"},{"1":"Cape York","2":"1818"},{"1":"Campo del Cielo","2":"NA"},{"1":"Canyon Diablo","2":"1891"},{"1":"Armanty","2":"1898"},{"1":"Gibeon","2":"1836"},{"1":"Chupaderos","2":"1852"},{"1":"Mundrabilla","2":"1911"},{"1":"Sikhote-Alin","2":"1947"},{"1":"Bacubirito","2":"1863"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[10]},"pages":{}}}
   </script>
 </div>
 <!-- rnb-frame-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuTkFcbmBgYCJ9 -->
-<pre class="r"><code>NA</code></pre>
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
+<div id="average-mass-of-meteorites" class="section level2">
+<h2>Average mass of meteorites</h2>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBGaW5kIHRoZSBhdmVyYWdlIG1hc3Mgb2YgbWV0ZW9yaXRlcyB0aGF0IHdlcmUgcmVjb3JkZWQgZmFsbGluZywgdnMuIHRob3NlIFxuIyB3aGljaCB3ZXJlIGp1c3QgZm91bmQuXG5tZXRlb3JpdGVfZGF0YSAlPiUgXG4gIGdyb3VwX2J5KGZhbGwpICU+JSBcbiAgc3VtbWFyaXNlKGF2Z19tYXNzX2cgPSBtZWFuKG1hc3NfZywgbmEucm0gPSBUUlVFKSlcbmBgYCJ9 -->
+<pre class="r"><code># Find the average mass of meteorites that were recorded falling, vs. those 
+# which were just found.
+meteorite_data %&gt;% 
+  group_by(fall) %&gt;% 
+  summarise(avg_mass_g = mean(mass_g, na.rm = TRUE))</code></pre>
 <!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6eyJjbGFzc2VzIjpbInRibF9kZiIsInRibCIsImRhdGEuZnJhbWUiXSwibnJvdyI6MiwibmNvbCI6Miwic3VtbWFyeSI6eyJBIHRpYmJsZSI6WyIyIMOXIDIiXX19LCJyZGYiOiJINHNJQUFBQUFBQUFBd3R5aVREbWl1QmlZR0JnWm1CaFptUmdaZ1V5R1ZoRFE5eDBMUmdZV0ppQUhFWUdGZ1pPRUYwQlZDUU1aSUFFQmNBMFJJTEZMVFVuQjhwbWRjc3Z6VXNCTXZoQUNodyt6T0dLUFhsam1TT0R1Nyt5MUprTGFDYXk1aVhtcGhham01YVdDRGVOSzdFc1BUNDNzYmc0UGgxTksyZFJmcmtlVERzdlNIc0RrUGovLy84L2REdVNjNEQ2b1hiQUJMbFNFa3NTOWRLS2dQcUJQSFF0N1BrRkpabjVlVUJOVENEdnNxSnBaaXhDRStBdnpRTzVKRVUzT2FNMEwxdlhFR1FCV0JvQ2VLRnNKbFEyeUVxbS8xQ2pXS0ZHc2FYbXBXZm1wY0xjbnBPWWxBb0xDejZnajhFZTFpc295c3dyZ2ZrRUtGcXNWNUpma2dnUHMrVDhISmdJMkc4TS93Q1R4WGdyNVFFQUFBPT0ifQ== -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["fall"],"name":[1],"type":["chr"],"align":["left"]},{"label":["avg_mass_g"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Fell","2":"68032.65"},{"1":"Found","2":"133353.89"}],"options":{"columns":{"min":{},"max":[10],"total":[2]},"rows":{"min":[10],"max":[10],"total":[2]},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiTWV0ZW9yaXRlcyBXZWVrZW5kIEhvbWV3b3JrIgpzdWJ0aXRsZTogIkFuYWx5c2lzIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKZGF0ZTogImByIGZvcm1hdChTeXMuRGF0ZSgpKWAiCmF1dGhvcjogIkxlc2xleSBEdWZmIgotLS0KIyBNZXRlb3JpdGVzIEFuYWx5c2lzCgpXZSBoYXZlIGRhdGEgZnJvbSBbTkFTQV0oaHR0cHM6Ly93d3cubmFzYS5nb3YvKSB3aGljaCBoYXMgaW5mb3JtYXRpb24gb24gCm1ldGVvcml0ZXMgdGhhdCBoYXZlIGJlZW4gZm91bmQgdXAgdG8gdGhlIHllYXIgMjAxMy4KCmBgYHtyfQpzb3VyY2UoImNsZWFuaW5nLlIiKQoKIyBSZWFkIHRoZSBjbGVhbmVkIGRhdGEgaW50byBSLgptZXRlb3JpdGVfZGF0YSA8LSBwcm9jZXNzX21ldGVvcml0ZV9sYW5kaW5nc19maWxlKCJkYXRhL21ldGVvcml0ZV9sYW5kaW5ncy5jc3YiKQpgYGAKIyMgTmFtZXMgYW5kIHllYXJzIGZvciB0aGUgMTAgbGFyZ2VzdCBtZXRlb3JpdGVzCgpgYGB7cn0KbWV0ZW9yaXRlX2RhdGEgJT4lIAogIHNsaWNlX21heChtYXNzX2csIG4gPSAxMCkgJT4lIAogIHNlbGVjdChuYW1lLCB5ZWFyKQpgYGAKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiTWV0ZW9yaXRlcyBXZWVrZW5kIEhvbWV3b3JrIgpzdWJ0aXRsZTogIkFuYWx5c2lzIgpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sKZGF0ZTogImByIGZvcm1hdChTeXMuRGF0ZSgpKWAiCmF1dGhvcjogIkxlc2xleSBEdWZmIgotLS0KIyBNZXRlb3JpdGVzIEFuYWx5c2lzCgpXZSBoYXZlIGRhdGEgZnJvbSBbTkFTQV0oaHR0cHM6Ly93d3cubmFzYS5nb3YvKSB3aGljaCBoYXMgaW5mb3JtYXRpb24gb24gCm1ldGVvcml0ZXMgdGhhdCBoYXZlIGJlZW4gZm91bmQgdXAgdG8gdGhlIHllYXIgMjAxMy4KCmBgYHtyfQpzb3VyY2UoImNsZWFuaW5nLlIiKQoKIyBSZWFkIHRoZSBjbGVhbmVkIGRhdGEgaW50byBSLgptZXRlb3JpdGVfZGF0YSA8LSBwcm9jZXNzX21ldGVvcml0ZV9sYW5kaW5nc19maWxlKCJkYXRhL21ldGVvcml0ZV9sYW5kaW5ncy5jc3YiKQpgYGAKIyMgTmFtZXMgYW5kIHllYXJzIGZvciB0aGUgMTAgbGFyZ2VzdCBtZXRlb3JpdGVzCgpgYGB7cn0KIyBGaW5kIHRoZSBuYW1lcyBhbmQgeWVhcnMgZm91bmQgZm9yIHRoZSAxMCBsYXJnZXN0IG1ldGVvcml0ZXMgaW4gdGhlIGRhdGEuCm1ldGVvcml0ZV9kYXRhICU+JSAKICBzbGljZV9tYXgobWFzc19nLCBuID0gMTApICU+JSAKICBzZWxlY3QobmFtZSwgeWVhcikKYGBgCiMjIEF2ZXJhZ2UgbWFzcyBvZiBtZXRlb3JpdGVzCgpgYGB7cn0KIyBGaW5kIHRoZSBhdmVyYWdlIG1hc3Mgb2YgbWV0ZW9yaXRlcyB0aGF0IHdlcmUgcmVjb3JkZWQgZmFsbGluZywgdnMuIHRob3NlIAojIHdoaWNoIHdlcmUganVzdCBmb3VuZC4KbWV0ZW9yaXRlX2RhdGEgJT4lIAogIGdyb3VwX2J5KGZhbGwpICU+JSAKICBzdW1tYXJpc2UoYXZnX21hc3NfZyA9IG1lYW4obWFzc19nLCBuYS5ybSA9IFRSVUUpKQpgYGAKCg==</div>
 
 
 

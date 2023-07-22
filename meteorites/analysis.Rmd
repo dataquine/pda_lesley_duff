@@ -19,8 +19,18 @@ meteorite_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
 ## Names and years for the 10 largest meteorites
 
 ```{r}
+# Find the names and years found for the 10 largest meteorites in the data.
 meteorite_data %>% 
   slice_max(mass_g, n = 10) %>% 
   select(name, year)
+```
+## Average mass of meteorites
+
+```{r}
+# Find the average mass of meteorites that were recorded falling, vs. those 
+# which were just found.
+meteorite_data %>% 
+  group_by(fall) %>% 
+  summarise(avg_mass_g = mean(mass_g, na.rm = TRUE))
 ```
 
