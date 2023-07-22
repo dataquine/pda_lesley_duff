@@ -34,3 +34,13 @@ meteorite_data %>%
   summarise(avg_mass_g = mean(mass_g, na.rm = TRUE))
 ```
 
+## Number of meteorites in each year, for every year since 2000.
+
+```{r}
+# Find the number of meteorites in each year, for every year since 2000.
+meteorite_data %>% 
+  filter(year >= 2000) %>% 
+  group_by(year) %>% 
+  summarise(number_of_meteorites = n())
+```
+
