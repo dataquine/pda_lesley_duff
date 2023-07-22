@@ -1,5 +1,6 @@
 # Author: Lesley Duff
-# Title: Cleans some meteorite landing data
+# Filename: cleaning.R
+# Title: Clean some meteorite landing data"
 # Date: 2023-07-21
 # Description:
 #   Data comes from NASA and has information on meteorites that have been found
