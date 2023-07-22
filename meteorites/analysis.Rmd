@@ -12,5 +12,8 @@ meteorites that have been found up to the year 2013.
 
 ```{r}
 source("cleaning.R")
+
+# Read the cleaned data into R.
+meteorite_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
 ```
 
