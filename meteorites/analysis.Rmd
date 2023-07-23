@@ -103,6 +103,8 @@ test_that("Years with meteorites return count", {
 })
 
 test_that("Years with no meteorites return no meteorites message", {
+  expect_equal(get_meteorite_count(meteorite_data, 1584), 
+               "As far as we know, there were no meteorites that year")
   expect_equal(get_meteorite_count(meteorite_data, 2020), 
                "As far as we know, there were no meteorites that year")
 })
@@ -117,6 +119,12 @@ number and an error.
 ```{r, error=TRUE}
 test_that("Year cannot be negative", {
   expect_error(get_meteorite_count(meteorite_data, -2013))
+})
+```
+2. There is no checking that year is in the future e.g. mistyping a year
+```{r, error=TRUE}
+test_that("Year is not in the future", {
+  expect_error(get_meteorite_count(meteorite_data, 20012))
 })
 ```
 
@@ -195,6 +203,8 @@ test_that("Years with no meteorites return no meteorites message", {
 test_that("Year cannot be negative", {
   expect_error(refactor_get_meteorite_count(meteorite_data, -2013))
 })
+
+
 
 ```
 
