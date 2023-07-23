@@ -1711,7 +1711,7 @@ meteorite_data %&gt;%
 # phrase &quot;As far as #we know, there were no meteorites that year&quot;.
 get_meteorite_count &lt;- function(dataframe, input_year) {
   output &lt;- &quot;&quot;
-  
+
   # Extract number_of_meteorites that year
   number_of_meteorites &lt;- dataframe %&gt;%
     filter(year == input_year) %&gt;%
@@ -1738,26 +1738,30 @@ count_meteorite</code></pre>
 count_meteorite &lt;- get_meteorite_count(meteorite_data, 2020)
 count_meteorite</code></pre>
 <pre><code>## [1] &quot;As far as we know, there were no meteorites that year&quot;</code></pre>
-<pre class="r"><code>#count_meteorite &lt;- get_meteorite_count(meteorite_data, NA)
-#count_meteorite &lt;- get_meteorite_count(meteorite_data, -1000)</code></pre>
+<pre class="r"><code># count_meteorite &lt;- get_meteorite_count(meteorite_data, NA)
+# count_meteorite &lt;- get_meteorite_count(meteorite_data, -1000)</code></pre>
 <div id="test-plans" class="section level3">
 <h3>Test plans</h3>
 <div id="how-to-test-that-function-is-working-as-expected" class="section level4">
 <h4>How to test that function is working as expected</h4>
 <pre class="r"><code>test_that(&quot;Years with meteorites return count&quot;, {
-  expect_equal(get_meteorite_count(meteorite_data, 2009), 
-               &quot;In 2009, there were 103 meteorites.&quot;)
-  expect_equal(get_meteorite_count(meteorite_data, 2013), 
-               &quot;In 2013, there were 2 meteorites.&quot;)
+  expect_equal(
+    get_meteorite_count(meteorite_data, 2009),
+    &quot;In 2009, there were 103 meteorites.&quot;
+  )
+  expect_equal(
+    get_meteorite_count(meteorite_data, 2013),
+    &quot;In 2013, there were 2 meteorites.&quot;
+  )
 })</code></pre>
 <pre><code>## Test passed 🥳</code></pre>
 <pre class="r"><code>test_that(&quot;Years with no meteorites return no meteorites message&quot;, {
-  expect_equal(get_meteorite_count(meteorite_data, 1584), 
-               &quot;As far as we know, there were no meteorites that year&quot;)
-  expect_equal(get_meteorite_count(meteorite_data, 2020), 
-               &quot;As far as we know, there were no meteorites that year&quot;)
+  expect_equal(
+    get_meteorite_count(meteorite_data, 1584),
+    &quot;As far as we know, there were no meteorites that year&quot;
+  )
 })</code></pre>
-<pre><code>## Test passed 😸</code></pre>
+<pre><code>## Test passed 🥳</code></pre>
 <p>How the function could be improved.</p>
 <ol style="list-style-type: decimal">
 <li>The simple if statement means negative numbers are treated the same
@@ -1782,6 +1786,26 @@ e.g. mistyping a year</li>
 ## `get_meteorite_count(meteorite_data, 20012)` did not throw an error.</code></pre>
 <pre><code>## Error in `reporter$stop_if_needed()`:
 ## ! Test failed</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>The NASA dataset only goes up to the year 2013. It is stated in the
+notes that the dataset provided is for “meteorites that have been found
+up to the year 2013” Treat years &gt; 2013 &lt;= current year as errors.
+Meteorite counts for years after 2013 have the potential to mislead
+users as the message “As far as we know, there were no meteorites that
+year” could be interpreted as meaning that there were <em>zero</em>
+meteorites when all we can say is that no data has been made available
+past 2013. “Absence of Evidence is not <a href="https://en.wikipedia.org/wiki/Evidence_of_absence">Evidence of
+Absence</a>” - Carl Sagan. N.B. Adding this check could potentially make
+the code brittle if new data file with more recent data comes along. So
+this test would be reconsidered if we were aware of a new dataset</li>
+</ol>
+<pre class="r"><code>test_that(&quot;NASA dataset only goes up to year 2013&quot;, {
+  expect_error(get_meteorite_count(meteorite_data, 2014))
+})</code></pre>
+<pre><code>## ── Failure (&#39;&lt;text&gt;:2:3&#39;): NASA dataset only goes up to year 2013 ──────────────
+## `get_meteorite_count(meteorite_data, 2014)` did not throw an error.</code></pre>
+<pre><code>## Error in `reporter$stop_if_needed()`:
+## ! Test failed</code></pre>
 </div>
 </div>
 <div id="unit-test" class="section level3">
@@ -1802,23 +1826,26 @@ the year argument return an error.</p>
 </div>
 <div id="refactor_get_meteorite_count" class="section level3">
 <h3>refactor_get_meteorite_count</h3>
-<pre class="r"><code>refactor_get_meteorite_count &lt;- function(dataframe, input_year){
+<pre class="r"><code>refactor_get_meteorite_count &lt;- function(dataframe, input_year) {
   # Make sure input_year only takes in numeric input
-  if (!is.numeric(input_year)){
+  if (!is.numeric(input_year)) {
     stop(&quot;Non-numeric year 😿&quot;)
   }
-  # Make sure number is &gt;= 0 
-  if (input_year &lt; 0){
+  # Make sure number is &gt;= 0
+  if (input_year &lt; 0) {
     stop(&quot;Year cannot be a negative number 😿&quot;)
   }
   # Check that year isn&#39;t in future
   current_year &lt;- as.numeric(format(Sys.Date(), &quot;%Y&quot;))
-  if (input_year &gt; current_year){
-     stop(&quot;Year cannot be in the future 😿&quot;)
+  if (input_year &gt; current_year) {
+    stop(&quot;Year cannot be in the future 😿&quot;)
   }
-  
+  if (input_year &gt; 2013) {
+    stop(&quot;NASA data only available up to year 2013 😿&quot;)
+  }
+
   output &lt;- &quot;&quot;
-  
+
   # Extract number_of_meteorites that year
   number_of_meteorites &lt;- dataframe %&gt;%
     filter(year == input_year) %&gt;%
@@ -1826,16 +1853,17 @@ the year argument return an error.</p>
     pull()
 
   output &lt;- case_when(
-  # Return a count if there is a positive number of landing
-  number_of_meteorites &gt;= 1 ~
-    str_c(
-     &quot;In &quot;, input_year, &quot;, there were &quot;, number_of_meteorites,
-      &quot; meteorites.&quot;
-    ),
-  # Explicitly test for zero
-  number_of_meteorites == 0 ~ 
-    &quot;As far as we know, there were no meteorites that year&quot;,
-  TRUE ~ &quot;As far as we know, there were no meteorites that year&quot;)
+    # Return a count if there is a positive number of landing
+    number_of_meteorites &gt;= 1 ~
+      str_c(
+        &quot;In &quot;, input_year, &quot;, there were &quot;, number_of_meteorites,
+        &quot; meteorites.&quot;
+      ),
+    # Explicitly test for zero
+    number_of_meteorites == 0 ~
+      &quot;As far as we know, there were no meteorites that year&quot;,
+    TRUE ~ &quot;As far as we know, there were no meteorites that year&quot;
+  )
 
   return(output)
 }</code></pre>
@@ -1845,31 +1873,41 @@ test_that(&quot;Non-numeric input returns an error&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, &quot;year&quot;))
   expect_error(refactor_get_meteorite_count(meteorite_data, TRUE))
 })</code></pre>
-<pre><code>## Test passed 😸</code></pre>
+<pre><code>## Test passed 😀</code></pre>
 <pre class="r"><code># Check working as expected
 test_that(&quot;Years with meteorites return count&quot;, {
-  expect_equal(refactor_get_meteorite_count(meteorite_data, 2009), 
-               &quot;In 2009, there were 103 meteorites.&quot;)
-  expect_equal(refactor_get_meteorite_count(meteorite_data, 2013), 
-               &quot;In 2013, there were 2 meteorites.&quot;)
-})</code></pre>
-<pre><code>## Test passed 🥇</code></pre>
-<pre class="r"><code>test_that(&quot;Years with no meteorites return no meteorites message&quot;, {
-  expect_equal(refactor_get_meteorite_count(meteorite_data, 1584), 
-               &quot;As far as we know, there were no meteorites that year&quot;)
+  expect_equal(
+    get_meteorite_count(meteorite_data, 2009),
+    &quot;In 2009, there were 103 meteorites.&quot;
+  )
+  expect_equal(
+    get_meteorite_count(meteorite_data, 2013),
+    &quot;In 2013, there were 2 meteorites.&quot;
+  )
 })</code></pre>
 <pre><code>## Test passed 😸</code></pre>
+<pre class="r"><code>test_that(&quot;Years with no meteorites return no meteorites message&quot;, {
+  expect_equal(
+    get_meteorite_count(meteorite_data, 1584),
+    &quot;As far as we know, there were no meteorites that year&quot;
+  )
+})</code></pre>
+<pre><code>## Test passed 🌈</code></pre>
 <pre class="r"><code># My own suggested improvements
 # Error if negative number supplied
 test_that(&quot;Year cannot be negative&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, -2013))
 })</code></pre>
-<pre><code>## Test passed 🎊</code></pre>
+<pre><code>## Test passed 😸</code></pre>
 <pre class="r"><code>test_that(&quot;Year is not in the future&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, 2024))
   expect_error(refactor_get_meteorite_count(meteorite_data, 20012))
 })</code></pre>
-<pre><code>## Test passed 🥳</code></pre>
+<pre><code>## Test passed 🎉</code></pre>
+<pre class="r"><code>test_that(&quot;NASA dataset only goes up to year 2013&quot;, {
+  expect_error(refactor_get_meteorite_count(meteorite_data, 2014))
+})</code></pre>
+<pre><code>## Test passed 🌈</code></pre>
 </div>
 </div>
 </div>

@@ -60,7 +60,7 @@ meteorite_data %>%
 # phrase "As far as #we know, there were no meteorites that year".
 get_meteorite_count <- function(dataframe, input_year) {
   output <- ""
-  
+
   # Extract number_of_meteorites that year
   number_of_meteorites <- dataframe %>%
     filter(year == input_year) %>%
@@ -87,8 +87,8 @@ count_meteorite
 count_meteorite <- get_meteorite_count(meteorite_data, 2020)
 count_meteorite
 
-#count_meteorite <- get_meteorite_count(meteorite_data, NA)
-#count_meteorite <- get_meteorite_count(meteorite_data, -1000)
+# count_meteorite <- get_meteorite_count(meteorite_data, NA)
+# count_meteorite <- get_meteorite_count(meteorite_data, -1000)
 ```
 ### Test plans
 
@@ -96,17 +96,21 @@ count_meteorite
 
 ```{r}
 test_that("Years with meteorites return count", {
-  expect_equal(get_meteorite_count(meteorite_data, 2009), 
-               "In 2009, there were 103 meteorites.")
-  expect_equal(get_meteorite_count(meteorite_data, 2013), 
-               "In 2013, there were 2 meteorites.")
+  expect_equal(
+    get_meteorite_count(meteorite_data, 2009),
+    "In 2009, there were 103 meteorites."
+  )
+  expect_equal(
+    get_meteorite_count(meteorite_data, 2013),
+    "In 2013, there were 2 meteorites."
+  )
 })
 
 test_that("Years with no meteorites return no meteorites message", {
-  expect_equal(get_meteorite_count(meteorite_data, 1584), 
-               "As far as we know, there were no meteorites that year")
-  expect_equal(get_meteorite_count(meteorite_data, 2020), 
-               "As far as we know, there were no meteorites that year")
+  expect_equal(
+    get_meteorite_count(meteorite_data, 1584),
+    "As far as we know, there were no meteorites that year"
+  )
 })
 ```
 
@@ -129,6 +133,25 @@ test_that("Year is not in the future", {
 })
 ```
 
+3. The NASA dataset only goes up to the year 2013. 
+It is stated in the notes that the dataset provided is for "meteorites that 
+have been found up to the year 2013"
+Treat years > 2013 <= current year as errors.
+Meteorite counts for years after 2013 have the potential to mislead users as 
+the message "As far as we know, there were no meteorites that year" could be 
+interpreted as meaning that there were *zero* meteorites when all we can say is
+that no data has been made available past 2013.
+"Absence of Evidence is not [Evidence of Absence](https://en.wikipedia.org/wiki/Evidence_of_absence)" - Carl Sagan.
+N.B. Adding this check could potentially make the code brittle if new data file 
+with more recent data comes along. So this test would be reconsidered if we were 
+aware of a new dataset
+
+```{r, error=TRUE}
+test_that("NASA dataset only goes up to year 2013", {
+  expect_error(get_meteorite_count(meteorite_data, 2014))
+})
+```
+
 ### Unit test
 
 Test to check whether non-numeric inputs 
@@ -144,23 +167,26 @@ test_that("non-numeric inputs for the year argument return an error", {
 ### refactor_get_meteorite_count
 
 ```{r}
-refactor_get_meteorite_count <- function(dataframe, input_year){
+refactor_get_meteorite_count <- function(dataframe, input_year) {
   # Make sure input_year only takes in numeric input
-  if (!is.numeric(input_year)){
+  if (!is.numeric(input_year)) {
     stop("Non-numeric year 😿")
   }
-  # Make sure number is >= 0 
-  if (input_year < 0){
+  # Make sure number is >= 0
+  if (input_year < 0) {
     stop("Year cannot be a negative number 😿")
   }
   # Check that year isn't in future
   current_year <- as.numeric(format(Sys.Date(), "%Y"))
-  if (input_year > current_year){
-     stop("Year cannot be in the future 😿")
+  if (input_year > current_year) {
+    stop("Year cannot be in the future 😿")
   }
-  
+  if (input_year > 2013) {
+    stop("NASA data only available up to year 2013 😿")
+  }
+
   output <- ""
-  
+
   # Extract number_of_meteorites that year
   number_of_meteorites <- dataframe %>%
     filter(year == input_year) %>%
@@ -168,16 +194,17 @@ refactor_get_meteorite_count <- function(dataframe, input_year){
     pull()
 
   output <- case_when(
-  # Return a count if there is a positive number of landing
-  number_of_meteorites >= 1 ~
-    str_c(
-     "In ", input_year, ", there were ", number_of_meteorites,
-      " meteorites."
-    ),
-  # Explicitly test for zero
-  number_of_meteorites == 0 ~ 
-    "As far as we know, there were no meteorites that year",
-  TRUE ~ "As far as we know, there were no meteorites that year")
+    # Return a count if there is a positive number of landing
+    number_of_meteorites >= 1 ~
+      str_c(
+        "In ", input_year, ", there were ", number_of_meteorites,
+        " meteorites."
+      ),
+    # Explicitly test for zero
+    number_of_meteorites == 0 ~
+      "As far as we know, there were no meteorites that year",
+    TRUE ~ "As far as we know, there were no meteorites that year"
+  )
 
   return(output)
 }
@@ -193,15 +220,21 @@ test_that("Non-numeric input returns an error", {
 
 # Check working as expected
 test_that("Years with meteorites return count", {
-  expect_equal(refactor_get_meteorite_count(meteorite_data, 2009), 
-               "In 2009, there were 103 meteorites.")
-  expect_equal(refactor_get_meteorite_count(meteorite_data, 2013), 
-               "In 2013, there were 2 meteorites.")
+  expect_equal(
+    get_meteorite_count(meteorite_data, 2009),
+    "In 2009, there were 103 meteorites."
+  )
+  expect_equal(
+    get_meteorite_count(meteorite_data, 2013),
+    "In 2013, there were 2 meteorites."
+  )
 })
 
 test_that("Years with no meteorites return no meteorites message", {
-  expect_equal(refactor_get_meteorite_count(meteorite_data, 1584), 
-               "As far as we know, there were no meteorites that year")
+  expect_equal(
+    get_meteorite_count(meteorite_data, 1584),
+    "As far as we know, there were no meteorites that year"
+  )
 })
 
 # My own suggested improvements
@@ -214,5 +247,8 @@ test_that("Year is not in the future", {
   expect_error(refactor_get_meteorite_count(meteorite_data, 2024))
   expect_error(refactor_get_meteorite_count(meteorite_data, 20012))
 })
-```
 
+test_that("NASA dataset only goes up to year 2013", {
+  expect_error(refactor_get_meteorite_count(meteorite_data, 2014))
+})
+```
