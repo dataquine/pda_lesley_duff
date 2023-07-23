@@ -79,8 +79,11 @@ process_meteorite_landings_file <- function(path) {
 
     # Order the data by the year of discovery
     arrange(year)
+  # Do an explicit return of the dataframe
+  return(meteorite_landings)
 }
 
 # Test call of cleaning function
-#meteorite_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
-#meteorite_data
+# meteorite_data <- process_meteorite_landings_file(
+#                                                 "data/meteorite_landings.csv")
+# meteorite_data
