@@ -73,9 +73,9 @@ process_meteorite_landings_file <- function(path) {
     verify(latitude >= -90 & latitude <= 90) %>%
     verify(longitude >= -180 & longitude <= 180) %>%
     # N.B. Earlier in testing longitude failed on one row,
-    # index 29436 32789 Meridiani Planum - These coordinates would appear to
-    # be on Mars!
-    # However this row was removed from the data when we added the weight filter
+    # index 29436 32789 Meridiani Planum
+    # An outlier - these coordinates would appear to be on Mars!
+    # However this row was removed when we added the weight filter
 
     # Order the data by the year of discovery
     arrange(year)
