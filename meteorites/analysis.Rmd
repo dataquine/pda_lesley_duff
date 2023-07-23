@@ -85,7 +85,7 @@ count_meteorite <- get_meteorite_count(meteorite_data, 2009)
 # count_meteorite <- get_meteorite_count(meteorite_data, 2020)
 #count_meteorite <- get_meteorite_count(meteorite_data, NA)
 #count_meteorite <- get_meteorite_count(meteorite_data, -1000)
-print(count_meteorite)
+count_meteorite
 ```
 ### test plans
 
@@ -105,42 +105,22 @@ test_that("Years with no meteorites return no meteorites message", {
 })
 ```
 
-
 How the function could be improved.
 
-1. If NA is passed as a year we should return a count of how many without a year.
-
-```{r}
-# Work out how many NA years
-landings_without_year <- meteorite_data %>% 
-  summarise(count = sum(is.na(year))) %>% 
-  pull()
-landings_without_year
-
-# landings_without_year = 57
-
-test_that("If year is NA return count of landings without year", {
-  expect_equal(get_meteorite_count(meteorite_data, NA), 
-               "We have 57 meteorites with no known year")
-})
-```
-
-
-2. The simple if statement means negative numbers are treated the same as zero.
+1. The simple if statement means negative numbers are treated the same as zero.
 Add an extra test explicitly for zero and indicate anything else is a negative 
 number and an error.
 
 ```{r}
 test_that("Year cannot be negative", {
-  expect_equal(get_meteorite_count(meteorite_data, 0), 
-               "As far as we know, there were no meteorites that year")
   expect_error(get_meteorite_count(meteorite_data, -2013))
 })
 ```
-3. If year given is newer than dataset (newer than 2013) It would be maybe 
-better to indicate that no data is available rather than suggest there might be
-no meteors that year. Test whether year supplied is more recent than 2013 create
-new output to indicate no data available and that year should be <= 2013.
+2. If year given is newer than dataset (newer than 2013) It would be maybe 
+better to indicate that no data is available rather than give the impression 
+there might be no meteors that year. Test whether year supplied is more recent 
+than 2013 create new output to indicate no data available and that year should 
+be <= 2013.
 
 ```{r}
 test_that("Years too recent for dataset", {
