@@ -26,6 +26,7 @@ meteorite_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
 
 ```{r}
 # Find the names and years found for the 10 largest meteorites in the data.
+# PDA 3.5 Writing function/program to perform statistical analysis
 meteorite_data %>%
   slice_max(mass_g, n = 10) %>%
   select(name, year)
@@ -35,6 +36,7 @@ meteorite_data %>%
 ```{r}
 # Find the average mass of meteorites that were recorded falling, vs. those
 # which were just found.
+# PDA 3.5 Writing function/program to perform statistical analysis
 meteorite_data %>%
   group_by(fall) %>%
   summarise(avg_mass_g = mean(mass_g, na.rm = TRUE))
@@ -44,6 +46,7 @@ meteorite_data %>%
 
 ```{r}
 # Find the number of meteorites in each year, for every year since 2000.
+# PDA 3.5 Writing function/program to perform statistical analysis
 meteorite_data %>%
   filter(year >= 2000) %>%
   group_by(year) %>%
@@ -57,7 +60,8 @@ meteorite_data %>%
 #  a dataframe and a year, and returns the phrase "In (input_year), there were
 # (number of meteorites that year) meteorites." IF there are 1 or more
 # meteorites that year. If there are no meteorites in the year, return the
-# phrase "As far as #we know, there were no meteorites that year".
+# phrase "As far as we know, there were no meteorites that year".
+# 3.5 Writing function/program to perform statistical analysis
 get_meteorite_count <- function(dataframe, input_year) {
   output <- ""
 
@@ -95,6 +99,7 @@ count_meteorite
 #### How to test that function is working as expected 
 
 ```{r}
+# 4.1 Test plans 
 test_that("Years with meteorites return count", {
   expect_equal(
     get_meteorite_count(meteorite_data, 2009),
@@ -121,6 +126,7 @@ Add an extra test explicitly for zero and indicate anything else is a negative
 number and an error.
 
 ```{r, error=TRUE}
+# 4.1 Test plans 
 test_that("Year cannot be negative", {
   expect_error(get_meteorite_count(meteorite_data, -2013))
 })
@@ -128,6 +134,7 @@ test_that("Year cannot be negative", {
 2. There is no checking to make sure that year is not in the future 
  e.g. mistyping a year
 ```{r, error=TRUE}
+# 4.1 Test plans 
 test_that("Year is not in the future", {
   expect_error(get_meteorite_count(meteorite_data, 20012))
 })
@@ -147,6 +154,7 @@ with more recent data comes along. So this test would be reconsidered if we were
 aware of a new dataset
 
 ```{r, error=TRUE}
+# 4.1 Test plans 
 test_that("NASA dataset only goes up to year 2013", {
   expect_error(get_meteorite_count(meteorite_data, 2014))
 })
@@ -167,6 +175,7 @@ test_that("non-numeric inputs for the year argument return an error", {
 ### refactor_get_meteorite_count
 
 ```{r}
+# 4.6 Performing test and revising code
 refactor_get_meteorite_count <- function(dataframe, input_year) {
   # Make sure input_year only takes in numeric input
   if (!is.numeric(input_year)) {
@@ -211,6 +220,8 @@ refactor_get_meteorite_count <- function(dataframe, input_year) {
 ```
 
 ```{r, error=TRUE}
+# 4.6 Performing test and revising code
+
 # Test your function to make sure it now gives an error when you input a logical
 # or character value as the year.
 test_that("Non-numeric input returns an error", {
@@ -237,6 +248,7 @@ test_that("Years with no meteorites return no meteorites message", {
   )
 })
 
+# 4.6 Performing test and revising code
 # My own suggested improvements
 # Error if negative number supplied
 test_that("Year cannot be negative", {

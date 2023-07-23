@@ -13,6 +13,8 @@ library(janitor)
 library(tidyverse)
 
 # Creates cleaned meteorite landings data frame
+# PDA 3.1 Writing function/program to process data from an external file
+# (loading in the data from a csv)
 process_meteorite_landings_file <- function(path) {
   # Read the data into R
   meteorite_landings <- read_csv(path)
@@ -33,7 +35,14 @@ process_meteorite_landings_file <- function(path) {
     names(meteorite_landings) == expected_variable_names
   )
 
-  # names(meteorite_landings)
+  meteorite_landings_clean <- meteorite_landings %>%
+    # Change the names of the variables to follow our naming standards.
+    # mass (g) has spaces, GeoLocation is mixed case.
+    # Use janitor to clean the names
+
+    # PDA 3.3 Writing function/program to clean data
+    janitor::clean_names()
+  # names(meteorite_landings_clean)
 
   # Split in column GeoLocation into latitude and longitude, the new latitude
   # and longitude columns should be numeric.
@@ -45,16 +54,10 @@ process_meteorite_landings_file <- function(path) {
   # 1 or more digits
   # fullstop
   # one or more digits
-  meteorite_landings <- meteorite_landings %>%
-    # Change the names of the variables to follow our naming standards.
-    # mass (g) has spaces, GeoLocation is mixed case.
-    # Use janitor to clean the names
-    janitor::clean_names() %>%
-    # Get rid of bracket at start and end
+  meteorite_landings <- meteorite_landings_clean %>%
+    # PDA 3.4 Writing function/program to wrangle data
+    # Get rid of bracket at start and end to like  "54.21667, -113.02"
     mutate(geo_location = str_sub(geo_location, start = 2, end = -2)) %>%
-    # e.g. now looks like  "54.21667, -113.02"
-
-    # ?separate
     separate(
       col = "geo_location",
       into = c("latitude", "longitude"),
@@ -84,6 +87,9 @@ process_meteorite_landings_file <- function(path) {
 }
 
 # Test call of cleaning function
+# Output 3.1 Writing function/program to process data from an external file
+# Output 3.3 Writing function/program to clean data
+# Output 3.4 Writing function/program to wrangle data
 # meteorite_data <- process_meteorite_landings_file(
 #                                                 "data/meteorite_landings.csv")
 # meteorite_data
