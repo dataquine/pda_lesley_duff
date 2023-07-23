@@ -199,14 +199,14 @@ test_that("Non-numeric input returns an error", {
 
 # Check working as expected
 test_that("Years with meteorites return count", {
-  expect_equal(get_meteorite_count(meteorite_data, 2009), 
+  expect_equal(refactor_get_meteorite_count(meteorite_data, 2009), 
                "In 2009, there were 103 meteorites.")
-  expect_equal(get_meteorite_count(meteorite_data, 2013), 
+  expect_equal(refactor_get_meteorite_count(meteorite_data, 2013), 
                "In 2013, there were 2 meteorites.")
 })
 
 test_that("Years with no meteorites return no meteorites message", {
-  expect_equal(get_meteorite_count(meteorite_data, 1584), 
+  expect_equal(refactor_get_meteorite_count(meteorite_data, 1584), 
                "As far as we know, there were no meteorites that year")
 })
 
