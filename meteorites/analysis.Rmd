@@ -171,8 +171,10 @@ refactor_get_meteorite_count <- function(dataframe, input_year){
 
   return(output)
 }
-
-# Test your function to make sure it now gives an error when you input a logical or character value as the year.
+```
+```{r, error=TRUE}
+# Test your function to make sure it now gives an error when you input a logical
+# or character value as the year.
 test_that("Non-numeric input returns an error", {
   expect_error(refactor_get_meteorite_count(meteorite_data, "year"))
   expect_error(refactor_get_meteorite_count(meteorite_data, TRUE))
@@ -191,6 +193,11 @@ test_that("Years with no meteorites return no meteorites message", {
                "As far as we know, there were no meteorites that year")
 })
 
+# My own suggested improvements
+
+test_that("Year cannot be negative", {
+  expect_error(refactor_get_meteorite_count(meteorite_data, -2013))
+})
 
 ```
 
