@@ -111,30 +111,31 @@ How the function could be improved.
 Add an extra test explicitly for zero and indicate anything else is a negative 
 number and an error.
 
-```{r}
+```{r, error=TRUE}
 test_that("Year cannot be negative", {
   expect_error(get_meteorite_count(meteorite_data, -2013))
 })
 ```
+
 2. If year given is newer than dataset (newer than 2013) It would be maybe 
 better to indicate that no data is available rather than give the impression 
 there might be no meteors that year. Test whether year supplied is more recent 
 than 2013 create new output to indicate no data available and that year should 
 be <= 2013.
 
-```{r}
-test_that("Years too recent for dataset", {
+```{r, error=TRUE}
+test_that("Years must be <= 2013", {
   expect_equal(get_meteorite_count(meteorite_data, 2020), 
-               "We have no data for years later than 2013")
+               "We have no data about meteorites for years later than 2013")
 })
 ```
 
-### unit test
+### Unit test
 
-A unit test for your function to check whether non-numeric inputs 
+Test to check whether non-numeric inputs 
 (character and logical) for the year argument return an error.
 
-```{r}
+```{r, error=TRUE}
 test_that("non-numeric inputs for the year argument return an error", {
   expect_error(get_meteorite_count(meteorite_data, TRUE))
   expect_error(get_meteorite_count(meteorite_data, "2009"))
