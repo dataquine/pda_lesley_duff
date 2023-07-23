@@ -121,7 +121,8 @@ test_that("Year cannot be negative", {
   expect_error(get_meteorite_count(meteorite_data, -2013))
 })
 ```
-2. There is no checking that year is in the future e.g. mistyping a year
+2. There is no checking to make sure that year is not in the future 
+ e.g. mistyping a year
 ```{r, error=TRUE}
 test_that("Year is not in the future", {
   expect_error(get_meteorite_count(meteorite_data, 20012))
@@ -152,7 +153,12 @@ refactor_get_meteorite_count <- function(dataframe, input_year){
   if (input_year < 0){
     stop("Year cannot be a negative number 😿")
   }
-
+  # Check that year isn't in future
+  current_year <- as.numeric(format(Sys.Date(), "%Y"))
+  if (input_year > current_year){
+     stop("Year cannot be in the future 😿")
+  }
+  
   output <- ""
   
   # Extract number_of_meteorites that year
@@ -204,7 +210,9 @@ test_that("Year cannot be negative", {
   expect_error(refactor_get_meteorite_count(meteorite_data, -2013))
 })
 
-
-
+test_that("Year is not in the future", {
+  expect_error(refactor_get_meteorite_count(meteorite_data, 2024))
+  expect_error(refactor_get_meteorite_count(meteorite_data, 20012))
+})
 ```
 
