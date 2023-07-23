@@ -67,8 +67,6 @@ get_meteorite_count <- function(dataframe, input_year) {
     summarise(number_of_meteorites = n()) %>%
     pull()
 
-  #  number_of_meteorites <- 2
-  #  number_of_meteorites <- 0
   if (number_of_meteorites >= 1) {
     output <- str_c(
       "In ", input_year, ", there were ", number_of_meteorites,
@@ -81,13 +79,18 @@ get_meteorite_count <- function(dataframe, input_year) {
   return(output)
 }
 
+# Year with count
 count_meteorite <- get_meteorite_count(meteorite_data, 2009)
-# count_meteorite <- get_meteorite_count(meteorite_data, 2020)
+count_meteorite
+
+# Year with no count
+count_meteorite <- get_meteorite_count(meteorite_data, 2020)
+count_meteorite
+
 #count_meteorite <- get_meteorite_count(meteorite_data, NA)
 #count_meteorite <- get_meteorite_count(meteorite_data, -1000)
-count_meteorite
 ```
-### test plans
+### Test plans
 
 #### How to test that function is working as expected 
 
@@ -100,7 +103,7 @@ test_that("Years with meteorites return count", {
 })
 
 test_that("Years with no meteorites return no meteorites message", {
-  expect_equal(get_meteorite_count(meteorite_data, 1584), 
+  expect_equal(get_meteorite_count(meteorite_data, 2020), 
                "As far as we know, there were no meteorites that year")
 })
 ```
@@ -114,19 +117,6 @@ number and an error.
 ```{r, error=TRUE}
 test_that("Year cannot be negative", {
   expect_error(get_meteorite_count(meteorite_data, -2013))
-})
-```
-
-2. If year given is newer than dataset (newer than 2013) It would be maybe 
-better to indicate that no data is available rather than give the impression 
-there might be no meteors that year. Test whether year supplied is more recent 
-than 2013 create new output to indicate no data available and that year should 
-be <= 2013.
-
-```{r, error=TRUE}
-test_that("Years must be <= 2013", {
-  expect_equal(get_meteorite_count(meteorite_data, 2020), 
-               "We have no data about meteorites for years later than 2013")
 })
 ```
 
@@ -146,11 +136,11 @@ test_that("non-numeric inputs for the year argument return an error", {
 
 ```{r}
 refactor_get_meteorite_count <- function(dataframe, input_year){
-
-  # add a condition, make sure input_year ONLY takes in numeric input
+  # Make sure input_year only takes in numeric input
   if (!is.numeric(input_year)){
     stop("Non-numeric year 😿")
   }
+  # Make sure number is >= 0 
   if (input_year < 0){
     stop("Year cannot be a negative number 😿")
   }
