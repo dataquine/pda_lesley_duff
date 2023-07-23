@@ -151,6 +151,9 @@ refactor_get_meteorite_count <- function(dataframe, input_year){
   if (!is.numeric(input_year)){
     stop("Non-numeric year 😿")
   }
+  if (input_year < 0){
+    stop("Year cannot be a negative number 😿")
+  }
 
   output <- ""
   
@@ -160,18 +163,22 @@ refactor_get_meteorite_count <- function(dataframe, input_year){
     summarise(number_of_meteorites = n()) %>%
     pull()
 
-  if (number_of_meteorites >= 1) {
-    output <- str_c(
-      "In ", input_year, ", there were ", number_of_meteorites,
+  output <- case_when(
+  # Return a count if there is a positive number of landing
+  number_of_meteorites >= 1 ~
+    str_c(
+     "In ", input_year, ", there were ", number_of_meteorites,
       " meteorites."
-    )
-  } else {
-    output <- "As far as we know, there were no meteorites that year"
-  }
+    ),
+  # Explicitly test for zero
+  number_of_meteorites == 0 ~ 
+    "As far as we know, there were no meteorites that year",
+  TRUE ~ "As far as we know, there were no meteorites that year")
 
   return(output)
 }
 ```
+
 ```{r, error=TRUE}
 # Test your function to make sure it now gives an error when you input a logical
 # or character value as the year.
@@ -194,7 +201,7 @@ test_that("Years with no meteorites return no meteorites message", {
 })
 
 # My own suggested improvements
-
+# Error if negative number supplied
 test_that("Year cannot be negative", {
   expect_error(refactor_get_meteorite_count(meteorite_data, -2013))
 })

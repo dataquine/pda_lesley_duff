@@ -1748,12 +1748,12 @@ count_meteorite</code></pre>
   expect_equal(get_meteorite_count(meteorite_data, 2013), 
                &quot;In 2013, there were 2 meteorites.&quot;)
 })</code></pre>
-<pre><code>## Test passed 🥳</code></pre>
+<pre><code>## Test passed 😸</code></pre>
 <pre class="r"><code>test_that(&quot;Years with no meteorites return no meteorites message&quot;, {
   expect_equal(get_meteorite_count(meteorite_data, 1584), 
                &quot;As far as we know, there were no meteorites that year&quot;)
 })</code></pre>
-<pre><code>## Test passed 😀</code></pre>
+<pre><code>## Test passed 🌈</code></pre>
 <p>How the function could be improved.</p>
 <ol style="list-style-type: decimal">
 <li>The simple if statement means negative numbers are treated the same
@@ -1811,6 +1811,9 @@ the year argument return an error.</p>
   if (!is.numeric(input_year)){
     stop(&quot;Non-numeric year 😿&quot;)
   }
+  if (input_year &lt; 0){
+    stop(&quot;Year cannot be a negative number 😿&quot;)
+  }
 
   output &lt;- &quot;&quot;
   
@@ -1820,14 +1823,17 @@ the year argument return an error.</p>
     summarise(number_of_meteorites = n()) %&gt;%
     pull()
 
-  if (number_of_meteorites &gt;= 1) {
-    output &lt;- str_c(
-      &quot;In &quot;, input_year, &quot;, there were &quot;, number_of_meteorites,
+  output &lt;- case_when(
+  # Return a count if there is a positive number of landing
+  number_of_meteorites &gt;= 1 ~
+    str_c(
+     &quot;In &quot;, input_year, &quot;, there were &quot;, number_of_meteorites,
       &quot; meteorites.&quot;
-    )
-  } else {
-    output &lt;- &quot;As far as we know, there were no meteorites that year&quot;
-  }
+    ),
+  # Explicitly test for zero
+  number_of_meteorites == 0 ~ 
+    &quot;As far as we know, there were no meteorites that year&quot;,
+  TRUE ~ &quot;As far as we know, there were no meteorites that year&quot;)
 
   return(output)
 }</code></pre>
@@ -1837,7 +1843,7 @@ test_that(&quot;Non-numeric input returns an error&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, &quot;year&quot;))
   expect_error(refactor_get_meteorite_count(meteorite_data, TRUE))
 })</code></pre>
-<pre><code>## Test passed 🥇</code></pre>
+<pre><code>## Test passed 😸</code></pre>
 <pre class="r"><code># Check working as expected
 test_that(&quot;Years with meteorites return count&quot;, {
   expect_equal(refactor_get_meteorite_count(meteorite_data, 2009), 
@@ -1845,21 +1851,18 @@ test_that(&quot;Years with meteorites return count&quot;, {
   expect_equal(refactor_get_meteorite_count(meteorite_data, 2013), 
                &quot;In 2013, there were 2 meteorites.&quot;)
 })</code></pre>
-<pre><code>## Test passed 😀</code></pre>
+<pre><code>## Test passed 🌈</code></pre>
 <pre class="r"><code>test_that(&quot;Years with no meteorites return no meteorites message&quot;, {
   expect_equal(refactor_get_meteorite_count(meteorite_data, 1584), 
                &quot;As far as we know, there were no meteorites that year&quot;)
 })</code></pre>
-<pre><code>## Test passed 😸</code></pre>
+<pre><code>## Test passed 🎉</code></pre>
 <pre class="r"><code># My own suggested improvements
-
+# Error if negative number supplied
 test_that(&quot;Year cannot be negative&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, -2013))
 })</code></pre>
-<pre><code>## ── Failure (&#39;&lt;text&gt;:24:3&#39;): Year cannot be negative ────────────────────────────
-## `refactor_get_meteorite_count(meteorite_data, -2013)` did not throw an error.</code></pre>
-<pre><code>## Error in `reporter$stop_if_needed()`:
-## ! Test failed</code></pre>
+<pre><code>## Test passed 🥇</code></pre>
 </div>
 </div>
 </div>
