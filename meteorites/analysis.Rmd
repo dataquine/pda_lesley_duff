@@ -221,7 +221,6 @@ refactor_get_meteorite_count <- function(dataframe, input_year) {
 
 ```{r, error=TRUE}
 # 4.6 Performing test and revising code
-
 # Test your function to make sure it now gives an error when you input a logical
 # or character value as the year.
 test_that("Non-numeric input returns an error", {

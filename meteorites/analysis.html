@@ -1653,15 +1653,7 @@ information on meteorites that have been found up to the year 2013.</p>
 ## ✖ dplyr::lag()           masks stats::lag()
 ## ✖ readr::local_edition() masks testthat::local_edition()
 ## ✖ dplyr::matches()       masks tidyr::matches(), testthat::matches()
-## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
-## Rows: 45716 Columns: 6
-## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr (3): name, fall, GeoLocation
-## dbl (3): id, mass (g), year
-## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 <pre class="r"><code># Read the cleaned data into R.
 meteorite_data &lt;- process_meteorite_landings_file(&quot;data/meteorite_landings.csv&quot;)</code></pre>
 <pre><code>## Rows: 45716 Columns: 6
@@ -1767,14 +1759,14 @@ test_that(&quot;Years with meteorites return count&quot;, {
     &quot;In 2013, there were 2 meteorites.&quot;
   )
 })</code></pre>
-<pre><code>## Test passed 🌈</code></pre>
+<pre><code>## Test passed 😸</code></pre>
 <pre class="r"><code>test_that(&quot;Years with no meteorites return no meteorites message&quot;, {
   expect_equal(
     get_meteorite_count(meteorite_data, 1584),
     &quot;As far as we know, there were no meteorites that year&quot;
   )
 })</code></pre>
-<pre><code>## Test passed 😀</code></pre>
+<pre><code>## Test passed 🥳</code></pre>
 <p>How the function could be improved.</p>
 <ol style="list-style-type: decimal">
 <li>The simple if statement means negative numbers are treated the same
@@ -1885,7 +1877,6 @@ refactor_get_meteorite_count &lt;- function(dataframe, input_year) {
   return(output)
 }</code></pre>
 <pre class="r"><code># 4.6 Performing test and revising code
-
 # Test your function to make sure it now gives an error when you input a logical
 # or character value as the year.
 test_that(&quot;Non-numeric input returns an error&quot;, {
@@ -1904,30 +1895,30 @@ test_that(&quot;Years with meteorites return count&quot;, {
     &quot;In 2013, there were 2 meteorites.&quot;
   )
 })</code></pre>
-<pre><code>## Test passed 🥇</code></pre>
+<pre><code>## Test passed 😸</code></pre>
 <pre class="r"><code>test_that(&quot;Years with no meteorites return no meteorites message&quot;, {
   expect_equal(
     get_meteorite_count(meteorite_data, 1584),
     &quot;As far as we know, there were no meteorites that year&quot;
   )
 })</code></pre>
-<pre><code>## Test passed 🥇</code></pre>
+<pre><code>## Test passed 😀</code></pre>
 <pre class="r"><code># 4.6 Performing test and revising code
 # My own suggested improvements
 # Error if negative number supplied
 test_that(&quot;Year cannot be negative&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, -2013))
 })</code></pre>
-<pre><code>## Test passed 🌈</code></pre>
+<pre><code>## Test passed 🎉</code></pre>
 <pre class="r"><code>test_that(&quot;Year is not in the future&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, 2024))
   expect_error(refactor_get_meteorite_count(meteorite_data, 20012))
 })</code></pre>
-<pre><code>## Test passed 🌈</code></pre>
+<pre><code>## Test passed 🎉</code></pre>
 <pre class="r"><code>test_that(&quot;NASA dataset only goes up to year 2013&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, 2014))
 })</code></pre>
-<pre><code>## Test passed 😸</code></pre>
+<pre><code>## Test passed 🥇</code></pre>
 </div>
 </div>
 </div>
