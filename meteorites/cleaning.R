@@ -1,7 +1,7 @@
 # Author: Lesley Duff
 # Filename: cleaning.R
-# Title: Clean some meteorite landing data"
-# Date: 2023-07-21
+# Title: Clean some meteorite landing data
+# Date Created: 2023-07-21
 # Description:
 #   Data comes from NASA and has information on meteorites that have been found
 # up to the year 2013.
@@ -51,12 +51,12 @@ process_meteorite_landings_file <- function(path) {
     # Use janitor to clean the names
     janitor::clean_names() %>%
     # Get rid of bracket at start and end
-    mutate(geo_location_new = str_sub(geo_location, start = 2, end = -2)) %>%
+    mutate(geo_location = str_sub(geo_location, start = 2, end = -2)) %>%
     # e.g. now looks like  "54.21667, -113.02"
 
     # ?separate
     separate(
-      col = "geo_location_new",
+      col = "geo_location",
       into = c("latitude", "longitude"),
       sep = ", "
     ) %>%
@@ -83,3 +83,4 @@ process_meteorite_landings_file <- function(path) {
 
 # Test call of cleaning function
 #meteorite_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
+#meteorite_data
