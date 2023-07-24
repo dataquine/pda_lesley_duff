@@ -15,7 +15,9 @@ R
 
 1. Download all code and data from
 https://github.com/dataquine/pda_lesley_duff/tree/main/meteorites
-2. Open and run `analysis.Rmd` in [RStudio](https://posit.co/download/rstudio-desktop/)
+2. Open `meteorites.Rproj` in 
+[RStudio](https://posit.co/download/rstudio-desktop/)
+3. Open and run `analysis.Rmd` 
 
 ## Data used
 
