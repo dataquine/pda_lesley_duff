@@ -7,6 +7,9 @@ found up to the year 2013.
 
 We wish to clean and analyse the dataset.
 
+For the purposes of analysis only meteorites on Earth and with a mass  >= 1000g
+will be considered.
+
 ## Languages
 
 R
