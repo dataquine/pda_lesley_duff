@@ -3,9 +3,9 @@
 # Title: Read database data and combine with clean data
 # Date Created: 2023-07-30
 # Description:
-#  add the data in this table into your clean data.
-# When you’ve added the extra information into the table then write it to a CSV
-# in the clean data folder.
+#  Reading meteorite_class database table and combining it with the already
+# cleaned data from a CSV file of meteorite landings on earth and >= 1000g
+# The new dataset is written to "clean_data/meteorite_landings.csv"
 # Meteors Continued - PDA
 
 library(RPostgres)
