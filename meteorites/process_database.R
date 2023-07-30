@@ -124,5 +124,8 @@ meteorite_csv_data <- process_meteorite_landings_file(
 combined_meteorite_data <- combine_csv_db_data(meteorite_csv_data, 
                                                meteorite_db_data)
 
+# Tidy up remove intermediate data frames
+rm(meteorite_csv_data, meteorite_db_data)
+
 write_combined_meteorite_data(combined_meteorite_data, 
                               "clean_data/meteorite_landings.csv")
