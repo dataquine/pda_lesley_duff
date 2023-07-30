@@ -11,6 +11,9 @@
 library(RPostgres)
 library(tidyverse)
 
+# Source the script that will clean the original CSV data
+source("cleaning.R")
+
 # source credentials file
 # this makes variables for database credentials available to use
 source("meteorites_credentials.R")
@@ -83,6 +86,6 @@ examine_db_data(meteorite_db_data)
 
 # Retrieve the original clean data
 # Read the cleaned data into R.
-#meteorite_csv_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
+meteorite_csv_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
 
 
