@@ -57,8 +57,8 @@ examine_db_data <- function (db_data) {
   dim(db_data) # 45716 rows, 2 columns
   str(db_data)
   head(db_data)
-  
   # After reading in the data we have two columns "id"  and  "class"
+  
   # Assumption:
   #   id will match the id column in the cleaned CSV data from cleaning.R
   # process_meteorite_landings_file function,
@@ -67,7 +67,6 @@ examine_db_data <- function (db_data) {
   #   https://en.wikipedia.org/wiki/Meteorite_classification
   return(db_data)
 }
-
 
 meteorite_db_data <- read_meteorite_class_database(
   meteorites_host,
@@ -82,10 +81,12 @@ rm(meteorites_host, meteorites_port, meteorites_database, meteorites_username,
    meteorites_password)
 
 # Just check the data structure
-examine_db_data(meteorite_db_data)
+meteorite_db_data <- examine_db_data(meteorite_db_data)
 
 # Retrieve the original clean data
 # Read the cleaned data into R.
 meteorite_csv_data <- process_meteorite_landings_file("data/meteorite_landings.csv")
 
+combined_meteorite_data <- combine_csv_db_data(meteorite_csv_data, 
+                                               meteorite_db_data)
 
