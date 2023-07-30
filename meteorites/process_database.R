@@ -11,6 +11,6 @@
 
 library(RPostgres)
 # source credentials file
-# this makes variables for databse ceredentials available to use
+# this makes variables for database credentials available to use
 source("meteorites_credentials.R")
 
