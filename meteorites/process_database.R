@@ -73,9 +73,6 @@ examine_db_data <- function (db_data) {
     print(n = 500)
   # No results for count id > 1, each id appears only once
   
-  meteorite_db_data %>%
-    unique()
-  
   return(db_data)
 }
 
@@ -95,6 +92,11 @@ combine_csv_db_data <- function(meteorite_csv_data,
   #View(combined_data)
   
   return(combined_data)
+}
+
+write_combined_meteorite_data <- function(combined_meteorite_data, path){
+# Write the cleaned and combined data to the clean data folder.
+  write_csv(combined_meteorite_data, path)
 }
 
 meteorite_db_data <- read_meteorite_class_database(
@@ -122,3 +124,5 @@ meteorite_csv_data <- process_meteorite_landings_file(
 combined_meteorite_data <- combine_csv_db_data(meteorite_csv_data, 
                                                meteorite_db_data)
 
+write_combined_meteorite_data(combined_meteorite_data, 
+                              "clean_data/meteorite_landings.csv")
