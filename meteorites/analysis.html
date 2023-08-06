@@ -11,7 +11,7 @@
 
 <meta name="author" content="Lesley Duff" />
 
-<meta name="date" content="2023-07-23" />
+<meta name="date" content="2023-08-06" />
 
 <title>Meteorites Weekend Homework</title>
 
@@ -1624,7 +1624,7 @@ display: none;
 <h1 class="title toc-ignore">Meteorites Weekend Homework</h1>
 <h3 class="subtitle">Analysis</h3>
 <h4 class="author">Lesley Duff</h4>
-<h4 class="date">2023-07-23</h4>
+<h4 class="date">2023-08-06</h4>
 
 </div>
 
@@ -1766,7 +1766,7 @@ test_that(&quot;Years with meteorites return count&quot;, {
     &quot;As far as we know, there were no meteorites that year&quot;
   )
 })</code></pre>
-<pre><code>## Test passed 🥳</code></pre>
+<pre><code>## Test passed 🎊</code></pre>
 <p>How the function could be improved.</p>
 <ol style="list-style-type: decimal">
 <li>The simple if statement means negative numbers are treated the same
@@ -1820,14 +1820,15 @@ test_that(&quot;NASA dataset only goes up to year 2013&quot;, {
 <h3>Unit test</h3>
 <p>Test to check whether non-numeric inputs (character and logical) for
 the year argument return an error.</p>
-<pre class="r"><code>test_that(&quot;non-numeric inputs for the year argument return an error&quot;, {
+<pre class="r"><code># 4.6 Performing test and revising code
+test_that(&quot;non-numeric inputs for the year argument return an error&quot;, {
   expect_error(get_meteorite_count(meteorite_data, TRUE))
   expect_error(get_meteorite_count(meteorite_data, &quot;2009&quot;))
 })</code></pre>
-<pre><code>## ── Failure (&#39;&lt;text&gt;:2:3&#39;): non-numeric inputs for the year argument return an error ──
+<pre><code>## ── Failure (&#39;&lt;text&gt;:3:3&#39;): non-numeric inputs for the year argument return an error ──
 ## `get_meteorite_count(meteorite_data, TRUE)` did not throw an error.
 ## 
-## ── Failure (&#39;&lt;text&gt;:3:3&#39;): non-numeric inputs for the year argument return an error ──
+## ── Failure (&#39;&lt;text&gt;:4:3&#39;): non-numeric inputs for the year argument return an error ──
 ## `get_meteorite_count(meteorite_data, &quot;2009&quot;)` did not throw an error.</code></pre>
 <pre><code>## Error in `reporter$stop_if_needed()`:
 ## ! Test failed</code></pre>
@@ -1884,41 +1885,42 @@ test_that(&quot;Non-numeric input returns an error&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, TRUE))
 })</code></pre>
 <pre><code>## Test passed 😸</code></pre>
-<pre class="r"><code># Check working as expected
+<pre class="r"><code># 4.6 Performing test and revising code
+# Check working as expected
 test_that(&quot;Years with meteorites return count&quot;, {
   expect_equal(
-    get_meteorite_count(meteorite_data, 2009),
+    refactor_get_meteorite_count(meteorite_data, 2009),
     &quot;In 2009, there were 103 meteorites.&quot;
   )
   expect_equal(
-    get_meteorite_count(meteorite_data, 2013),
+    refactor_get_meteorite_count(meteorite_data, 2013),
     &quot;In 2013, there were 2 meteorites.&quot;
   )
 })</code></pre>
-<pre><code>## Test passed 😸</code></pre>
+<pre><code>## Test passed 🎊</code></pre>
 <pre class="r"><code>test_that(&quot;Years with no meteorites return no meteorites message&quot;, {
   expect_equal(
-    get_meteorite_count(meteorite_data, 1584),
+    refactor_get_meteorite_count(meteorite_data, 1584),
     &quot;As far as we know, there were no meteorites that year&quot;
   )
 })</code></pre>
-<pre><code>## Test passed 😀</code></pre>
+<pre><code>## Test passed 🥳</code></pre>
 <pre class="r"><code># 4.6 Performing test and revising code
 # My own suggested improvements
 # Error if negative number supplied
 test_that(&quot;Year cannot be negative&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, -2013))
 })</code></pre>
-<pre><code>## Test passed 🎉</code></pre>
+<pre><code>## Test passed 🌈</code></pre>
 <pre class="r"><code>test_that(&quot;Year is not in the future&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, 2024))
   expect_error(refactor_get_meteorite_count(meteorite_data, 20012))
 })</code></pre>
-<pre><code>## Test passed 🎉</code></pre>
+<pre><code>## Test passed 😀</code></pre>
 <pre class="r"><code>test_that(&quot;NASA dataset only goes up to year 2013&quot;, {
   expect_error(refactor_get_meteorite_count(meteorite_data, 2014))
 })</code></pre>
-<pre><code>## Test passed 🥇</code></pre>
+<pre><code>## Test passed 😸</code></pre>
 </div>
 </div>
 </div>

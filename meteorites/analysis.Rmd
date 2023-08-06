@@ -166,6 +166,7 @@ Test to check whether non-numeric inputs
 (character and logical) for the year argument return an error.
 
 ```{r, error=TRUE}
+# 4.6 Performing test and revising code
 test_that("non-numeric inputs for the year argument return an error", {
   expect_error(get_meteorite_count(meteorite_data, TRUE))
   expect_error(get_meteorite_count(meteorite_data, "2009"))
@@ -227,26 +228,31 @@ test_that("Non-numeric input returns an error", {
   expect_error(refactor_get_meteorite_count(meteorite_data, "year"))
   expect_error(refactor_get_meteorite_count(meteorite_data, TRUE))
 })
+```
 
+```{r, error=TRUE}
+# 4.6 Performing test and revising code
 # Check working as expected
 test_that("Years with meteorites return count", {
   expect_equal(
-    get_meteorite_count(meteorite_data, 2009),
+    refactor_get_meteorite_count(meteorite_data, 2009),
     "In 2009, there were 103 meteorites."
   )
   expect_equal(
-    get_meteorite_count(meteorite_data, 2013),
+    refactor_get_meteorite_count(meteorite_data, 2013),
     "In 2013, there were 2 meteorites."
   )
 })
 
 test_that("Years with no meteorites return no meteorites message", {
   expect_equal(
-    get_meteorite_count(meteorite_data, 1584),
+    refactor_get_meteorite_count(meteorite_data, 1584),
     "As far as we know, there were no meteorites that year"
   )
 })
+```
 
+```{r, error=TRUE}
 # 4.6 Performing test and revising code
 # My own suggested improvements
 # Error if negative number supplied
