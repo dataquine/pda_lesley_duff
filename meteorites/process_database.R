@@ -18,6 +18,7 @@ source("cleaning.R")
 # this makes variables for database credentials available to use
 source("meteorites_credentials.R")
 
+# 3.2 Writing function/program to process data from a database
 read_meteorite_class_database <- function(db_host, db_port, db_database,
                                           db_username, db_password) {
   # create connection object using meteorite database credentials
@@ -75,7 +76,7 @@ examine_db_data <- function (db_data) {
   
   return(db_data)
 }
-
+# 4.2 Data structures including tables and databases
 combine_csv_db_data <- function(meteorite_csv_data, 
                     meteorite_db_data) {
   # I want to retain ALL CSV observations regardless of
@@ -93,7 +94,7 @@ combine_csv_db_data <- function(meteorite_csv_data,
   
   return(combined_data)
 }
-
+# 3.2 Writing function/program to process data from a database
 write_combined_meteorite_data <- function(combined_meteorite_data, path){
 # Write the cleaned and combined data to the clean data folder.
   write_csv(combined_meteorite_data, path)
