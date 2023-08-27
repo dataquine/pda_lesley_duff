@@ -1,0 +1,33 @@
+---
+title: "Meteors Continued, Again"
+author: "Lesley Duff"
+date: "`r format(Sys.Date())`"
+output:
+  html_document:
+    df_print: paged
+subtitle: Plotting
+---
+# Meteors Continued, Again
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+  meteorite_landings <- read_csv("clean_data/meteorite_landings.csv")
+
+  head(meteorite_landings)
+  dim(meteorite_landings)
+  glimpse(meteorite_landings)
+
+  #meteorite_landings %>% 
+ # distinct(name)
+```
+
+## Plot of year vs. number of landings
+
+```{r}
+meteorite_landings %>% 
+  ggplot()
+```
+
