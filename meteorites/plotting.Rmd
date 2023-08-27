@@ -14,20 +14,64 @@ library(tidyverse)
 ```
 
 ```{r}
-  meteorite_landings <- read_csv("clean_data/meteorite_landings.csv")
+meteorite_landings <- read_csv("clean_data/meteorite_landings.csv")
 
-  head(meteorite_landings)
-  dim(meteorite_landings)
-  glimpse(meteorite_landings)
+head(meteorite_landings)
+dim(meteorite_landings)
+glimpse(meteorite_landings)
 
-  #meteorite_landings %>% 
- # distinct(name)
+# meteorite_landings %>%
+# distinct(name)
 ```
 
 ## Plot of year vs. number of landings
 
 ```{r}
-meteorite_landings %>% 
-  ggplot()
+# 3.6. Writing function/program to create visualisations (Week 5)
+meteorite_landings %>%
+  filter(year >= 1800) %>% 
+  ggplot(aes(year, fill = fall)) +
+  geom_histogram(binwidth = 10, col = "white") +
+  scale_y_continuous (labels = scales::label_comma())+
+  labs(
+    title = "Year vs. Number of Meteorite Landings",
+    subtitle = "Mass >= 1000g, Since the year 1800",
+    caption = "Source: NASA",
+    x = "\nYear",
+    y = "Number of Meteorite Landings\n",
+    fill = "Discovered"
+  ) 
 ```
 
+Second plot to confirm that we have a small number of entries pre 1800.
+
+```{r}
+# 3.6. Writing function/program to create visualisations (Week 5)
+meteorite_landings %>%
+  filter(year < 1800) %>% 
+  ggplot(aes(year, fill = fall)) +
+  geom_histogram(binwidth = 10, col = "white") +
+  scale_y_continuous (labels = scales::label_comma())+
+  labs(
+    title = "Year vs. Number of Meteorite Landings",
+    subtitle = "Mass >= 1000g, Before the Year 1800",
+    caption = "Source: NASA",
+    x = "\nYear",
+    y = "Number of Meteorite Landings\n",
+    fill = "Discovered"
+  ) 
+```
+
+### Summary
+
+There are a very small number of readings pre 1800. Then in the first few 
+decades after 1800 the discovery type is mostly 'Fell' than Found' suggesting 
+perhaps that although people were reporting seeing them fall from the sky they at that time didn't record what was found on the ground or limited records exist to this day.
+
+There is a large jump after 2000 in terms of 'Found' readings. Not clear if this
+ is genuinely due to increased meteorite activity or whether it became easier to
+ submit recordings. I'd speculate that this spike coincides with the early days 
+ of widespread internet usage, particularly the world wide web. Possibly once 
+ people could see what meteorites looked like they were better able to recognise
+ them in the field. Or the rise of email/web forms made submitting findings much
+ easier.
