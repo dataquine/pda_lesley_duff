@@ -37,24 +37,17 @@ library(tidyverse)
 #library(tsibbledata) # contains nyc_bikes dataset
 ```
 
+```{r}
+# Get helper functions ----
+source("R/nyc_bikes_helpers.R")
+```
+
 
 ```{r include=FALSE}
 # Load data set ----
-# ?nyc_bikes comes from the tsibbledata package
-nyc_bikes_df <- nyc_bikes
+# Use cleaned version 
+nyc_bikes_clean <- read_csv("clean_data/nyc_bikes_clean.csv")
 ```
-
-```{r}
-# Wrangling ----
-# Add an age column
-#nyc_bikes_df <- 
-  nyc_bikes_df %>%
-  distinct(birth_year) %>% 
-  arrange(birth_year)
-#  mutate(age = 2018 - birth_year)
-```
-
-
 ## Ethics
 
 ### Human Rights
@@ -81,11 +74,11 @@ From analysis of the dates and times provided, we have records ordered by the st
 # head(nyc_bikes_df)
 # names(nyc_bikes_df)
 
-start_times_df <- nyc_bikes_df %>%
-  select(start_time) %>%
-  index_by(start_time) # %>%
-#  summarise(mean_temp = mean(Temperature))
-# summarise(hire_start_time_count = n())
+#start_times_df <- nyc_bikes_df %>%
+#  select(start_time) %>%
+#  index_by(start_time) # %>%
+##  summarise(mean_temp = mean(Temperature))
+## summarise(hire_start_time_count = n())
 ```
 
 
@@ -96,203 +89,30 @@ start_times_df <- nyc_bikes_df %>%
 #  ggplot() +
 #  geom_line(aes(x = start_time))
 
-month_nyc_bikes_df <- nyc_bikes_df %>%
-  index_by(month = month(start_time, label = TRUE)) %>%
-  summarise(hires_month_count = n())
+# Convert to tsibble
+nyc_bikes_clean <- as_tsibble(nyc_bikes_clean)
 
-# month_nyc_bikes_df
+#get_month_hires_count = function(df)
+#  month_hires_count <- nyc_bikes_clean %>%
+#  # index_by(month = month(start_time, label = TRUE)) %>%
+#  #?index_by
+#  #index_by(month) %>%
+#  index_by(month = month(start_time, label = TRUE)) %>%
+#  summarise(hires_month_count = n())
+#View(month_hires_count)
+month_hires_count <- get_month_hires_count(nyc_bikes_clean)
 
-# make a plot of usage by month
-month_nyc_bikes_plot <- month_nyc_bikes_df %>%
-  ggplot(aes(x = month, y = hires_month_count)) +
+month_nyc_bikes_plot <- month_hires_count %>%
+  ggplot(aes(x = month , y = hires_month_count)) +
   geom_point() +
   geom_line(group = 1) +
-  # geom_text(aes(label = hires_month_count))+
+  #geom_text(aes(label = hires_month_count))+
   theme_minimal() +
   labs(
     x = "\nMonth",
     y = "Number of hires\n",
     title = "Bike Hire by Month",
-    subtitle = "Sample of 2018 data"
+    subtitle = "Sample data from 2018"
   )
 month_nyc_bikes_plot
 ```
-
-## Bike rider demographics
-
-Do bike hire patterns differ between bike rider demographics? (e.g. gender, type of trip, age)
-
-### Gender
-```{r}
-year_gender <- nyc_bikes_df %>%
-  index_by(year = year(start_time)) %>%
-  group_by(gender) %>%
-  summarise(count = n()) %>%
-  arrange(desc(count))
-
-year_gender %>%
-  ggplot() +
-  geom_col(
-    aes(
-      x = reorder(gender, count),
-      y = count, fill = gender
-    ),
-    show.legend = FALSE
-  ) +
-  coord_flip() +
-  theme_classic() +
-  scale_fill_colorblind() +
-  labs(
-    x = "Gender\n",
-    y = "\nNumber of hires",
-    title = "Total Hires by Gender",
-    subtitle = "Year 2018"
-  )
-```
-
-
-### Type of trip
-
-```{r}
-year_type <- nyc_bikes_df %>%
-  index_by(year = year(start_time)) %>%
-  group_by(type) %>%
-  summarise(count = n()) %>%
-  arrange(desc(count))
-
-year_type %>%
-  ggplot() +
-  geom_col(
-    aes(
-      x = reorder(type, count),
-      y = count, fill = type
-    ),
-    show.legend = FALSE
-  ) +
-  coord_flip() +
-  theme_classic() +
-  scale_fill_colorblind() +
-  labs(
-    x = "Type\n",
-    y = "\nNumber of hires",
-    title = "Total Hires by Type",
-    subtitle = "Year 2018"
-  )
-```
-
-
-###  Age
-```{r}
-
-  
-
-year_age <- nyc_bikes_df %>%
-  index_by(year = year(start_time)) %>%
-  mutate(age = (2018 - birth_year)) %>% 
-  group_by(age) %>%
-  count(age) 
-  #summarise(count = n()) %>%
-  #arrange(desc(count))
-print(n= 54, year_age)
-
-year_age %>%
-  ggplot(aes(x = age)) +
-  geom_histogram(color="white", fill="steelblue", binwidth = 5)
-#  geom_col(
-#    aes(
-#      x = reorder(age, count),
-#      y = count, fill = factor(age)
-#    ),
-#    show.legend = FALSE
-#  ) +
-#  coord_flip() +
-#  theme_classic() +
-#  scale_fill_colorblind() +
-#  labs(
-#    x = "Age\n",
-#    y = "\nNumber of hires",
- #   title = "Total Hires by Age",
-  #  subtitle = "Year 2018"
-#  )
-```
-
-
-==================================================
-
-```{r}
-# library(skimr)
-#
-```
-
-
-```{r}
-# Hires per bike and bike count ----
-# Break down how many hires each bike had
-hires_per_bike <- nyc_bikes_df %>%
-  # ?count
-  # bike_count =
-  count(bike_id, name = "hire_count", sort = TRUE)
-
-bike_count <- nrow(hires_per_bike)
-```
-
-
-```{r}
-# Number of stations  -----
-hires_start_station <- nyc_bikes_df %>%
-  distinct(start_station) %>%
-  arrange()
-
-hires_end_station <- nyc_bikes_df %>%
-  distinct(end_station) %>%
-  arrange()
-
-hires_start_station_count <- nrow(hires_start_station)
-hires_end_station_count <- nrow(hires_end_station)
-```
-
-**`r bike_count`** different bikes in the Citi Bike fleet were hired for 
-journeys.
-
-**`r hires_start_station_count`** docking stations were used to start
-
-**`r hires_end_station_count`** docking stations were used to stop
-
-
-
-
-
-```{r}
-nyc_bikes_df <- nyc_bikes_df %>%
-  mutate(
-    hour_start_time = hour(start_time),
-    minute_start_time = minute(start_time),
-    day_start_time = day(start_time),
-    month_start_time = month(start_time, label = TRUE, abbr = FALSE),
-    hour_stop_time = hour(stop_time),
-    minute_stop_time = minute(stop_time),
-    day_stop_time = day(stop_time),
-    month_stop_time = month(stop_time, label = TRUE, abbr = FALSE),
-    date_start_time = ymd(start_time),
-    date_stop_time = ymd(stop_time),
-    journey_difftime = stop_time - start_time,
-    .after = stop_time
-  ) %>%
-  arrange(start_time)
-
-head(nyc_bikes_df)
-
-
-nyc_bikes_df %>%
-  ggplot(aes(x = start_time)) +
-  # geom_histogram(color = "white",
-  #               fill = "steelblue",
-  #              bins = 4) +
-  theme_minimal()
-```
-
-
-over time (e.g. within a year, month, week, or day)?
-
-
-Any other insights?

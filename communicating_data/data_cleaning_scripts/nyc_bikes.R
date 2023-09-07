@@ -1,10 +1,12 @@
 library(tidyverse)
+library(tsibble) # time series tibble for the tidyverse
 library(tsibbledata)
 
 # Load data set ----
 # ?nyc_bikes comes from the tsibbledata package
 nyc_bikes_df <- nyc_bikes
 # View(nyc_bikes_df)
+class(nyc_bikes_df)
 
 #names(nyc_bikes_df)
 # "bike_id"       "start_time"    "stop_time"     "start_station" "start_lat"
@@ -13,9 +15,14 @@ nyc_bikes_df <- nyc_bikes
 
 # Generate dataset containing only the variables of interest
 nyc_bikes_minimum <- nyc_bikes_df %>%
+  # start_time and bike_id will be here by default
+  
   # add an age column for convenience in plots
-  mutate(age = 2018 - birth_year) %>%
-  select(age) # Select only columns needed for analysis
+  mutate(age = 2018 - birth_year,
+        # month = month(start_time)
+         month = month(start_time, label = TRUE)
+         ) %>%
+  select(bike_id, start_time, age, month) # Select only columns needed for analysis
 
 rm(nyc_bikes_df)
 
@@ -34,5 +41,7 @@ rm(nyc_bikes_minimum)
 
 # write clean data to csv
 write_csv(nyc_bikes_clean_age, "clean_data/nyc_bikes_clean.csv")
-
+class(nyc_bikes_clean_age)
 rm(nyc_bikes_clean_age)
+
+

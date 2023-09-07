@@ -45,6 +45,12 @@ skim(nyc_bikes_df)
 
 ```
 
+```{r}
+# Wrangling ----
+  nyc_bikes_df %>%
+  distinct(birth_year) %>% 
+  arrange(birth_year)
+```
 
 
 ## Analysis of pattern of bike hires
