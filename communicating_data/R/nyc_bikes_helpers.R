@@ -10,10 +10,7 @@ print("Hello World!")
 
 get_month_hires_count <- function(df) {
   month_hires_count <- df %>%
-    # index_by(month = month(start_time, label = TRUE)) %>%
-    # ?index_by
-    #   index_by(month) %>%
-    index_by(month = month(start_time, label = TRUE)) %>%
+    index_by(month_name = month(start_time, label = TRUE)) %>%
     summarise(hires_month_count = n()) %>%
     return(month_hires_count)
 }
