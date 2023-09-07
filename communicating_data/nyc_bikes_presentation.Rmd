@@ -9,7 +9,7 @@ output:
 date: "`r format(Sys.Date())`"
 author: "Lesley Duff"
 editor_options: 
-  chunk_output_type: console
+  chunk_output_type: inline
 ---
 ```{r setup, include=FALSE}
 #knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
@@ -29,13 +29,12 @@ Citi Bike would like to know more about the following:
 
 The data provided to us is a small sample about bike hires. This is what we are using to do some analysis.
 
-
 ```{r include=FALSE}
 library(ggthemes) # Contains colourblind palette
 library(scales)
-library(tsibble) # time series tibble for thye tidyverse
+library(tsibble) # time series tibble for the tidyverse
 library(tidyverse)
-library(tsibbledata) # contains nyc_bikes dataset
+#library(tsibbledata) # contains nyc_bikes dataset
 ```
 
 
@@ -114,7 +113,7 @@ month_nyc_bikes_plot <- month_nyc_bikes_df %>%
     x = "\nMonth",
     y = "Number of hires\n",
     title = "Bike Hire by Month",
-    subtitle = "Sample from 2018 data"
+    subtitle = "Sample of 2018 data"
   )
 month_nyc_bikes_plot
 ```
