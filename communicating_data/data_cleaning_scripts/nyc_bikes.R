@@ -17,12 +17,15 @@ nyc_bikes_df <- nyc_bikes
 nyc_bikes_minimum <- nyc_bikes_df %>%
   # start_time and bike_id will be here by default
   
-  # add an age column for convenience in plots
+  # add columns for convenience in plots
   mutate(age = 2018 - birth_year,
-         month = month(start_time, label = TRUE)
-         ) %>%
+         month_name = month(start_time, label = TRUE),
+         month = month(start_time)
+  ) %>%
   # Select only columns needed for analysis
-  select(bike_id, start_time, age, month, 
+  select(bike_id, start_time, age,
+         #month_name,
+         month, 
          start_station, end_station) 
 
 rm(nyc_bikes_df)
