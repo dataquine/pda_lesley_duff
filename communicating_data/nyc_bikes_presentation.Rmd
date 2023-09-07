@@ -1,0 +1,299 @@
+---
+title: "NYC Citi Bike trips"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    df_print: paged
+#    code_folding: show
+date: "`r format(Sys.Date())`"
+author: "Lesley Duff"
+editor_options: 
+  chunk_output_type: console
+---
+```{r setup, include=FALSE}
+#knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
+```
+# Introduction
+
+[*Citi Bike*](https://ride.citibikenyc.com/about) is the largest [bike share system](https://en.wikipedia.org/wiki/Bicycle-sharing_system) in the USA and 
+consists of a fleet of bikes available to users at docking stations throughout 
+New York City. Bikes can be returned to any other station. Citi Bike is 
+available for use 24 hours/day, 7 days/week, 365 days/year.
+
+Citi Bike would like to know more about the following:
+
+* What is the pattern of bike hires over time (e.g. within a year, month, week, or day)?
+* Do bike hire patterns differ between bike rider demographics? (e.g. gender, type of trip, age)
+* Any other insights?
+
+The data provided to us is a small sample about bike hires. This is what we are using to do some analysis.
+
+
+```{r include=FALSE}
+library(ggthemes) # Contains colourblind palette
+library(scales)
+library(tsibble) # time series tibble for thye tidyverse
+library(tidyverse)
+library(tsibbledata) # contains nyc_bikes dataset
+```
+
+
+```{r include=FALSE}
+# Load data set ----
+# ?nyc_bikes comes from the tsibbledata package
+nyc_bikes_df <- nyc_bikes
+```
+
+```{r}
+# Wrangling ----
+# Add an age column
+#nyc_bikes_df <- 
+  nyc_bikes_df %>%
+  distinct(birth_year) %>% 
+  arrange(birth_year)
+#  mutate(age = 2018 - birth_year)
+```
+
+
+## Ethics
+
+### Human Rights
+#### Privacy
+Bike hire data relates to the actions of people using the bikes which are hired 
+when a user starts a journey using one from a docking station.
+
+The data relating to people includes information about the gender of the person 
+and the year of their birth. Also whether they have purchased either a 24-hour 
+or 3-day pass, or a "Subscriber" who has purchased an annual subscription.
+
+The start location indicating which station the user started the journey and 
+where they were and which station at the end. 
+
+There may be some potential concerns that the location data could be used to 
+track where a particular person is but the data is anonymised so that there is 
+nothing more specific that could be used to identify a particular individual. 
+
+## Pattern of bike hires
+
+From analysis of the dates and times provided, we have records ordered by the start time of the journey.
+
+```{r}
+# head(nyc_bikes_df)
+# names(nyc_bikes_df)
+
+start_times_df <- nyc_bikes_df %>%
+  select(start_time) %>%
+  index_by(start_time) # %>%
+#  summarise(mean_temp = mean(Temperature))
+# summarise(hire_start_time_count = n())
+```
+
+
+```{r}
+# plot hires over time
+# start_times_df %>%
+# filter(Holiday == FALSE) %>%
+#  ggplot() +
+#  geom_line(aes(x = start_time))
+
+month_nyc_bikes_df <- nyc_bikes_df %>%
+  index_by(month = month(start_time, label = TRUE)) %>%
+  summarise(hires_month_count = n())
+
+# month_nyc_bikes_df
+
+# make a plot of usage by month
+month_nyc_bikes_plot <- month_nyc_bikes_df %>%
+  ggplot(aes(x = month, y = hires_month_count)) +
+  geom_point() +
+  geom_line(group = 1) +
+  # geom_text(aes(label = hires_month_count))+
+  theme_minimal() +
+  labs(
+    x = "\nMonth",
+    y = "Number of hires\n",
+    title = "Bike Hire by Month",
+    subtitle = "Sample from 2018 data"
+  )
+month_nyc_bikes_plot
+```
+
+## Bike rider demographics
+
+Do bike hire patterns differ between bike rider demographics? (e.g. gender, type of trip, age)
+
+### Gender
+```{r}
+year_gender <- nyc_bikes_df %>%
+  index_by(year = year(start_time)) %>%
+  group_by(gender) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count))
+
+year_gender %>%
+  ggplot() +
+  geom_col(
+    aes(
+      x = reorder(gender, count),
+      y = count, fill = gender
+    ),
+    show.legend = FALSE
+  ) +
+  coord_flip() +
+  theme_classic() +
+  scale_fill_colorblind() +
+  labs(
+    x = "Gender\n",
+    y = "\nNumber of hires",
+    title = "Total Hires by Gender",
+    subtitle = "Year 2018"
+  )
+```
+
+
+### Type of trip
+
+```{r}
+year_type <- nyc_bikes_df %>%
+  index_by(year = year(start_time)) %>%
+  group_by(type) %>%
+  summarise(count = n()) %>%
+  arrange(desc(count))
+
+year_type %>%
+  ggplot() +
+  geom_col(
+    aes(
+      x = reorder(type, count),
+      y = count, fill = type
+    ),
+    show.legend = FALSE
+  ) +
+  coord_flip() +
+  theme_classic() +
+  scale_fill_colorblind() +
+  labs(
+    x = "Type\n",
+    y = "\nNumber of hires",
+    title = "Total Hires by Type",
+    subtitle = "Year 2018"
+  )
+```
+
+
+###  Age
+```{r}
+
+  
+
+year_age <- nyc_bikes_df %>%
+  index_by(year = year(start_time)) %>%
+  mutate(age = (2018 - birth_year)) %>% 
+  group_by(age) %>%
+  count(age) 
+  #summarise(count = n()) %>%
+  #arrange(desc(count))
+print(n= 54, year_age)
+
+year_age %>%
+  ggplot(aes(x = age)) +
+  geom_histogram(color="white", fill="steelblue", binwidth = 5)
+#  geom_col(
+#    aes(
+#      x = reorder(age, count),
+#      y = count, fill = factor(age)
+#    ),
+#    show.legend = FALSE
+#  ) +
+#  coord_flip() +
+#  theme_classic() +
+#  scale_fill_colorblind() +
+#  labs(
+#    x = "Age\n",
+#    y = "\nNumber of hires",
+ #   title = "Total Hires by Age",
+  #  subtitle = "Year 2018"
+#  )
+```
+
+
+==================================================
+
+```{r}
+# library(skimr)
+#
+```
+
+
+```{r}
+# Hires per bike and bike count ----
+# Break down how many hires each bike had
+hires_per_bike <- nyc_bikes_df %>%
+  # ?count
+  # bike_count =
+  count(bike_id, name = "hire_count", sort = TRUE)
+
+bike_count <- nrow(hires_per_bike)
+```
+
+
+```{r}
+# Number of stations  -----
+hires_start_station <- nyc_bikes_df %>%
+  distinct(start_station) %>%
+  arrange()
+
+hires_end_station <- nyc_bikes_df %>%
+  distinct(end_station) %>%
+  arrange()
+
+hires_start_station_count <- nrow(hires_start_station)
+hires_end_station_count <- nrow(hires_end_station)
+```
+
+**`r bike_count`** different bikes in the Citi Bike fleet were hired for 
+journeys.
+
+**`r hires_start_station_count`** docking stations were used to start
+
+**`r hires_end_station_count`** docking stations were used to stop
+
+
+
+
+
+```{r}
+nyc_bikes_df <- nyc_bikes_df %>%
+  mutate(
+    hour_start_time = hour(start_time),
+    minute_start_time = minute(start_time),
+    day_start_time = day(start_time),
+    month_start_time = month(start_time, label = TRUE, abbr = FALSE),
+    hour_stop_time = hour(stop_time),
+    minute_stop_time = minute(stop_time),
+    day_stop_time = day(stop_time),
+    month_stop_time = month(stop_time, label = TRUE, abbr = FALSE),
+    date_start_time = ymd(start_time),
+    date_stop_time = ymd(stop_time),
+    journey_difftime = stop_time - start_time,
+    .after = stop_time
+  ) %>%
+  arrange(start_time)
+
+head(nyc_bikes_df)
+
+
+nyc_bikes_df %>%
+  ggplot(aes(x = start_time)) +
+  # geom_histogram(color = "white",
+  #               fill = "steelblue",
+  #              bins = 4) +
+  theme_minimal()
+```
+
+
+over time (e.g. within a year, month, week, or day)?
+
+
+Any other insights?

@@ -1,0 +1,71 @@
+---
+title: "Communicating Data"
+subtitle: "NYC Citi Bike trips"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+[*Citi Bike*](https://ride.citibikenyc.com/about) is the largest [bike share system](https://en.wikipedia.org/wiki/Bicycle-sharing_system) in the USA and 
+consists of a fleet of bikes available to users at docking stations throughout 
+New York City. Bikes can be returned to any other station. Citi Bike is 
+available for use 24 hours/day, 7 days/week, 365 days/year.
+
+
+This report uses a sample dataset from NYC Citi Bike usage of 10 bikes 
+throughout 2018. The data includes event data on each trip, including the 
+trip's start and end times and locations. 
+
+```{r}
+library(skimr)
+library(tidyverse)
+library(tsibbledata)
+```
+
+```{r}
+# Load data set ----
+# ?nyc_bikes comes from the tsibbledata package
+nyc_bikes_df <- nyc_bikes
+```
+
+```{r}
+# Explore dataset -----
+head(nyc_bikes_df)
+glimpse(nyc_bikes_df)
+
+skim(nyc_bikes_df)
+
+# We have 4268 rows, 12 columns
+# We have no NAs 
+# Datetime columns: start_time, stop_time
+# birth_year is numeric
+# Mininmum Start date: 2018-01-01 21:19:01.611
+# Maximum Start date: 2018-12-31 09:08:35.776
+
+```
+
+
+
+## Analysis of pattern of bike hires
+```{r}
+index_var(nyc_bikes_df) # "start_time"
+key_vars(nyc_bikes_df)
+#?interval
+interval(nyc_bikes_df)
+is_regular(nyc_bikes_df)
+is_ordered(nyc_bikes_df)
+```
+
+Examining Ages
+```{r}
+nyc_bikes_df %>%
+  distinct(birth_year) %>% 
+  arrange(birth_year)
+
+print(n = 60, nyc_bikes_df)
+```
+
+There are two rows where the age of the person would be > 130
+This seems to indicate a problem gathering these values. Unclear how
+this data was obtained. We will decide to exlude these entries
