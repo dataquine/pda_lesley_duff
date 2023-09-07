@@ -34,7 +34,7 @@ library(ggthemes) # Contains colourblind palette
 library(scales)
 library(tsibble) # time series tibble for the tidyverse
 library(tidyverse)
-#library(tsibbledata) # contains nyc_bikes dataset
+# library(tsibbledata) # contains nyc_bikes dataset
 ```
 
 ```{r}
@@ -45,7 +45,7 @@ source("R/nyc_bikes_helpers.R")
 
 ```{r include=FALSE}
 # Load data set ----
-# Use cleaned version 
+# Use cleaned version
 nyc_bikes_clean <- read_csv("clean_data/nyc_bikes_clean.csv")
 ```
 ## Ethics
@@ -78,79 +78,84 @@ end_station_count <- get_end_station_count(nyc_bikes_clean)
 |Count  | Name |  Description  |
 | --------------: | ----- | ------------------ |
 | `r trip_count` | trips | bike hires made |
-| `r bike_count` | bikes in Citi Bike fleet | different bikes hired for trips |
+| `r bike_count` | bikes in Citi Bike fleet | bikes used for trips |
 | `r start_station_count` | docking stations | used to start trips |
 | `r end_station_count` | docking stations | used to end trips |
 
-## Pattern of bike hires
+# Pattern of bike hires
 
-From analysis of the dates and times provided, we have records ordered by the start time of the journey.
+Here we take a look at usage over time.
 
 ```{r}
-
-#start_times_df <- nyc_bikes_df %>%
+# start_times_df <- nyc_bikes_df %>%
 #  select(start_time) %>%
 #  index_by(start_time) # %>%
 ##  summarise(mean_temp = mean(Temperature))
 ## summarise(hire_start_time_count = n())
 ```
-# Analysis
 ## Bike Hire by Month
 
-```{r}
-# Convert to tsibble
-nyc_bikes_clean <- as_tsibble(nyc_bikes_clean)
+This graph shows how many bike hires there were for each month of 2018.
 
-#View(month_hires_count)
+```{r}
+# Convert to tsibble ?as_tsibble
+nyc_bikes_clean <- as_tsibble(nyc_bikes_clean, index = start_time)
+
+# View(month_hires_count)
 month_hires_count <- get_month_hires_count(nyc_bikes_clean)
 
 month_nyc_bikes_plot <- month_hires_count %>%
-  ggplot(aes(x = month_name , y = hires_month_count)) +
+  ggplot(aes(x = month_name, y = hires_month_count)) +
   geom_point() +
   geom_line(group = 1) +
-  #geom_text(aes(label = hires_month_count))+
+  # geom_text(aes(label = hires_month_count))+
+  scale_y_continuous(limits = c(0, 800)) +
   theme_minimal() +
+  #  theme_tufte() +
+
   labs(
     x = "\nMonth",
     y = "Number of hires\n",
     title = "Bike Hire by Month",
     subtitle = "Sample data from 2018"
   )
+
 month_nyc_bikes_plot
 ```
 
-```{r}
-#nyc_bikes_clean %>% 
-#  ggplot(aes(start_time))+
-#  geom_histogram()
-```
-
-
+* The highest levels of usage are in the summer months, peaking in August with a total of **`r max(month_hires_count$hires_month_count)`** hires.
+* The lowest levels of usage are in the winter months, lowest in February with a total of **`r min(month_hires_count$hires_month_count)`** hires.
 
 ```{r}
-#get_month_hires_count = function(df)
+# get_month_hires_count = function(df)
 #  hires_per_bike <- df %>%
 #  # ?count
 #  # bike_count =
 #    count(bike_id, name = "hire_count", sort = TRUE)
 
-#bike_hires <- get_bike_hires(nyc_bikes_clean)
-#bike_hires
+# bike_hires <- get_bike_hires(nyc_bikes_clean)
+# bike_hires
 ```
 
 ## Bike Hire by Day of Month
 
+Here were are comparing how the pattern of usage changes during each month.
+
 ```{r}
-hires_day_of_month <- nyc_bikes_clean %>% 
-  select(start_time, month) %>% 
+hires_day_of_month <- nyc_bikes_clean %>%
+  select(start_time, month) %>%
   mutate(month_label = lubridate::month(month, label = TRUE, abbr = TRUE))
 
-hires_day_of_month %>% 
-  ggplot(aes(x = day(start_time)))+ 
-    geom_histogram(color = "white",
-                 binwidth = 1)+ 
-   facet_wrap(~month_label)+
-  theme_tufte ()+
+hires_day_of_month %>%
+  ggplot(aes(x = day(start_time))) +
+  geom_histogram(
+    color = "white",
+    binwidth = 1
+  ) + # ?facet_wrap
+  facet_wrap(~month_label,
+    ncol = 3
+  ) +
+  theme_tufte() +
   labs(
     x = "\nDay of Month",
     y = "Number of Hires\n",
@@ -158,3 +163,10 @@ hires_day_of_month %>%
     subtitle = "Sample data from 2018"
   )
 ```
+
+* There's a gap showing next to no usage in the middle of January. This should 
+be investigated to see if there are external reasons such as poor weather affecting results.
+
+## Bike Hire by Day of Weeks
+
+Here were are comparing how the pattern of usage changes during each month.
