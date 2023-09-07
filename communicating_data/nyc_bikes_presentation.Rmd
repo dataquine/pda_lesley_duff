@@ -12,7 +12,7 @@ editor_options:
   chunk_output_type: inline
 ---
 ```{r setup, include=FALSE}
-#knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
+knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
 ```
 # Introduction
 

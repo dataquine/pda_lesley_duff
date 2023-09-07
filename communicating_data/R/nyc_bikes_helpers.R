@@ -5,9 +5,6 @@
 #   Functions to perform various calculations for us in both the presentation
 # and the formal PDA analysis report
 
-
-print("Hello World!")
-
 get_month_hires_count <- function(df) {
   month_hires_count <- df %>%
     index_by(month_name = month(start_time, label = TRUE)) %>%
