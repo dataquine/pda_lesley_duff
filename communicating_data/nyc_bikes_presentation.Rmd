@@ -77,7 +77,7 @@ end_station_count <- get_end_station_count(nyc_bikes_clean)
 
 |Count  | Name |  Description  |
 | --------------: | ----- | ------------------ |
-| `r trip_count` | trips | journeys made by people using Citi Bike bikes |
+| `r trip_count` | trips | bike hires made |
 | `r bike_count` | bikes in Citi Bike fleet | different bikes hired for trips |
 | `r start_station_count` | docking stations | used to start trips |
 | `r end_station_count` | docking stations | used to end trips |
@@ -87,8 +87,6 @@ end_station_count <- get_end_station_count(nyc_bikes_clean)
 From analysis of the dates and times provided, we have records ordered by the start time of the journey.
 
 ```{r}
-# head(nyc_bikes_df)
-# names(nyc_bikes_df)
 
 #start_times_df <- nyc_bikes_df %>%
 #  select(start_time) %>%
@@ -96,15 +94,10 @@ From analysis of the dates and times provided, we have records ordered by the st
 ##  summarise(mean_temp = mean(Temperature))
 ## summarise(hire_start_time_count = n())
 ```
-
+# Analysis
+## Bike Hire by Month
 
 ```{r}
-# plot hires over time
-# start_times_df %>%
-# filter(Holiday == FALSE) %>%
-#  ggplot() +
-#  geom_line(aes(x = start_time))
-
 # Convert to tsibble
 nyc_bikes_clean <- as_tsibble(nyc_bikes_clean)
 
@@ -112,7 +105,7 @@ nyc_bikes_clean <- as_tsibble(nyc_bikes_clean)
 month_hires_count <- get_month_hires_count(nyc_bikes_clean)
 
 month_nyc_bikes_plot <- month_hires_count %>%
-  ggplot(aes(x = month , y = hires_month_count)) +
+  ggplot(aes(x = month_name , y = hires_month_count)) +
   geom_point() +
   geom_line(group = 1) +
   #geom_text(aes(label = hires_month_count))+
@@ -123,8 +116,16 @@ month_nyc_bikes_plot <- month_hires_count %>%
     title = "Bike Hire by Month",
     subtitle = "Sample data from 2018"
   )
-#month_nyc_bikes_plot
+month_nyc_bikes_plot
 ```
+
+```{r}
+#nyc_bikes_clean %>% 
+#  ggplot(aes(start_time))+
+#  geom_histogram()
+```
+
+
 
 ```{r}
 #get_month_hires_count = function(df)
@@ -133,47 +134,27 @@ month_nyc_bikes_plot <- month_hires_count %>%
 #  # bike_count =
 #    count(bike_id, name = "hire_count", sort = TRUE)
 
-bike_hires <- get_bike_hires(nyc_bikes_clean)
-bike_hires
+#bike_hires <- get_bike_hires(nyc_bikes_clean)
+#bike_hires
+```
 
+## Bike Hire by Day of Month
 
+```{r}
+hires_day_of_month <- nyc_bikes_clean %>% 
+  select(start_time, month) %>% 
+  mutate(month_label = lubridate::month(month, label = TRUE, abbr = TRUE))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+hires_day_of_month %>% 
+  ggplot(aes(x = day(start_time)))+ 
+    geom_histogram(color = "white",
+                 binwidth = 1)+ 
+   facet_wrap(~month_label)+
+  theme_tufte ()+
+  labs(
+    x = "\nDay of Month",
+    y = "Number of Hires\n",
+    title = "Bike Hire by Day of Month",
+    subtitle = "Sample data from 2018"
+  )
 ```
