@@ -66,6 +66,22 @@ There may be some potential concerns that the location data could be used to
 track where a particular person is but the data is anonymised so that there is 
 nothing more specific that could be used to identify a particular individual. 
 
+## General
+
+```{r}
+trip_count <- get_trip_count(nyc_bikes_clean)
+bike_count <- get_bike_count(nyc_bikes_clean)
+start_station_count <- get_start_station_count(nyc_bikes_clean)
+end_station_count <- get_end_station_count(nyc_bikes_clean)
+```
+
+|Count  | Name |  Description  |
+| --------------: | ----- | ------------------ |
+| `r trip_count` | trips | journeys made by people using Citi Bike bikes |
+| `r bike_count` | bikes in Citi Bike fleet | different bikes hired for trips |
+| `r start_station_count` | docking stations | used to start trips |
+| `r end_station_count` | docking stations | used to end trips |
+
 ## Pattern of bike hires
 
 From analysis of the dates and times provided, we have records ordered by the start time of the journey.
@@ -92,13 +108,6 @@ From analysis of the dates and times provided, we have records ordered by the st
 # Convert to tsibble
 nyc_bikes_clean <- as_tsibble(nyc_bikes_clean)
 
-#get_month_hires_count = function(df)
-#  month_hires_count <- nyc_bikes_clean %>%
-#  # index_by(month = month(start_time, label = TRUE)) %>%
-#  #?index_by
-#  #index_by(month) %>%
-#  index_by(month = month(start_time, label = TRUE)) %>%
-#  summarise(hires_month_count = n())
 #View(month_hires_count)
 month_hires_count <- get_month_hires_count(nyc_bikes_clean)
 
@@ -114,5 +123,57 @@ month_nyc_bikes_plot <- month_hires_count %>%
     title = "Bike Hire by Month",
     subtitle = "Sample data from 2018"
   )
-month_nyc_bikes_plot
+#month_nyc_bikes_plot
+```
+
+```{r}
+#get_month_hires_count = function(df)
+#  hires_per_bike <- df %>%
+#  # ?count
+#  # bike_count =
+#    count(bike_id, name = "hire_count", sort = TRUE)
+
+bike_hires <- get_bike_hires(nyc_bikes_clean)
+bike_hires
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
