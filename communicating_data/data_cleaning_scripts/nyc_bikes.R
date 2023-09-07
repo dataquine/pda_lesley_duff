@@ -5,8 +5,8 @@ library(tsibbledata)
 # Load data set ----
 # ?nyc_bikes comes from the tsibbledata package
 nyc_bikes_df <- nyc_bikes
-# View(nyc_bikes_df)
-class(nyc_bikes_df)
+#View(nyc_bikes_df)
+#class(nyc_bikes_df)
 
 #names(nyc_bikes_df)
 # "bike_id"       "start_time"    "stop_time"     "start_station" "start_lat"
@@ -19,10 +19,11 @@ nyc_bikes_minimum <- nyc_bikes_df %>%
   
   # add an age column for convenience in plots
   mutate(age = 2018 - birth_year,
-        # month = month(start_time)
          month = month(start_time, label = TRUE)
          ) %>%
-  select(bike_id, start_time, age, month) # Select only columns needed for analysis
+  # Select only columns needed for analysis
+  select(bike_id, start_time, age, month, 
+         start_station, end_station) 
 
 rm(nyc_bikes_df)
 
