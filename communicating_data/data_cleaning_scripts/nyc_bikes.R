@@ -45,7 +45,7 @@ rm(nyc_bikes_minimum)
 
 # write clean data to csv
 write_csv(nyc_bikes_clean_age, "clean_data/nyc_bikes_clean.csv")
-class(nyc_bikes_clean_age)
+
 rm(nyc_bikes_clean_age)
 
 
