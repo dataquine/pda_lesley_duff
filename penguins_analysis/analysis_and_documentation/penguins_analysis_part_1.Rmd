@@ -10,6 +10,7 @@ output:
 # Penguins analysis part 1
 ```{r}
 library(e1071)
+library(infer)
 library(tidyverse)
 
 penguins <- read_csv("../clean_data/penguins.csv")
@@ -60,6 +61,7 @@ mean_penguins %>%
 ```
 
 ```{r}
+# 4.1 Exploratory data analysis and targeted data analysis (hypothesis testing)
 penguins %>%
   ggplot() +
   geom_histogram(
@@ -98,6 +100,7 @@ Calculate the following summary statistics to describe bill length for each spec
 
 ### Bill length summary statistics
 ```{r}
+# 4.4 Summary statistics including measures of centrality, spread and skewness
 penguin_summary_stats <- penguins %>%
   group_by(species) %>%
   summarise(
@@ -119,3 +122,57 @@ highest standard deviation, observations are more spread out
 
 
 ## 3. Hypothesis test & probability
+
+Perform a suitable hypothesis test to check whether the mean bill length of Gentoo is significantly longer than the mean bill length of Adelie.
+
+Mean bill length Gentoo = 47.50488
+
+Mean bill length Adelie = 38.79139	
+
+
+$H_0$: $\mu_{\textrm{bill_length_mm}}(Gentoo)$−$\mu_{\textrm{bill_length_mm}}(Adelie)$=0
+
+$H_a$: $\mu_{\textrm{bill_length_mm}}(Gentoo)$−$\mu_{\textrm{bill_length_mm}}(Adelie)$>0
+
+$\alpha = 0.05$
+
+```{r}
+# 4.1 Exploratory data analysis and targeted data analysis (hypothesis testing)
+# 4.3 Probability and probability distributions
+
+observed_stat <- penguins %>%
+  filter(species %in% c("Gentoo", "Adelie")) %>%
+  specify(bill_length_mm ~ species) %>%
+  calculate(stat = "diff in means", order = c("Gentoo", "Adelie"))
+
+observed_stat
+
+null_distribution <- penguins %>%
+filter(species %in% c("Gentoo", "Adelie")) %>%
+  specify(bill_length_mm ~ species) %>%
+  hypothesize(null = "independence") %>%
+  generate(reps = 10000, type = "permute") %>%
+  calculate(stat = "diff in means", order = c("Gentoo", "Adelie"))
+
+null_distribution %>%
+  visualise(bins = 30)+
+  shade_p_value(obs_stat = observed_stat$stat, 
+                direction = "right")
+```
+
+How likely is it to see a result as extreme as your observed result, if the null hypothesis is true?
+
+```{r}
+p_value <- null_distribution %>%
+  get_p_value(obs_stat = observed_stat$stat, 
+              direction = "right")
+p_value
+```
+p <  $\alpha$
+
+p of 0 observed difference is unlikely to be due to chance.
+
+We reject $H_0$ as the p value is less than $\alpha$
+ 
+There is strong evidence to conclude that the mean bill length of Gentoo is significantly longer than the mean bill length of Adelie. These are independent
+samples.
