@@ -1,0 +1,90 @@
+---
+title: "Penguins analysis part 1"
+subtitle: "Statistics & Hypothesis testing - PDA"
+author: "Lesley Duff"
+date: "`r format(Sys.Date())`"
+output:
+  html_document:
+    df_print: paged
+---
+# Penguins analysis part 1
+```{r}
+library(tidyverse)
+
+penguins <- read_csv("../clean_data/penguins.csv")
+```
+We are interested in how bill length differ between the three species of penguin
+(Adelie, Chinstrap & Gentoo) in this dataset.
+
+## 1. Exploratory analysis
+
+```{r}
+# How many of each species?
+penguins %>%
+  ggplot() +
+  geom_bar(aes(x = species),
+    fill = "steelblue",
+    colour = "white",
+    stat = "count"
+  ) +
+  theme_minimal() +
+  labs(
+    x = "\nPenguin species",
+    y = "Count\n",
+    title = "Penguin count by species",
+    fill = "Species"
+  )
+```
+
+```{r}
+# Calculate mean bill length by species
+mean_penguins <- penguins %>%
+  select(species, bill_length_mm) %>%
+  group_by(species) %>%
+  summarise(mean_bill_length_mm = mean(bill_length_mm)) %>%
+  arrange(desc(mean_bill_length_mm))
+
+mean_penguins %>%
+  ggplot() +
+  geom_col(aes(x = species, y = mean_bill_length_mm),
+    fill = "steelblue",
+    colour = "white"
+  ) +  
+  theme_minimal() +
+  labs(
+    x = "\nPenguin species",
+    y = "Mean bill length (mm)\n",
+    title = "Mean penguin bill length by species"
+  )
+```
+
+```{r}
+penguins %>%
+  ggplot() +
+  geom_histogram(
+    aes(
+      x = bill_length_mm,
+      fill = species
+    ),
+    col = "white",
+    fill = "steelblue",
+    binwidth = 1
+  ) +
+  facet_wrap(~species, ncol = 3) +
+  theme_minimal() +
+  labs(
+    x = "\nPenguin bill length (mm)",
+    y = "Count\n",
+    title = "Penguin bill length by species"
+  )
+
+mean_penguins
+```
+
+### Summary
+* There are more Adelie penguins than any other species, they have the shortest mean bill length. 
+* There are fewest of Chinstrap penguins these have the longest mean bill length.
+
+## 2. Summary statistics
+
+## 3. Hypothesis test & probability
