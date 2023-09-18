@@ -1,0 +1,9 @@
+---
+title: "Penguins analysis part 1"
+subtitle: "Statistics & Hypothesis testing"
+author: "Lesley Duff"
+date: "`r format(Sys.Date())`"
+output:
+  html_document:
+    df_print: paged
+---
