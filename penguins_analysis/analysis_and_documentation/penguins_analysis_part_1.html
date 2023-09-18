@@ -1631,7 +1631,8 @@ display: none;
 
 <div id="penguins-analysis-part-1" class="section level1">
 <h1>Penguins analysis part 1</h1>
-<pre class="r"><code>library(tidyverse)</code></pre>
+<pre class="r"><code>library(e1071)
+library(tidyverse)</code></pre>
 <pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ## ✔ dplyr     1.1.2     ✔ readr     2.1.4
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.0
@@ -1683,7 +1684,7 @@ mean_penguins %&gt;%
   geom_col(aes(x = species, y = mean_bill_length_mm),
     fill = &quot;steelblue&quot;,
     colour = &quot;white&quot;
-  ) +  
+  ) +
   theme_minimal() +
   labs(
     x = &quot;\nPenguin species&quot;,
@@ -1723,11 +1724,45 @@ mean_penguins %&gt;%
 shortest mean bill length.</li>
 <li>There are fewest of Chinstrap penguins these have the longest mean
 bill length.</li>
+<li>Chinstrap and Gentoo appear to have a bimodal distribution</li>
 </ul>
 </div>
 </div>
 <div id="summary-statistics" class="section level2">
 <h2>2. Summary statistics</h2>
+<p>Calculate the following summary statistics to describe bill length
+for each species:</p>
+<ul>
+<li>measures of centrality (mean &amp; median)</li>
+<li>spread (standard deviation)</li>
+<li>skewness</li>
+</ul>
+<div id="bill-length-summary-statistics" class="section level3">
+<h3>Bill length summary statistics</h3>
+<pre class="r"><code>penguin_summary_stats &lt;- penguins %&gt;%
+  group_by(species) %&gt;%
+  summarise(
+    count = n(),
+    range = max(bill_length_mm) - min(bill_length_mm),
+    mean = mean(bill_length_mm),
+    median = median(bill_length_mm),
+    sd = sd(bill_length_mm),
+    skewness = skewness(bill_length_mm, type = 1)
+  )
+penguin_summary_stats</code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["species"],"name":[1],"type":["chr"],"align":["left"]},{"label":["count"],"name":[2],"type":["int"],"align":["right"]},{"label":["range"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["mean"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["median"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["sd"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["skewness"],"name":[7],"type":["dbl"],"align":["right"]}],"data":[{"1":"Adelie","2":"151","3":"13.9","4":"38.79139","5":"38.80","6":"2.663405","7":"0.16006382"},{"1":"Chinstrap","2":"68","3":"17.1","4":"48.83382","5":"49.55","6":"3.339256","7":"-0.08856427"},{"1":"Gentoo","2":"123","3":"18.7","4":"47.50488","5":"47.30","6":"3.081857","7":"0.64316334"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<ul>
+<li>Adelie = fairly symmetrical, slight right skew</li>
+<li>Chinstrap = fairly symmetrical, with slight left skew, highest
+standard deviation, observations are more spread out<br />
+</li>
+<li>Gentoo = moderately right skewed</li>
+</ul>
+</div>
 </div>
 <div id="hypothesis-test-probability" class="section level2">
 <h2>3. Hypothesis test &amp; probability</h2>

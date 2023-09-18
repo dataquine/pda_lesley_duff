@@ -9,6 +9,7 @@ output:
 ---
 # Penguins analysis part 1
 ```{r}
+library(e1071)
 library(tidyverse)
 
 penguins <- read_csv("../clean_data/penguins.csv")
@@ -49,7 +50,7 @@ mean_penguins %>%
   geom_col(aes(x = species, y = mean_bill_length_mm),
     fill = "steelblue",
     colour = "white"
-  ) +  
+  ) +
   theme_minimal() +
   labs(
     x = "\nPenguin species",
@@ -84,7 +85,37 @@ mean_penguins
 ### Summary
 * There are more Adelie penguins than any other species, they have the shortest mean bill length. 
 * There are fewest of Chinstrap penguins these have the longest mean bill length.
+* Chinstrap and Gentoo appear to have a bimodal distribution
 
 ## 2. Summary statistics
+
+Calculate the following summary statistics to describe bill length for each species:
+
+* measures of centrality (mean & median)
+* spread (standard deviation)
+* skewness
+
+
+### Bill length summary statistics
+```{r}
+penguin_summary_stats <- penguins %>%
+  group_by(species) %>%
+  summarise(
+    count = n(),
+    range = max(bill_length_mm) - min(bill_length_mm),
+    mean = mean(bill_length_mm),
+    median = median(bill_length_mm),
+    sd = sd(bill_length_mm),
+    skewness = skewness(bill_length_mm, type = 1)
+  )
+penguin_summary_stats
+```
+
+
+* Adelie = fairly symmetrical, slight right skew
+* Chinstrap = fairly symmetrical, with slight left skew,
+highest standard deviation, observations are more spread out	
+* Gentoo = moderately right skewed
+
 
 ## 3. Hypothesis test & probability
