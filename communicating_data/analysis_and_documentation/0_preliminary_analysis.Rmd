@@ -4,8 +4,10 @@ output:
   html_document:
     df_print: paged
 ---
-# Preliminary Analysis
-This is a temporary area for examining the CitiBike dataset.
+# CitiBike Preliminary Analysis
+This is a temporary area for examining the CitiBike dataset in terms of quality and range of data available.
+
+This information is used to create the data cleaning script.
 
 ```{r}
 library(tidyverse)
@@ -65,6 +67,17 @@ nyc_bikes_raw %>%
 
 ```
 
+## User Types
+```{r}
+#‘Customer’ purchased a short-term 24-hour or 3-day pass
+#‘Subscriber’ is a long-term Annual Member
+
+nyc_bikes_raw %>% 
+    count(type, sort = TRUE)
+
+# Vast majority 3953 are already subscribers - good!
+# Only 315 are using the short term options - opportunties to grow 'casual' use?
+```
 
 
 ## Demographics
@@ -96,4 +109,29 @@ nyc_bikes_raw %>%
 
 ```
 
+## Journeys
+
+```{r}
+# We have start and end times. How long was the hire in duration?
+nyc_bikes_hire_duration <- nyc_bikes_raw %>% 
+  mutate(hire_duration =  as.duration(stop_time - start_time),
+         hire_duration_minutes = round(as.numeric(hire_duration, "minutes")),
+         .after = stop_time)
+   # mutate(time_duration  = as.duration(today() - date_added))
+
+##View(nyc_bikes_trip_duration)
+nyc_bikes_trip_duration %>% 
+  ggplot(aes(trip_duration_minutes)) +
+  geom_histogram()
+
+## Some entries over multiple days
+
+nyc_bikes_trip_duration %>% 
+  filter(trip_duration_minutes < 24 * 60) %>% 
+  ggplot(aes(trip_duration_minutes)) +
+  geom_histogram(binwidth = 10)
+# Vast majority of hires < 200 minutes in total
+
+
+```
 
