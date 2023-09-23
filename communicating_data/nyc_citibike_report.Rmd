@@ -21,12 +21,11 @@ any station. Citi Bike is available for use 24 hours/day, 7 days/week,
 The data provided to us is a small sample of NYC Citi Bike usage of 10 bikes 
 throughout 2018.
 
-Data Source:
-* [NYC Citi Bike trips](https://rdrr.io/github/tidyverts/tsibbledata/man/nyc_bikes.html)
+**Data Source:**
 
+* [NYC Citi Bike trips](https://rdrr.io/github/tidyverts/tsibbledata/man/nyc_bikes.html) dataset from tsibbledata used in this analysis
+* [Citi Bike NYC](https://www.citibikenyc.com/system-data) Original Source
 
-For example: *NYC Citi Bikes is a company that...* or *The bike hire industry is...*
-  
 ## Business requirements (1.2)
 
 Citi Bike would like to know more about the following:
@@ -45,7 +44,7 @@ specific ones throughout the day.
 For demographics we will look at information relating to the person making the 
 hire and whether any particular categories dominate more than others.
 
-#### Business processes and data flow (1.3)
+## Business processes and data flow (1.3)
 
 Create a diagram that shows how the Citi Bike dataset is created (which variables are added when) and demonstrates an understanding of the business process and flow of the data.
 
@@ -54,7 +53,7 @@ For example:
 ![This diagram was created using draw.io at https://app.diagrams.net](dataflow_example.png)
 
 
-#### Data visualisation as a tool for decision-making (1.4)
+## Data visualisation as a tool for decision-making (1.4)
 
 Briefly describe how this report can help NYC Citi Bikes make better data-driven business decisions.
 
@@ -65,29 +64,101 @@ promotional campaigns. Demographics insights could identify potential groups to
 be targeted by marketing activity or drive further separate research into which 
 groups drive more hires versus reasons why other don't/can't use it.
 
-#### Data types (1.5)
+## Data types (1.5)
 
-List the different types of variables contained in the dataset and explain each of them to a non-technical audience. (e.g. integer, character, datetime)
+List the different types of variables contained in the dataset and explain each 
+of them to a non-technical audience. (e.g. integer, character, datetime)
 
-#### Data quality and data bias (1.6)
+
+Inside the original dataset we have the following information available
+
+### Factors
+* `bike_id`: Which bike used during the hire
+
+* `start_station`,`end_station`: Which particular starting station
+the bike began it's trip and which destination station it ended up at the end of the journey.
+* `type`: 
+User type.  
+**'Customer'** purchased a short-term 24-hour or 3-day pass  
+**'Subscriber'** is a long-term Annual Member
+
+### Date and time (S3: POSIXct)
+`start_time`,`stop_time`: What date and time the bike trip started/ended a trip 
+as part of a hire.
+
+### Location (double)
+We have the latitude and longitude as numbers telling us the exactly where the 
+bike stations used during a hire are located.
+`start_lat`,`end_lat`: Latitude of starting/ending station
+`start_long`,`end_long`: Longitude of starting/ending station
+
+### User-supplied information
+* `birth_year`: (double) The bike rider’s year of birth.
+* `gender`: (factor) User can optionally declare their gender (Male/Female/Unknown)
+
+## Data quality and data bias (1.6)
 
 Do you have any concerns about bias or quality in the dataset? Why/why not?
 
+### Quality
+The data supplied as part of the sample appears to be of high quality, no 
+missing records were detected. There appears to be some parts directly supplied 
+by the user such as Gender/Year of birth. The preliminary analysis revealed over
+that for over 6% of trips the gender of the user was unknown. A couple of 
+entries gave year of birth of the person hiring the bike as being in the 1880s. 
+
+
+### Bias
+The dataset has been provided by the CitiBike company obtained from 
+their systems. The data we have is a sample of a larger dataset. We have no way 
+of independently verifying whether the information gathered by CitiBike about 
+hires is accurate e.g. are the date/time stamps correct?
+
+We have been provided with no initial information about about how this smaller 
+sample was generated e.g. whether truly random over the full data or whether the
+sample is from a specific subcategory of e.g. stations/bikes/users.
+
+Possible undercoverage bias? The sample is only for 4268 trips over the course 
+of 2018 for just 10 different bikes and only around 50 stations. We can only make observations for that particular year without examining whether there are 
+year-to-year trends.
+
+The only information we have is for where bikes have actually been hired, there 
+is no data examining reasons for non-hiring, this might be a separate area for 
+research work?
+
+Response bias: As indicated in the data quality there are some questionable 
+entries in birth year information comes from the user so might have been an 
+error on their part mistyping or choosing the wrong year, developers/designers 
+should check whether the user interface provided to customers is affecting 
+accuracy of data or whether users are deliberately choosing to give a false year. However these are few in number.
+
 # 2. Data cleaning
 
-#### Preparing data for visualisation (1.7)
+## Preparing data for visualisation (1.7)
 
 Please include your cleaning/wrangling steps under this section.
 
+`0_preliminary_analysis.Rmd` was used for examining the initial quality of the data
+
+Cleaning:
+
+* decided to exclude the small number of mrecords with a birth_year > 100 years from the year of the sample.
+
+For convenience and visualisation purposes we created the following new variables
+
+`rider_age`, (integer), The customer expicity requested age to be examined so we calculate age to the nearest year during a hire. 
+
+
+
 # 3. Data visualisation
 
-#### Process and design (2.1, 2.7, 2.8, 2.9)
+## Process and design (2.1, 2.7, 2.8, 2.9)
 
 Briefly describe your data visualisation process.
 
 For example: *First, I investigated variables of interest with simple single-variable distribution plots. Then I plotted variables of interest to the business against each other to see if any patterns were present in the data. After selecting key visualisations I ensured these were clearly portraying the message I wanted to convey, were aesthetically pleasing, as well as accurate and not misleading. All visualisations were made in RStudio using the `ggplot` package.*
 
-#### Visualisations (2.2, 2.3, 2.4, 2.5, 2.6)
+## Visualisations (2.2, 2.3, 2.4, 2.5, 2.6)
 
 For each plot you include in your report, please:
 
