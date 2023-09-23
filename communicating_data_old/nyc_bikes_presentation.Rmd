@@ -82,9 +82,11 @@ end_station_count <- get_end_station_count(nyc_bikes_clean)
 | `r start_station_count` | docking stations | used to start trips |
 | `r end_station_count` | docking stations | used to end trips |
 
-# Pattern of bike hires
+The population of New York City in 2018 was 
 
-Here we take a look at usage over time.
+# Time
+
+Here we take a look at hires over time.
 
 ```{r}
 # start_times_df <- nyc_bikes_df %>%
@@ -93,7 +95,7 @@ Here we take a look at usage over time.
 ##  summarise(mean_temp = mean(Temperature))
 ## summarise(hire_start_time_count = n())
 ```
-## Bike Hire by Month
+## Month
 
 This graph shows how many bike hires there were for each month of 2018.
 
@@ -137,7 +139,7 @@ month_nyc_bikes_plot
 # bike_hires
 ```
 
-## Bike Hire by Day of Month
+## Day of Month
 
 Here were are comparing how the pattern of usage changes during each month.
 
@@ -150,6 +152,7 @@ hires_day_of_month %>%
   ggplot(aes(x = day(start_time))) +
   geom_histogram(
     color = "white",
+    fill = "steelblue",
     binwidth = 1
   ) + # ?facet_wrap
   facet_wrap(~month_label,
@@ -164,9 +167,53 @@ hires_day_of_month %>%
   )
 ```
 
-* There's a gap showing next to no usage in the middle of January. This should 
-be investigated to see if there are external reasons such as poor weather affecting results.
+There's a gap showing next to no hires for more than a week in the middle of January. This should be examined further to see if other factors such as poor weather might be affecting hires. 
 
-## Bike Hire by Day of Weeks
+August shows
 
-Here were are comparing how the pattern of usage changes during each month.
+## Day of Week
+
+Are there any patterns to whether there are particular days of the week that are more popular? How does usage change at weekends?
+
+```{r}
+weekend_daynames <- c("Sat", "Sun")
+
+hires_day_of_week <- nyc_bikes_clean %>%
+  select(start_time) %>%
+  mutate(day_of_week = lubridate::wday(start_time, label = TRUE, abbr = TRUE))
+
+hires_day_of_week %>% 
+  ggplot(aes(x = day_of_week, 
+             fill = day_of_week %in% weekend_daynames)
+         )+
+  geom_bar(alpha = 0.7)+
+  scale_fill_colorblind("Type of Day",
+                      labels=c("Weekday", "Weekend"))+
+  theme_minimal()+
+  labs(
+    x = "\nDay of Week",
+    y = "Number of Hires\n",
+    title = "Bike Hire by Day of Week",
+    subtitle = "Sample data from 2018",
+    fill = "",
+  )
+```
+
+* Tuesday is the day of the week with the highest hires.
+* Sunday is the day of the week with the lowest hires
+
+* Weekdays have higher levels of usage than weekends.
+* Weekend usage isn't substantially lower than weekdays. 
+
+_Citi Bike_ might like to whether customers using the 
+bikes on weekdays are largely the same people. 
+Do different people use bike sharing at weekends? Are there differences between 'commuter' patterns and those for leisure.
+
+# Recommendations
+
+* We have not been given any information relating to any promotional or 
+marketing activities. Particularly with our time-based
+
+
+
+
