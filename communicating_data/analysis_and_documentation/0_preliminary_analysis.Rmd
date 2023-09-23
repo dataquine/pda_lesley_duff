@@ -1,0 +1,99 @@
+---
+title: "Preliminary Analysis"
+output:
+  html_document:
+    df_print: paged
+---
+# Preliminary Analysis
+This is a temporary area for examining the CitiBike dataset.
+
+```{r}
+library(tidyverse)
+library(tsibbledata)
+
+nyc_bikes_raw <- nyc_bikes
+
+#?nyc_bikes
+#View(nyc_bikes_raw)
+
+# Time series of class tsibble for start_time/stop_time
+
+#str(nyc_bikes_raw)
+# gives "interval")=Error in `format()`:
+
+# 4268 row of 12 variables
+
+```
+* start_time: The time and date when the trip was started.
+* stop_time: The time and date when the trip was ended.
+* start_station: A unique identifier for the starting bike station.
+* start_lat: The latitude of the starting bike station.
+* start_long: The longitude of the starting bike station.
+* end_station: A unique identifier for the destination bike station.
+* end_lat: The latitutde of the destination bike station.
+* end_long: The longitude of the destination bike station.
+* type: The type of trip. A "Customer" has purchased either a 24-hour or 3-day pass, and a "Subscriber" has purchased
+birth_year The bike rider’s year of birth.
+*gender: The gender of the bike rider.
+
+```{r}
+# explore variables
+head(nyc_bikes_raw)
+#?POSIXct
+
+glimpse(nyc_bikes_raw)
+
+# check for NAs
+skimr::skim(nyc_bikes_raw)
+```
+
+## Bikes
+```{r}
+nyc_bikes_raw %>% 
+  count(bike_id, sort = TRUE)
+
+```
+There are 10 different bikes in this sample.
+
+## Bike stations
+```{r}
+nyc_bikes_raw %>% 
+  count(start_station, sort = TRUE)
+
+nyc_bikes_raw %>% 
+  count(end_station, sort = TRUE)
+
+```
+
+
+
+## Demographics
+
+```{r}
+nyc_bikes_raw %>% 
+  count(gender, sort = TRUE)
+# Male/Female/Unknown
+
+# Percent unknown?
+269/4268 * 100
+
+# Spread of ages
+nyc_bikes_raw %>% 
+  count(birth_year, sort = FALSE)
+
+nyc_bikes_raw %>% 
+  distinct(birth_year)
+
+# There are a couple of birth_years in 1880s. Take a look at records < 1900
+nyc_bikes_pre_1900 <- nyc_bikes_raw %>%
+  filter (birth_year < 1900)
+nyc_bikes_pre_1900
+# Only two trips, possible user error choosing year? Likely to be 1980s?
+
+nyc_bikes_raw %>% 
+  ggplot(aes(birth_year)) +
+    geom_histogram()
+
+```
+
+
