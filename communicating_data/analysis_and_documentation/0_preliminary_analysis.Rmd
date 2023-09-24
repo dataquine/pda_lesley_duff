@@ -131,6 +131,10 @@ nyc_bikes_raw %>%
   count(birth_year, sort = FALSE)
 
 nyc_bikes_raw %>%
+ggplot(aes(birth_year))+
+  geom_histogram()
+
+nyc_bikes_raw %>%
   distinct(birth_year)
 
 # There are a couple of birth_years in 1880s. Take a look at records < 1900
