@@ -11,25 +11,51 @@ author: "Lesley Duff"
 editor_options: 
   chunk_output_type: inline
 ---
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
+```{r}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
+```
+
+```{}
+#knitr::opts_chunk$set(echo = FALSE, fig.align = "center")
 ```
 # Introduction
 
 [*Citi Bike*](https://ride.citibikenyc.com/about) is the largest [bike share system](https://en.wikipedia.org/wiki/Bicycle-sharing_system) in the USA and 
-consists of a fleet of bikes available to users at docking stations throughout 
-New York City. Bikes can be returned to any other station. Citi Bike is 
-available for use 24 hours/day, 7 days/week, 365 days/year.
+consists of a fleet of bikes available to hire by users at docking stations 
+throughout New York City. Bikes can be returned to any other station. Citi Bike 
+is available for use 24 hours/day, 7 days/week, 365 days/year.
 
 Citi Bike would like to know more about the following:
 
-* What is the pattern of bike hires over time (e.g. within a year, month, week, or day)?
-* Do bike hire patterns differ between bike rider demographics? (e.g. gender, type of trip, age)
-* Any other insights?
+* What is the pattern of bike hires over time?
+* Do hire patterns differ by rider demographics such as age/gender/type of user
+* Hires by geographical spread
+* Other insights?
 
-The data provided to us is a small sample about bike hires. This is what we are using to do some analysis.
+The data provided to us is a small sample about bike hires. This is what we are 
+using to do some analysis.
 
-```{r include=FALSE}
+## Ethics
+
+
+
+### Human Rights
+#### Privacy
+Bike hire data relates to the actions of people using the bikes which are hired 
+when a user starts a journey using one from a docking station.
+
+The data relating to people includes information about the gender of the person 
+and the year of their birth. Also whether they have purchased either a 24-hour 
+or 3-day pass, or a "Subscriber" who has purchased an annual subscription.
+
+The start location indicating which station the user started the journey and 
+where they were and which station at the end. 
+
+There may be some potential concerns that the location data could be used to 
+track where a particular person is but the data is anonymised so that there is 
+nothing more specific that could be used to identify a particular individual. 
+
+```{r}
 library(ggthemes) # Contains colourblind palette
 library(scales)
 library(tsibble) # time series tibble for the tidyverse
@@ -48,23 +74,7 @@ source("R/nyc_bikes_helpers.R")
 # Use cleaned version
 nyc_bikes_clean <- read_csv("clean_data/nyc_bikes_clean.csv")
 ```
-## Ethics
 
-### Human Rights
-#### Privacy
-Bike hire data relates to the actions of people using the bikes which are hired 
-when a user starts a journey using one from a docking station.
-
-The data relating to people includes information about the gender of the person 
-and the year of their birth. Also whether they have purchased either a 24-hour 
-or 3-day pass, or a "Subscriber" who has purchased an annual subscription.
-
-The start location indicating which station the user started the journey and 
-where they were and which station at the end. 
-
-There may be some potential concerns that the location data could be used to 
-track where a particular person is but the data is anonymised so that there is 
-nothing more specific that could be used to identify a particular individual. 
 
 ## General
 
