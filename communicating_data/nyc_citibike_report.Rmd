@@ -86,13 +86,17 @@ type of trip, age)
 * What is the geographical spread of the start points of bike hires?
 * Any other insights?
 
-## Business processes and data flow (1.3)
+## Business processes and data flow
+<!-- (1.3) -->
 
-Create a diagram that shows how the Citi Bike dataset is created (which variables are added when) and demonstrates an understanding of the business process and flow of the data.
+![This diagram was created using draw.io at https://app.diagrams.net](analysis_and_documentation/citibike_flow_diagram.drawio.png)
 
-For example: 
+* First time user creates account using website or app. They add their payment details and buy a short pass or a long term membership. Customer charged.
+* User undocks bike by scanning QR code
+* User goes on bike trip
+* User docks bike
+* CitiBike checks the duration of the hire and charges any payment due in excess of user type allowances
 
-![This diagram was created using draw.io at https://app.diagrams.net](dataflow_example.png)
 
 ## Data visualisation as a tool for decision-making
 <!-- (1.4)
@@ -101,8 +105,7 @@ Briefly describe how this report can help NYC Citi Bikes make better data-driven
 -->
 By looking at a sample across a full calendar year it may give understanding of 
 customer behaviour affecting hires to be aware of and to resource availability 
-accordingly. Time based data could be incorporated into the scheduling of any 
-promotional campaigns. 
+accordingly. Date and time-related data could be incorporated into the scheduling of any promotional campaigns. 
 
 Demographics insights could identify potential groups to 
 be targeted by marketing activity or drive further separate research into which 
@@ -149,52 +152,36 @@ The data supplied as part of the sample appears to be of high quality, no
 missing records were detected. There appears to be some parts directly supplied 
 by the user such as Gender/Year of birth. The preliminary analysis revealed over
 that for over 6% of trips the gender of the user was unknown. A couple of 
-entries gave year of birth of the person hiring the bike as being in the 1880s. 
-
+entries gave year of birth of the person hiring the bike as being in the 1880s.
 
 ### Bias
 The dataset has been provided by the CitiBike company obtained from 
 their systems. The data we have is a sample of a larger dataset. We have no way 
-of independently verifying whether the information gathered by CitiBike about 
-hires is accurate e.g. are the date/time stamps correct?
+of independently verifying whether the technical information gathered by 
+CitiBike about hires is accurate e.g. are the date/time stamps correct?
+
+CitiBike bikes hire process involves users using their mobile phones to 'unlock'
+bikes. CitiBike will be unable to determine from this dataset whether there are 
+people who would like to use the service but do not have a mobile phone or can't
+use the apps involved. Similarly the information we have is for only where bikes 
+have actually been hired successfully, there is no information on failed 
+attempts e.g. technical faults or not enough bikes available etc. these would 
+require futher separate research.
 
 We have been provided with no initial information about about how this smaller 
 sample was generated e.g. whether truly random over the full data or whether the
-sample is from a specific subcategory of e.g. stations/bikes/users.
+sample is from a specific subcategory of e.g. stations/bikes/users or other data 
+CitiBike holds but not made public. We are unable to claim how well this sample 
+represents the full dataset to which we don not have access.
 
 Possible undercoverage bias? The sample is only for 4268 trips over the course 
-of 2018 for just 10 different bikes and only around 50 stations. We can only make observations for that particular year without examining whether there are 
+of 2018 for just 10 different bikes and only around 50 stations. We can only 
+make observations for that particular year without examining whether there are 
 year-to-year trends.
 
-The only information we have is for where bikes have actually been hired, there 
-is no data examining reasons for non-hiring, this might be a separate area for 
-research work?
-
-Response bias: As indicated in the data quality there are some questionable 
-entries in birth year information comes from the user so might have been an 
-error on their part mistyping or choosing the wrong year, developers/designers 
-should check whether the user interface provided to customers is affecting 
-accuracy of data or whether users are deliberately choosing to give a false year. However these are few in number.
-
-### Ethics
-#### Consent
-
-User data obtained from users creating account accepting terms and conditions. 
-Trip data recorded automatically via electronics on bikes and docking stations. 
-CitiBike provides a small sample public dataset of usage of 10 bikes throughout 
-2018.
-
-### Human Rights: Privacy
-
-Information about people and places. Anonymised data stored in the sample 
-dataset. There is no public data to uniquely identify the demographics or track 
-the behaviour of a particular person.
-
-User data: year of birth is stored and not birth date, gender is optional.
-
-Location: latitude and longitude of the start and end of the journey. This is 
-the locations of the docking bike station only, not the location of a person. 
-No live tracking of bikes during trip.
+Response bias: There are some questionable entries in birth year information 
+comes from the user so might have been an error on their part mistyping or 
+deliberately choosing the wrong year.
 
 # 2. Data cleaning
 
@@ -588,11 +575,14 @@ for relatively short journeys outweighing any time spent walking to find a bike.
 * There are different patterns of usage across a calendar year. Much less usage 
 in winter. Suggest further research to see if people feel too unsafe to use 
 the service in poor weather. Capitalise on "fair weather" users by offering 
-cheaper and easier options for "day trips".
+cheaper and easier options for impromptu "day trips".
 * Overwhelming majority of users are subscribers with yearly membership 
-suggesting satisfaction with the service CitiBike offers. Use this confidence 
-to tempt potential new users with better financial incentives to try a short 
-pass first - discounts on full membership for new customers trying a short pass.
+suggesting satisfaction with the service CitiBike offers. Use this vote of 
+confidence to tempt potential new users using incentives to try 
+a short pass first - discounts on full membership for new customers.
 * Males use CitiBike far more than females. Quick win could be to attempt to 
 grow female usage through trying targeted marketing campaigns and working with 
 female groups in New York City.
+* Developers/designers should check whether the user interface provided could be 
+adjusted to make birth_year optional to see if it improves quality of age data 
+reducing those deliberately choosing to give a false year.
