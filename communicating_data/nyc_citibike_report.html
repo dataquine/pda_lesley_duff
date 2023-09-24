@@ -5583,6 +5583,10 @@ not the location of a person. No live tracking of bikes during trip.</p>
 hires?</li>
 <li>Any other insights?</li>
 </ul>
+<p>The main Key Performance Indicatior (KPI) that CitiBike could use to
+measure success is ‘Hires’. We will visualise hires against time,
+against demographics and show a map where the largest number of hires is
+displayed.</p>
 </div>
 <div id="business-processes-and-data-flow" class="section level2">
 <h2>Business processes and data flow</h2>
@@ -5613,64 +5617,22 @@ understanding of customer behaviour affecting hires to be aware of and
 to resource availability accordingly. Date and time-related data could
 be incorporated into the scheduling of any promotional campaigns.</p>
 <p>Demographics insights could identify potential groups to be targeted
-by marketing activity or drive further separate research into which
-groups drive more hires versus reasons why other don’t/can’t use it.</p>
+by marketing activity or drive further separate research into
+underrepresented sections of the New York City population.</p>
 </div>
-<div id="data-types-1.5" class="section level2">
-<h2>Data types (1.5)</h2>
-<p>List the different types of variables contained in the dataset and
-explain each of them to a non-technical audience. (e.g. integer,
-character, datetime)</p>
-<p>Inside the original dataset we have the following information
-available</p>
-<div id="factors" class="section level3">
-<h3>Factors</h3>
-<ul>
-<li><p><code>bike_id</code>: Which bike used during the hire</p></li>
-<li><p><code>start_station</code>,<code>end_station</code>: Which
-particular starting station the bike began it’s trip and which
-destination station it ended up at the end of the journey.</p></li>
-<li><p><code>type</code>: User type.<br />
-<strong>‘Customer’</strong> purchased a short-term 24-hour or 3-day
-pass<br />
-<strong>‘Subscriber’</strong> is a long-term Annual Member</p></li>
-</ul>
-</div>
-<div id="date-and-time-s3-posixct" class="section level3">
-<h3>Date and time (S3: POSIXct)</h3>
-<p><code>start_time</code>,<code>stop_time</code>: What date and time
-the bike trip started/ended a trip as part of a hire.</p>
-</div>
-<div id="location-double" class="section level3">
-<h3>Location (double)</h3>
-<p>We have the latitude and longitude as numbers telling us the exactly
-where the bike stations used during a hire are located.
-<code>start_lat</code>,<code>end_lat</code>: Latitude of starting/ending
-station <code>start_long</code>,<code>end_long</code>: Longitude of
-starting/ending station</p>
-</div>
-<div id="user-supplied-information" class="section level3">
-<h3>User-supplied information</h3>
-<ul>
-<li><code>birth_year</code>: (double) The bike rider’s year of
-birth.</li>
-<li><code>gender</code>: (factor) User can optionally declare their
-gender (Male/Female/Unknown)</li>
-</ul>
-</div>
-</div>
-<div id="data-quality-and-data-bias-1.6" class="section level2">
-<h2>Data quality and data bias (1.6)</h2>
-<p>Do you have any concerns about bias or quality in the dataset?
-Why/why not?</p>
+<div id="data-quality-and-data-bias" class="section level2">
+<h2>Data quality and data bias</h2>
+<!-- (1.6) 
+Do you have any concerns about bias or quality in the dataset? Why/why not?
+-->
 <div id="quality" class="section level3">
 <h3>Quality</h3>
 <p>The data supplied as part of the sample appears to be of high
-quality, no missing records were detected. There appears to be some
-parts directly supplied by the user such as Gender/Year of birth. The
-preliminary analysis revealed over that for over 6% of trips the gender
-of the user was unknown. A couple of entries gave year of birth of the
-person hiring the bike as being in the 1880s.</p>
+quality, no missing records were detected. Some parts directly are
+supplied by the user such as Gender/Year of birth. The preliminary
+analysis revealed over that for over 6% of trips the gender of the user
+was unknown. A couple of entries gave year of birth of the person hiring
+the bike as being in the 1880s.</p>
 </div>
 <div id="bias" class="section level3">
 <h3>Bias</h3>
@@ -5682,74 +5644,62 @@ stamps correct?</p>
 <p>CitiBike bikes hire process involves users using their mobile phones
 to ‘unlock’ bikes. CitiBike will be unable to determine from this
 dataset whether there are people who would like to use the service but
-do not have a mobile phone or can’t use the apps involved. Similarly the
-information we have is for only where bikes have actually been hired
-successfully, there is no information on failed attempts e.g. technical
-faults or not enough bikes available etc. these would require futher
-separate research.</p>
+do not have a mobile phone or can’t use the apps involved. There is no
+information on failed attempts e.g. technical faults or not enough bikes
+available.</p>
 <p>We have been provided with no initial information about about how
 this smaller sample was generated e.g. whether truly random over the
 full data or whether the sample is from a specific subcategory of
 e.g. stations/bikes/users or other data CitiBike holds but not made
 public. We are unable to claim how well this sample represents the full
-dataset to which we don not have access.</p>
-<p>Possible undercoverage bias? The sample is only for 4268 trips over
-the course of 2018 for just 10 different bikes and only around 50
-stations. We can only make observations for that particular year without
-examining whether there are year-to-year trends.</p>
+dataset to which we do not have access.</p>
+<p>Possible undercoverage bias? The sample is only for over 4,000 trips
+over the course of 2018 for just 10 different bikes and only around 50
+stations. We can only examine that particular year without examining
+whether there are year-to-year trends such a seasonal variations.</p>
 <p>Response bias: There are some questionable entries in birth year
 information comes from the user so might have been an error on their
-part mistyping or deliberately choosing the wrong year.</p>
+part mistyping, bug in app or deliberately choosing the wrong year.</p>
 </div>
 </div>
 </div>
 <div id="data-cleaning" class="section level1">
 <h1>2. Data cleaning</h1>
-<div id="preparing-data-for-visualisation-1.7" class="section level2">
-<h2>Preparing data for visualisation (1.7)</h2>
-<p>The data will be examined to understand how a Citi Bike hire is
-recorded. We will then break down trips against different periods of
-time to try and identify whether there are broad patterns at different
-times of year or very specific ones throughout the day.</p>
-<p>For demographics we will look at information relating to the person
-making the hire and whether any particular categories dominate more than
-others.</p>
-<p>Please include your cleaning/wrangling steps under this section.</p>
-<p><code>0_preliminary_analysis.Rmd</code> was used for examining the
-initial quality of the data</p>
-<p>Cleaning:</p>
-<ul>
-<li>decided to exclude the small number of records with a birth_year
-&gt; 100 years from the year of the sample.</li>
-</ul>
-<p>For convenience and visualisation purposes we created the following
-new variables</p>
-<p><code>rider_age</code>, (integer), The customer expicity requested
-age to be examined so we calculate age to the nearest year during a
-hire.</p>
+<div id="preparing-data-for-visualisation" class="section level2">
+<h2>Preparing data for visualisation</h2>
+<!-- (1.7)
+
+Please include your cleaning/wrangling steps under this section. -->
+<p>A preliminary analysis was used for examining the initial quality of
+the data. As a result a separate cleaning script was created to small
+amount of cleaning/wrangling was done to add extra time-related columns
+to the data for convenience when visualising it as plots.</p>
+<p>The customer explicitly wanted age to be analysed so we calculated
+the age of the rider at the time of the hire in 2018.</p>
 </div>
 </div>
 <div id="data-visualisation" class="section level1">
 <h1>3. Data visualisation</h1>
-<div id="process-and-design-2.1-2.7-2.8-2.9" class="section level2">
-<h2>Process and design (2.1, 2.7, 2.8, 2.9)</h2>
-<p>Briefly describe your data visualisation process.</p>
-<p>First after cleaning the data and adding new variables to assist
-plotting by different time periods as requested. I started with
-distribution of hires over a long time (year) and narrowed the time
-period down to plots of individual days. Initially exploratory
-histograms to get a general sense of where the time-based entries are
-distributed.</p>
+<div id="process-and-design" class="section level2">
+<h2>Process and design</h2>
+<!-- (2.1, 2.7, 2.8, 2.9)
+
+Briefly describe your data visualisation process. 
+
+For example: *First, I investigated variables of interest with simple single-variable distribution plots. Then I plotted variables of interest to the business against each other to see if any patterns were present in the data. After selecting key visualisations I ensured these were clearly portraying the message I wanted to convey, were aesthetically pleasing, as well as accurate and not misleading. All visualisations were made in RStudio using the `ggplot` package.*
+-->
+<p>In the preliminary analysis I made rough plots/tables to examine the
+range and distribution of available data. From there I chose which
+time-based information seemed most valuable for business decision
+making.</p>
+<p>For demographics it seemed helpful to combine both age and gender on
+the same diagram. This highlighted a possible issue with data quality
+regarding age for CitiBike to examine later.</p>
+<p>I tried to make sure the plots were as aesthetically pleasing as
+possible, correctly labelled and used colour schemes to assist those
+with colour-blindness.</p>
 <p>All visualisations were made in RStudio using the <code>ggplot</code>
 package.*</p>
-<p>For example: <em>First, I investigated variables of interest with
-simple single-variable distribution plots. Then I plotted variables of
-interest to the business against each other to see if any patterns were
-present in the data. After selecting key visualisations I ensured these
-were clearly portraying the message I wanted to convey, were
-aesthetically pleasing, as well as accurate and not misleading. All
-visualisations were made in RStudio using the <code>ggplot</code>
-package.</em></p>
 </div>
 <div id="visualisations-2.2-2.3-2.4-2.5-2.6" class="section level2">
 <h2>Visualisations (2.2, 2.3, 2.4, 2.5, 2.6)</h2>
@@ -5904,8 +5854,8 @@ of 1969 would drop and improve the accuracy of the age data.</p>
 </div>
 <div id="hires-by-geographical-spread" class="section level3">
 <h3>Hires by geographical spread</h3>
-<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-5d81ef8e58bc69e6b723" style="width:672px;height:480px;"></div>
-<script type="application/json" data-for="htmlwidget-5d81ef8e58bc69e6b723">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[40.7162469,40.7141454,40.7177325,40.71958611647166,40.7211236,40.7101087,40.7104670233797,40.7182113,40.7112423,40.7246050998869,40.7253399253558,40.73074262530658,40.7443187,40.74871594538023,40.7287448,40.737711,40.7272235,40.727595966,40.71653978099194,40.7311689,40.7376037,40.7241765,40.742677141,40.72152515,40.734785818,40.71848892,40.7127742,40.73496102000951,40.7236589,40.7124188237569,40.71346382669195,40.72601172964625,40.72528910781132,40.72333158646436,40.72165072487999,40.71835519823214,40.71458403535893,40.71435836870427,40.72568548362901,40.72163014263835,40.71928220070702,40.74590996631558,40.71649,40.71942,40.7242941,40.7192517,40.73367,40.72755146730012,40.72572613742557,40.72210378668603,40.71517767732029,40.71113],[-74.03345880000001,-74.03355190000001,-74.043845,-74.04311746358871,-74.03805095,-74.0858489,-74.07003879547119,-74.0836394,-74.0557013,-74.07840594649315,-74.06762212514877,-74.06378388404846,-74.0439909,-74.04044330120087,-74.0321082,-74.06692099999999,-74.0337589,-74.04424731100001,-74.0496379137039,-74.0575736,-74.0524783,-74.05065639999999,-74.051788633,-74.04630454300001,-74.050443636,-74.047726625,-74.0364857,-74.05950307846069,-74.0641943,-74.03852552175522,-74.06285852193832,-74.05038893222809,-74.04557168483734,-74.04595255851744,-74.04288411140442,-74.03891444206238,-74.04281705617905,-74.06661093235016,-74.04879033565521,-74.04996782541275,-74.07126188278198,-74.0572714805603,-74.04105,-74.05099,-74.03548259999999,-74.034234,-74.0625,-74.07106071710587,-74.07195925712585,-74.07145500183105,-74.03768330812454,-74.0789],[11.05,5.1,4.9,21.65,5.05,0.05,0.2,0.5,4.85,1.2,3.65,12.5,1.4,1.8,6.3,0.6,9.050000000000001,13.9,2.8,2.35,3.95,4.1,3.45,5.8,1.7,6.6,3.65,1.5,2.8,5.8,0.95,5.3,3.75,5.2,3.7,4.15,6.3,0.4,2.55,3.4,2.25,1.25,2.05,1.2,3.95,7.3,4.15,0.65,2.05,1.8,2.25,0.45],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},null,null,["<strong>Number of Hires:<\/strong> 221 <br /><strong>Station Number:<\/strong> 3183","<strong>Number of Hires:<\/strong> 102 <br /><strong>Station Number:<\/strong> 3184","<strong>Number of Hires:<\/strong> 98 <br /><strong>Station Number:<\/strong> 3185","<strong>Number of Hires:<\/strong> 433 <br /><strong>Station Number:<\/strong> 3186","<strong>Number of Hires:<\/strong> 101 <br /><strong>Station Number:<\/strong> 3187","<strong>Number of Hires:<\/strong> 1 <br /><strong>Station Number:<\/strong> 3188","<strong>Number of Hires:<\/strong> 4 <br /><strong>Station Number:<\/strong> 3190","<strong>Number of Hires:<\/strong> 10 <br /><strong>Station Number:<\/strong> 3191","<strong>Number of Hires:<\/strong> 97 <br /><strong>Station Number:<\/strong> 3192","<strong>Number of Hires:<\/strong> 24 <br /><strong>Station Number:<\/strong> 3193","<strong>Number of Hires:<\/strong> 73 <br /><strong>Station Number:<\/strong> 3194","<strong>Number of Hires:<\/strong> 250 <br /><strong>Station Number:<\/strong> 3195","<strong>Number of Hires:<\/strong> 28 <br /><strong>Station Number:<\/strong> 3196","<strong>Number of Hires:<\/strong> 36 <br /><strong>Station Number:<\/strong> 3198","<strong>Number of Hires:<\/strong> 126 <br /><strong>Station Number:<\/strong> 3199","<strong>Number of Hires:<\/strong> 12 <br /><strong>Station Number:<\/strong> 3201","<strong>Number of Hires:<\/strong> 181 <br /><strong>Station Number:<\/strong> 3202","<strong>Number of Hires:<\/strong> 278 <br /><strong>Station Number:<\/strong> 3203","<strong>Number of Hires:<\/strong> 56 <br /><strong>Station Number:<\/strong> 3205","<strong>Number of Hires:<\/strong> 47 <br /><strong>Station Number:<\/strong> 3206","<strong>Number of Hires:<\/strong> 79 <br /><strong>Station Number:<\/strong> 3207","<strong>Number of Hires:<\/strong> 82 <br /><strong>Station Number:<\/strong> 3209","<strong>Number of Hires:<\/strong> 69 <br /><strong>Station Number:<\/strong> 3210","<strong>Number of Hires:<\/strong> 116 <br /><strong>Station Number:<\/strong> 3211","<strong>Number of Hires:<\/strong> 34 <br /><strong>Station Number:<\/strong> 3212","<strong>Number of Hires:<\/strong> 132 <br /><strong>Station Number:<\/strong> 3213","<strong>Number of Hires:<\/strong> 73 <br /><strong>Station Number:<\/strong> 3214","<strong>Number of Hires:<\/strong> 30 <br /><strong>Station Number:<\/strong> 3220","<strong>Number of Hires:<\/strong> 56 <br /><strong>Station Number:<\/strong> 3225","<strong>Number of Hires:<\/strong> 116 <br /><strong>Station Number:<\/strong> 3267","<strong>Number of Hires:<\/strong> 19 <br /><strong>Station Number:<\/strong> 3268","<strong>Number of Hires:<\/strong> 106 <br /><strong>Station Number:<\/strong> 3269","<strong>Number of Hires:<\/strong> 75 <br /><strong>Station Number:<\/strong> 3270","<strong>Number of Hires:<\/strong> 104 <br /><strong>Station Number:<\/strong> 3272","<strong>Number of Hires:<\/strong> 74 <br /><strong>Station Number:<\/strong> 3273","<strong>Number of Hires:<\/strong> 83 <br /><strong>Station Number:<\/strong> 3275","<strong>Number of Hires:<\/strong> 126 <br /><strong>Station Number:<\/strong> 3276","<strong>Number of Hires:<\/strong> 8 <br /><strong>Station Number:<\/strong> 3277","<strong>Number of Hires:<\/strong> 51 <br /><strong>Station Number:<\/strong> 3278","<strong>Number of Hires:<\/strong> 68 <br /><strong>Station Number:<\/strong> 3279","<strong>Number of Hires:<\/strong> 45 <br /><strong>Station Number:<\/strong> 3280","<strong>Number of Hires:<\/strong> 25 <br /><strong>Station Number:<\/strong> 3281","<strong>Number of Hires:<\/strong> 41 <br /><strong>Station Number:<\/strong> 3481","<strong>Number of Hires:<\/strong> 24 <br /><strong>Station Number:<\/strong> 3483","<strong>Number of Hires:<\/strong> 79 <br /><strong>Station Number:<\/strong> 3638","<strong>Number of Hires:<\/strong> 146 <br /><strong>Station Number:<\/strong> 3639","<strong>Number of Hires:<\/strong> 83 <br /><strong>Station Number:<\/strong> 3640","<strong>Number of Hires:<\/strong> 13 <br /><strong>Station Number:<\/strong> 3677","<strong>Number of Hires:<\/strong> 41 <br /><strong>Station Number:<\/strong> 3678","<strong>Number of Hires:<\/strong> 36 <br /><strong>Station Number:<\/strong> 3679","<strong>Number of Hires:<\/strong> 45 <br /><strong>Station Number:<\/strong> 3681","<strong>Number of Hires:<\/strong> 9 <br /><strong>Station Number:<\/strong> 3694"],null,["Number of Hires: 221","Number of Hires: 102","Number of Hires: 98","Number of Hires: 433","Number of Hires: 101","Number of Hires: 1","Number of Hires: 4","Number of Hires: 10","Number of Hires: 97","Number of Hires: 24","Number of Hires: 73","Number of Hires: 250","Number of Hires: 28","Number of Hires: 36","Number of Hires: 126","Number of Hires: 12","Number of Hires: 181","Number of Hires: 278","Number of Hires: 56","Number of Hires: 47","Number of Hires: 79","Number of Hires: 82","Number of Hires: 69","Number of Hires: 116","Number of Hires: 34","Number of Hires: 132","Number of Hires: 73","Number of Hires: 30","Number of Hires: 56","Number of Hires: 116","Number of Hires: 19","Number of Hires: 106","Number of Hires: 75","Number of Hires: 104","Number of Hires: 74","Number of Hires: 83","Number of Hires: 126","Number of Hires: 8","Number of Hires: 51","Number of Hires: 68","Number of Hires: 45","Number of Hires: 25","Number of Hires: 41","Number of Hires: 24","Number of Hires: 79","Number of Hires: 146","Number of Hires: 83","Number of Hires: 13","Number of Hires: 41","Number of Hires: 36","Number of Hires: 45","Number of Hires: 9"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[40.7101087,40.74871594538023],"lng":[-74.0858489,-74.0321082]}},"evals":[],"jsHooks":[]}</script>
+<div class="leaflet html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-f808aa7f8d68ed2f7035" style="width:672px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-f808aa7f8d68ed2f7035">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":1,"detectRetina":false,"attribution":"&copy; <a href=\"https://openstreetmap.org/copyright/\">OpenStreetMap<\/a>,  <a href=\"https://opendatacommons.org/licenses/odbl/\">ODbL<\/a>"}]},{"method":"addCircleMarkers","args":[[40.7162469,40.7141454,40.7177325,40.71958611647166,40.7211236,40.7101087,40.7104670233797,40.7182113,40.7112423,40.7246050998869,40.7253399253558,40.73074262530658,40.7443187,40.74871594538023,40.7287448,40.737711,40.7272235,40.727595966,40.71653978099194,40.7311689,40.7376037,40.7241765,40.742677141,40.72152515,40.734785818,40.71848892,40.7127742,40.73496102000951,40.7236589,40.7124188237569,40.71346382669195,40.72601172964625,40.72528910781132,40.72333158646436,40.72165072487999,40.71835519823214,40.71458403535893,40.71435836870427,40.72568548362901,40.72163014263835,40.71928220070702,40.74590996631558,40.71649,40.71942,40.7242941,40.7192517,40.73367,40.72755146730012,40.72572613742557,40.72210378668603,40.71517767732029,40.71113],[-74.03345880000001,-74.03355190000001,-74.043845,-74.04311746358871,-74.03805095,-74.0858489,-74.07003879547119,-74.0836394,-74.0557013,-74.07840594649315,-74.06762212514877,-74.06378388404846,-74.0439909,-74.04044330120087,-74.0321082,-74.06692099999999,-74.0337589,-74.04424731100001,-74.0496379137039,-74.0575736,-74.0524783,-74.05065639999999,-74.051788633,-74.04630454300001,-74.050443636,-74.047726625,-74.0364857,-74.05950307846069,-74.0641943,-74.03852552175522,-74.06285852193832,-74.05038893222809,-74.04557168483734,-74.04595255851744,-74.04288411140442,-74.03891444206238,-74.04281705617905,-74.06661093235016,-74.04879033565521,-74.04996782541275,-74.07126188278198,-74.0572714805603,-74.04105,-74.05099,-74.03548259999999,-74.034234,-74.0625,-74.07106071710587,-74.07195925712585,-74.07145500183105,-74.03768330812454,-74.0789],[11.05,5.1,4.9,21.65,5.05,0.05,0.2,0.5,4.85,1.2,3.65,12.5,1.4,1.8,6.3,0.6,9.050000000000001,13.9,2.8,2.35,3.95,4.1,3.45,5.8,1.7,6.6,3.65,1.5,2.8,5.8,0.95,5.3,3.75,5.2,3.7,4.15,6.3,0.4,2.55,3.4,2.25,1.25,2.05,1.2,3.95,7.3,4.15,0.65,2.05,1.8,2.25,0.45],null,null,{"interactive":true,"className":"","stroke":true,"color":"#03F","weight":5,"opacity":0.5,"fill":true,"fillColor":"#03F","fillOpacity":0.2},null,null,["<strong>Number of Hires:<\/strong> 221 <br /><strong>Station Number:<\/strong> 3183","<strong>Number of Hires:<\/strong> 102 <br /><strong>Station Number:<\/strong> 3184","<strong>Number of Hires:<\/strong> 98 <br /><strong>Station Number:<\/strong> 3185","<strong>Number of Hires:<\/strong> 433 <br /><strong>Station Number:<\/strong> 3186","<strong>Number of Hires:<\/strong> 101 <br /><strong>Station Number:<\/strong> 3187","<strong>Number of Hires:<\/strong> 1 <br /><strong>Station Number:<\/strong> 3188","<strong>Number of Hires:<\/strong> 4 <br /><strong>Station Number:<\/strong> 3190","<strong>Number of Hires:<\/strong> 10 <br /><strong>Station Number:<\/strong> 3191","<strong>Number of Hires:<\/strong> 97 <br /><strong>Station Number:<\/strong> 3192","<strong>Number of Hires:<\/strong> 24 <br /><strong>Station Number:<\/strong> 3193","<strong>Number of Hires:<\/strong> 73 <br /><strong>Station Number:<\/strong> 3194","<strong>Number of Hires:<\/strong> 250 <br /><strong>Station Number:<\/strong> 3195","<strong>Number of Hires:<\/strong> 28 <br /><strong>Station Number:<\/strong> 3196","<strong>Number of Hires:<\/strong> 36 <br /><strong>Station Number:<\/strong> 3198","<strong>Number of Hires:<\/strong> 126 <br /><strong>Station Number:<\/strong> 3199","<strong>Number of Hires:<\/strong> 12 <br /><strong>Station Number:<\/strong> 3201","<strong>Number of Hires:<\/strong> 181 <br /><strong>Station Number:<\/strong> 3202","<strong>Number of Hires:<\/strong> 278 <br /><strong>Station Number:<\/strong> 3203","<strong>Number of Hires:<\/strong> 56 <br /><strong>Station Number:<\/strong> 3205","<strong>Number of Hires:<\/strong> 47 <br /><strong>Station Number:<\/strong> 3206","<strong>Number of Hires:<\/strong> 79 <br /><strong>Station Number:<\/strong> 3207","<strong>Number of Hires:<\/strong> 82 <br /><strong>Station Number:<\/strong> 3209","<strong>Number of Hires:<\/strong> 69 <br /><strong>Station Number:<\/strong> 3210","<strong>Number of Hires:<\/strong> 116 <br /><strong>Station Number:<\/strong> 3211","<strong>Number of Hires:<\/strong> 34 <br /><strong>Station Number:<\/strong> 3212","<strong>Number of Hires:<\/strong> 132 <br /><strong>Station Number:<\/strong> 3213","<strong>Number of Hires:<\/strong> 73 <br /><strong>Station Number:<\/strong> 3214","<strong>Number of Hires:<\/strong> 30 <br /><strong>Station Number:<\/strong> 3220","<strong>Number of Hires:<\/strong> 56 <br /><strong>Station Number:<\/strong> 3225","<strong>Number of Hires:<\/strong> 116 <br /><strong>Station Number:<\/strong> 3267","<strong>Number of Hires:<\/strong> 19 <br /><strong>Station Number:<\/strong> 3268","<strong>Number of Hires:<\/strong> 106 <br /><strong>Station Number:<\/strong> 3269","<strong>Number of Hires:<\/strong> 75 <br /><strong>Station Number:<\/strong> 3270","<strong>Number of Hires:<\/strong> 104 <br /><strong>Station Number:<\/strong> 3272","<strong>Number of Hires:<\/strong> 74 <br /><strong>Station Number:<\/strong> 3273","<strong>Number of Hires:<\/strong> 83 <br /><strong>Station Number:<\/strong> 3275","<strong>Number of Hires:<\/strong> 126 <br /><strong>Station Number:<\/strong> 3276","<strong>Number of Hires:<\/strong> 8 <br /><strong>Station Number:<\/strong> 3277","<strong>Number of Hires:<\/strong> 51 <br /><strong>Station Number:<\/strong> 3278","<strong>Number of Hires:<\/strong> 68 <br /><strong>Station Number:<\/strong> 3279","<strong>Number of Hires:<\/strong> 45 <br /><strong>Station Number:<\/strong> 3280","<strong>Number of Hires:<\/strong> 25 <br /><strong>Station Number:<\/strong> 3281","<strong>Number of Hires:<\/strong> 41 <br /><strong>Station Number:<\/strong> 3481","<strong>Number of Hires:<\/strong> 24 <br /><strong>Station Number:<\/strong> 3483","<strong>Number of Hires:<\/strong> 79 <br /><strong>Station Number:<\/strong> 3638","<strong>Number of Hires:<\/strong> 146 <br /><strong>Station Number:<\/strong> 3639","<strong>Number of Hires:<\/strong> 83 <br /><strong>Station Number:<\/strong> 3640","<strong>Number of Hires:<\/strong> 13 <br /><strong>Station Number:<\/strong> 3677","<strong>Number of Hires:<\/strong> 41 <br /><strong>Station Number:<\/strong> 3678","<strong>Number of Hires:<\/strong> 36 <br /><strong>Station Number:<\/strong> 3679","<strong>Number of Hires:<\/strong> 45 <br /><strong>Station Number:<\/strong> 3681","<strong>Number of Hires:<\/strong> 9 <br /><strong>Station Number:<\/strong> 3694"],null,["Number of Hires: 221","Number of Hires: 102","Number of Hires: 98","Number of Hires: 433","Number of Hires: 101","Number of Hires: 1","Number of Hires: 4","Number of Hires: 10","Number of Hires: 97","Number of Hires: 24","Number of Hires: 73","Number of Hires: 250","Number of Hires: 28","Number of Hires: 36","Number of Hires: 126","Number of Hires: 12","Number of Hires: 181","Number of Hires: 278","Number of Hires: 56","Number of Hires: 47","Number of Hires: 79","Number of Hires: 82","Number of Hires: 69","Number of Hires: 116","Number of Hires: 34","Number of Hires: 132","Number of Hires: 73","Number of Hires: 30","Number of Hires: 56","Number of Hires: 116","Number of Hires: 19","Number of Hires: 106","Number of Hires: 75","Number of Hires: 104","Number of Hires: 74","Number of Hires: 83","Number of Hires: 126","Number of Hires: 8","Number of Hires: 51","Number of Hires: 68","Number of Hires: 45","Number of Hires: 25","Number of Hires: 41","Number of Hires: 24","Number of Hires: 79","Number of Hires: 146","Number of Hires: 83","Number of Hires: 13","Number of Hires: 41","Number of Hires: 36","Number of Hires: 45","Number of Hires: 9"],{"interactive":false,"permanent":false,"direction":"auto","opacity":1,"offset":[0,0],"textsize":"10px","textOnly":false,"className":"","sticky":true},null]}],"limits":{"lat":[40.7101087,40.74871594538023],"lng":[-74.0858489,-74.0321082]}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <div id="other-insights" class="section level2">
@@ -5945,6 +5895,51 @@ provided could be adjusted to make birth_year optional to see if it
 improves quality of age data reducing those deliberately choosing to
 give a false year.</li>
 </ul>
+</div>
+<div id="technical-appendix-data-types" class="section level2">
+<h2>Technical Appendix: Data types</h2>
+<!-- (1.5) 
+
+List the different types of variables contained in the dataset and explain each 
+of them to a non-technical audience. (e.g. integer, character, datetime)
+-->
+<p>Inside the original dataset we have the following information
+available</p>
+<div id="factors" class="section level3">
+<h3>Factors</h3>
+<ul>
+<li><p><code>bike_id</code>: Which bike used during the hire</p></li>
+<li><p><code>start_station</code>,<code>end_station</code>: Which
+particular starting station the bike began it’s trip and which
+destination station it ended up at the end of the journey.</p></li>
+<li><p><code>type</code>: User type.<br />
+<strong>‘Customer’</strong> purchased a short-term 24-hour or 3-day
+pass<br />
+<strong>‘Subscriber’</strong> is a long-term Annual Member</p></li>
+</ul>
+</div>
+<div id="date-and-time-s3-posixct" class="section level3">
+<h3>Date and time (S3: POSIXct)</h3>
+<p><code>start_time</code>,<code>stop_time</code>: What date and time
+the bike trip started/ended a trip as part of a hire.</p>
+</div>
+<div id="location-double" class="section level3">
+<h3>Location (double)</h3>
+<p>We have the latitude and longitude as numbers telling us the exactly
+where the bike stations used during a hire are located.
+<code>start_lat</code>,<code>end_lat</code>: Latitude of starting/ending
+station <code>start_long</code>,<code>end_long</code>: Longitude of
+starting/ending station</p>
+</div>
+<div id="user-supplied-information" class="section level3">
+<h3>User-supplied information</h3>
+<ul>
+<li><code>birth_year</code>: (double) The bike rider’s year of
+birth.</li>
+<li><code>gender</code>: (factor) User can optionally declare their
+gender (Male/Female/Unknown)</li>
+</ul>
+</div>
 </div>
 </div>
 

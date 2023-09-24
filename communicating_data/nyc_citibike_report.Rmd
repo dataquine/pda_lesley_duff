@@ -86,6 +86,10 @@ type of trip, age)
 * What is the geographical spread of the start points of bike hires?
 * Any other insights?
 
+The main Key Performance Indicatior (KPI) that CitiBike could use to measure 
+success is 'Hires'. We will visualise hires against time, against demographics 
+and show a map where the largest number of hires is displayed.
+
 ## Business processes and data flow
 <!-- (1.3) -->
 
@@ -97,7 +101,6 @@ type of trip, age)
 * User docks bike
 * CitiBike checks the duration of the hire and charges any payment due in excess of user type allowances
 
-
 ## Data visualisation as a tool for decision-making
 <!-- (1.4)
 
@@ -105,54 +108,25 @@ Briefly describe how this report can help NYC Citi Bikes make better data-driven
 -->
 By looking at a sample across a full calendar year it may give understanding of 
 customer behaviour affecting hires to be aware of and to resource availability 
-accordingly. Date and time-related data could be incorporated into the scheduling of any promotional campaigns. 
+accordingly. Date and time-related data could be incorporated into the 
+scheduling of any promotional campaigns. 
 
 Demographics insights could identify potential groups to 
-be targeted by marketing activity or drive further separate research into which 
-groups drive more hires versus reasons why other don't/can't use it.
-
-## Data types (1.5)
-
-List the different types of variables contained in the dataset and explain each 
-of them to a non-technical audience. (e.g. integer, character, datetime)
+be targeted by marketing activity or drive further separate research into 
+underrepresented sections of the New York City population.
 
 
-Inside the original dataset we have the following information available
-
-### Factors
-* `bike_id`: Which bike used during the hire
-
-* `start_station`,`end_station`: Which particular starting station
-the bike began it's trip and which destination station it ended up at the end of the journey.
-* `type`: 
-User type.  
-**'Customer'** purchased a short-term 24-hour or 3-day pass  
-**'Subscriber'** is a long-term Annual Member
-
-### Date and time (S3: POSIXct)
-`start_time`,`stop_time`: What date and time the bike trip started/ended a trip 
-as part of a hire.
-
-### Location (double)
-We have the latitude and longitude as numbers telling us the exactly where the 
-bike stations used during a hire are located.
-`start_lat`,`end_lat`: Latitude of starting/ending station
-`start_long`,`end_long`: Longitude of starting/ending station
-
-### User-supplied information
-* `birth_year`: (double) The bike rider’s year of birth.
-* `gender`: (factor) User can optionally declare their gender (Male/Female/Unknown)
-
-## Data quality and data bias (1.6)
-
+## Data quality and data bias
+<!-- (1.6) 
 Do you have any concerns about bias or quality in the dataset? Why/why not?
+-->
 
 ### Quality
 The data supplied as part of the sample appears to be of high quality, no 
-missing records were detected. There appears to be some parts directly supplied 
-by the user such as Gender/Year of birth. The preliminary analysis revealed over
-that for over 6% of trips the gender of the user was unknown. A couple of 
-entries gave year of birth of the person hiring the bike as being in the 1880s.
+missing records were detected. Some parts directly are supplied by the user such
+as Gender/Year of birth. The preliminary analysis revealed over that for over 6%
+of trips the gender of the user was unknown. A couple of entries gave year of 
+birth of the person hiring the bike as being in the 1880s.
 
 ### Bias
 The dataset has been provided by the CitiBike company obtained from 
@@ -163,67 +137,60 @@ CitiBike about hires is accurate e.g. are the date/time stamps correct?
 CitiBike bikes hire process involves users using their mobile phones to 'unlock'
 bikes. CitiBike will be unable to determine from this dataset whether there are 
 people who would like to use the service but do not have a mobile phone or can't
-use the apps involved. Similarly the information we have is for only where bikes 
-have actually been hired successfully, there is no information on failed 
-attempts e.g. technical faults or not enough bikes available etc. these would 
-require futher separate research.
+use the apps involved. There is no information on failed attempts e.g. technical faults or not enough bikes available.
 
 We have been provided with no initial information about about how this smaller 
 sample was generated e.g. whether truly random over the full data or whether the
 sample is from a specific subcategory of e.g. stations/bikes/users or other data 
 CitiBike holds but not made public. We are unable to claim how well this sample 
-represents the full dataset to which we don not have access.
+represents the full dataset to which we do not have access.
 
-Possible undercoverage bias? The sample is only for 4268 trips over the course 
-of 2018 for just 10 different bikes and only around 50 stations. We can only 
-make observations for that particular year without examining whether there are 
-year-to-year trends.
+Possible undercoverage bias? The sample is only for over 4,000 trips over the 
+course of 2018 for just 10 different bikes and only around 50 stations. We can
+only examine that particular year without examining whether there are 
+year-to-year trends such a seasonal variations.
 
 Response bias: There are some questionable entries in birth year information 
-comes from the user so might have been an error on their part mistyping or 
-deliberately choosing the wrong year.
+comes from the user so might have been an error on their part mistyping, bug in 
+app or deliberately choosing the wrong year.
 
 # 2. Data cleaning
 
-## Preparing data for visualisation (1.7)
+## Preparing data for visualisation
+<!-- (1.7)
 
+Please include your cleaning/wrangling steps under this section. -->
+A preliminary analysis was used for examining the initial quality of the 
+data. As a result a separate cleaning script was created to small amount of cleaning/wrangling was done to add extra time-related columns to the data for 
+convenience when visualising it as plots.
 
-The data will be examined to understand how a Citi Bike hire is recorded. 
-We will then break down trips against different periods of time to try and 
-identify whether there are broad patterns at different times of year or very 
-specific ones throughout the day.
-
-For demographics we will look at information relating to the person making the 
-hire and whether any particular categories dominate more than others.
-
-
-Please include your cleaning/wrangling steps under this section.
-
-`0_preliminary_analysis.Rmd` was used for examining the initial quality of the 
-data
-
-Cleaning:
-
-* decided to exclude the small number of records with a birth_year > 100 years 
-from the year of the sample.
-
-For convenience and visualisation purposes we created the following new 
-variables
-
-`rider_age`, (integer), The customer expicity requested age to be examined so 
-we calculate age to the nearest year during a hire. 
+The customer explicitly wanted age to be analysed so we calculated the age of 
+the rider at the time of the hire in 2018.
 
 # 3. Data visualisation
 
-## Process and design (2.1, 2.7, 2.8, 2.9)
+## Process and design
+<!-- (2.1, 2.7, 2.8, 2.9)
 
-Briefly describe your data visualisation process.
+Briefly describe your data visualisation process. 
 
-First after cleaning the data and adding new variables to assist plotting by different time periods as requested. I started with distribution of hires over a long time (year) and narrowed the time period down to plots of individual days. Initially exploratory histograms to get a general sense of where the time-based entries are distributed.
+For example: *First, I investigated variables of interest with simple single-variable distribution plots. Then I plotted variables of interest to the business against each other to see if any patterns were present in the data. After selecting key visualisations I ensured these were clearly portraying the message I wanted to convey, were aesthetically pleasing, as well as accurate and not misleading. All visualisations were made in RStudio using the `ggplot` package.*
+-->
+In the preliminary analysis I made rough plots/tables to examine the range and
+distribution of available data. From there I chose which time-based information 
+seemed most valuable for business decision making. 
+
+For demographics it seemed helpful to combine both age and gender on the same 
+diagram. This highlighted a possible issue with data quality regarding age for 
+CitiBike to examine later. 
+
+I tried to make sure the plots were as aesthetically pleasing as possible, 
+correctly labelled and used colour schemes to assist those with 
+colour-blindness.
 
 All visualisations were made in RStudio using the `ggplot` package.*
 
-For example: *First, I investigated variables of interest with simple single-variable distribution plots. Then I plotted variables of interest to the business against each other to see if any patterns were present in the data. After selecting key visualisations I ensured these were clearly portraying the message I wanted to convey, were aesthetically pleasing, as well as accurate and not misleading. All visualisations were made in RStudio using the `ggplot` package.*
+
 
 ## Visualisations (2.2, 2.3, 2.4, 2.5, 2.6)
 
@@ -586,3 +553,37 @@ female groups in New York City.
 * Developers/designers should check whether the user interface provided could be 
 adjusted to make birth_year optional to see if it improves quality of age data 
 reducing those deliberately choosing to give a false year.
+
+## Technical Appendix: Data types 
+<!-- (1.5) 
+
+List the different types of variables contained in the dataset and explain each 
+of them to a non-technical audience. (e.g. integer, character, datetime)
+-->
+
+Inside the original dataset we have the following information available
+
+### Factors
+* `bike_id`: Which bike used during the hire
+
+* `start_station`,`end_station`: Which particular starting station
+the bike began it's trip and which destination station it ended up at the end of the journey.
+* `type`: 
+User type.  
+**'Customer'** purchased a short-term 24-hour or 3-day pass  
+**'Subscriber'** is a long-term Annual Member
+
+### Date and time (S3: POSIXct)
+`start_time`,`stop_time`: What date and time the bike trip started/ended a trip 
+as part of a hire.
+
+### Location (double)
+We have the latitude and longitude as numbers telling us the exactly where the 
+bike stations used during a hire are located.
+`start_lat`,`end_lat`: Latitude of starting/ending station
+`start_long`,`end_long`: Longitude of starting/ending station
+
+### User-supplied information
+* `birth_year`: (double) The bike rider’s year of birth.
+* `gender`: (factor) User can optionally declare their gender (Male/Female/Unknown)
+
