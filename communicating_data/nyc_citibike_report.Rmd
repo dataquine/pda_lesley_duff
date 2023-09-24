@@ -9,6 +9,7 @@ author: "Lesley Duff"
 pdf_document: default
 ---
 ```{r}
+library(e1071) # tests for skewness
 library(ggthemes) # Contains colourblind palette
 library(tidyverse)
 library(tsibble) # Time-based functions
@@ -353,6 +354,7 @@ nyc_user_type %>%
   ggplot(aes(x = month, y = hires, fill = type)) +
   geom_col() +
   plot_theme +
+  scale_fill_colorblind()+
   labs(
     title = "Hires by User Type",
     subtitle = "Sample data from 2018",
@@ -371,7 +373,7 @@ Subscribers are those who took paid for a year of use. It suggests that many of 
 
 The proportion of customers seems highest in the summer months. Are people more likely to experiment with the CitiBike service in good weather?
 
-### Demographics: Age
+### Demographics: Age and Gender
 
 ```{r}
 nyc_user_age <- tibble(nyc_bikes) %>%
@@ -382,15 +384,65 @@ nyc_user_age %>%
   geom_histogram(colour = plot_bar_colour, 
                  binwidth = 1) +
   plot_theme+
+  scale_fill_colorblind()+
   labs(
-    title = "Hires by Age",
+    title = "Hires by Age and Gender",
     subtitle = "Sample data from 2018",
     x = "\nAge of Rider",
     y = "Number of Hires\n",
-    fill = "User Type"
+    fill = "Gender"
   )
 ```
-Checking the high number of unknowns on only one age group
+This bar plot shows the numbers of users broken down by the age of the person 
+making the hire and their gender during 2018.
+
+We can see that males make a far higher proportion of users than females.
+According to [US Censux New York City](https://data.census.gov/table?q=population+by+sex+&t=Age+and+Sex&g=160XX00US3651000&tid=ACSSE2021.K200101) females currently outnumber males.
+
+There does seem to be a positive skew towards younger riders under 40 using the 
+service more than older age groups, with peaks for users in their 30s. We will 
+now test this.
+
+#### Testing skew by age
+```{r}
+nyc_user_age_skewed <- nyc_user_age %>%
+  select(rider_age) %>% 
+
+  summarise(skewness = skewness(rider_age, type = 1)) 
+
+nyc_user_age_skewed
+```
+
+The age distribution is moderately right-skewed with greater hires by younger 
+people.
+
+#### Examining hires by gender
+
+```{r}
+nyc_user_age %>% 
+  select(gender) %>% 
+  group_by(gender) %>% 
+  summarise(hires = n()) %>% 
+  ungroup() %>% 
+  arrange(desc(hires))
+```
+
+Percentage of those providing a gender female = 930/3069 * 100 = 30.3%
+This suggests there could be at least 2,000 females in this sample not using 
+the service.
+
+More research should be done into why females are less likely to use the
+CitiBike service. Do we know whether females are deliberately choosing not to 
+use the services or are there factors like whether they've learned to ride a 
+bike when younger?
+
+CitiBike should consider demographically targeted marketing campaigns to 
+women e.g. online adverts.
+
+#### Checking the high number of unknowns on only one age group
+
+We will try to investigate why there is such a high proportion of unknown gender 
+for just one age.
 
 ```{r}
 nyc_user_age_unknown <- nyc_user_age %>% 
@@ -411,6 +463,5 @@ information about themselves and seem to be selecting a dummy value for age.
 Developers could test if they also offered to make providing an age optional 
 the same way as gender whether the number claiming a birth_year of 1969 would 
 drop and improve the accuracy of the age data.
-
 
 ### Hires by geography
