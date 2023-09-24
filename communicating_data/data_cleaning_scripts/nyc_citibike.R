@@ -57,5 +57,6 @@ nyc_bikes_clean = nyc_bikes_time_processed
 rm(nyc_bikes_time_processed)
 
 # Write clean dataset to CSV ----
-write_csv(nyc_bikes_clean , "clean_data/nyc_bikes.csv")
-#rm(nyc_bikes_time_processed)
+write_csv(nyc_bikes_clean, "clean_data/nyc_bikes.csv")
+#rm(nyc_bikes_clean)
+#str(nyc_bikes_clean)
