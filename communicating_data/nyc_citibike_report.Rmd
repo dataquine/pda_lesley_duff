@@ -8,9 +8,17 @@ date: "`r format(Sys.Date())`"
 author: "Lesley Duff"
 pdf_document: default
 ---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(message = FALSE, warning = FALSE,
+                      echo = FALSE# 
+                     # eval = FALSE, fig.align = "center", 
+              )
+```
+
 ```{r}
 library(e1071) # tests for skewness
 library(ggthemes) # Contains colourblind palette
+library(leaflet)  # Maps
 library(tidyverse)
 library(tsibble) # Time-based functions
 ```
@@ -18,21 +26,24 @@ library(tsibble) # Time-based functions
 
 ```{r}
 # Load clean dataset
-# nyc_bikes <- read_csv("clean_data/nyc_bikes.csv")
+#nyc_bikes <- read_csv("clean_data/nyc_bikes.csv",
+#  locale = locale(tz = "America/New_York"))
+
+# nyc_bikes <- as_tsibble(nyc_bikes,
+#                        index = start_time,
+#                        key = "bike_id")
+#str(nyc_bikes)
 source("data_cleaning_scripts/nyc_citibike.R")
+# Not happy with this but simply have too many problems reading
+# a tsibble back in again things break right left and centre
 
 nyc_bikes <- nyc_bikes_clean
 ```
 
-```{r}
-# nyc_bikes <- as_tsibble(nyc_bikes,
-#                        index = start_time,
-#                        key = "bike_id")
-```
-
 # 1. Documentation
 
-## Domain knowledge (1.1)
+## Introduction
+<!-- Domain knowledge (1.1) -->
 
 [*Citi Bike*](https://ride.citibikenyc.com/about) is the largest [bike share system](https://en.wikipedia.org/wiki/Bicycle-sharing_system) in the United 
 States of America and consists of a fleet of bikes available for hire to users 
@@ -48,24 +59,32 @@ throughout 2018.
 * [NYC Citi Bike trips](https://rdrr.io/github/tidyverts/tsibbledata/man/nyc_bikes.html) dataset from tsibbledata used in this analysis
 * [Citi Bike NYC](https://www.citibikenyc.com/system-data) Original Source
 
-## Business requirements (1.2)
+## Ethics
+### Consent
+
+User data obtained from users creating account accepting terms and conditions. 
+Trip data recorded automatically via electronics on bikes and docking stations. 
+CitiBike provides a small sample dataset of usage of 10 bikes throughout 2018.
+
+### Human Rights: Privacy
+
+There is information about people and places. Only anonymised data stored in the sample public dataset. Nothing to uniquely identify the demographics or behaviour of a particular person.
+
+**User data:** year of birth is stored and not birth date, gender is optional.  
+**Location:** latitude and longitude of the start and end of the journey. This 
+is the locations of the docking bike station only, not the location of a person. 
+No live tracking of bikes during trip.
+
+## Business requirements
+<!-- (1.2) -->
 
 Citi Bike would like to know more about the following:
 
-* What is the pattern of bike hires over time (e.g. within a year, month, week, 
-or day)?
+* The pattern of bike hires over time
 * Do bike hire patterns differ between bike rider demographics? (e.g. gender, 
 type of trip, age)
 * What is the geographical spread of the start points of bike hires?
 * Any other insights?
-
-The data will be examined to understand how a Citi Bike hire is recorded. 
-We will then break down trips against different periods of time to try and 
-identify whether there are broad patterns at different times of year or very 
-specific ones throughout the day.
-
-For demographics we will look at information relating to the person making the 
-hire and whether any particular categories dominate more than others.
 
 ## Business processes and data flow (1.3)
 
@@ -75,15 +94,17 @@ For example:
 
 ![This diagram was created using draw.io at https://app.diagrams.net](dataflow_example.png)
 
-
-## Data visualisation as a tool for decision-making (1.4)
+## Data visualisation as a tool for decision-making
+<!-- (1.4)
 
 Briefly describe how this report can help NYC Citi Bikes make better data-driven business decisions.
-
+-->
 By looking at a sample across a full calendar year it may give understanding of 
 customer behaviour affecting hires to be aware of and to resource availability 
 accordingly. Time based data could be incorporated into the scheduling of any 
-promotional campaigns. Demographics insights could identify potential groups to 
+promotional campaigns. 
+
+Demographics insights could identify potential groups to 
 be targeted by marketing activity or drive further separate research into which 
 groups drive more hires versus reasons why other don't/can't use it.
 
@@ -156,30 +177,54 @@ should check whether the user interface provided to customers is affecting
 accuracy of data or whether users are deliberately choosing to give a false year. However these are few in number.
 
 ### Ethics
-#### Human Rights: Privacy
-As this data involves location extra care needs to be taken that no information 
-from the public dataset will be used to uniquely identify individual users of the 
-service. The dataset provided has no names of individuals or any kind of id 
-that might be used to track the behaviour of a particular person, only year 
-of birth and gender are available. 
+#### Consent
+
+User data obtained from users creating account accepting terms and conditions. 
+Trip data recorded automatically via electronics on bikes and docking stations. 
+CitiBike provides a small sample public dataset of usage of 10 bikes throughout 
+2018.
+
+### Human Rights: Privacy
+
+Information about people and places. Anonymised data stored in the sample 
+dataset. There is no public data to uniquely identify the demographics or track 
+the behaviour of a particular person.
+
+User data: year of birth is stored and not birth date, gender is optional.
+
+Location: latitude and longitude of the start and end of the journey. This is 
+the locations of the docking bike station only, not the location of a person. 
+No live tracking of bikes during trip.
 
 # 2. Data cleaning
 
 ## Preparing data for visualisation (1.7)
 
+
+The data will be examined to understand how a Citi Bike hire is recorded. 
+We will then break down trips against different periods of time to try and 
+identify whether there are broad patterns at different times of year or very 
+specific ones throughout the day.
+
+For demographics we will look at information relating to the person making the 
+hire and whether any particular categories dominate more than others.
+
+
 Please include your cleaning/wrangling steps under this section.
 
-`0_preliminary_analysis.Rmd` was used for examining the initial quality of the data
+`0_preliminary_analysis.Rmd` was used for examining the initial quality of the 
+data
 
 Cleaning:
 
-* decided to exclude the small number of mrecords with a birth_year > 100 years from the year of the sample.
+* decided to exclude the small number of records with a birth_year > 100 years 
+from the year of the sample.
 
-For convenience and visualisation purposes we created the following new variables
+For convenience and visualisation purposes we created the following new 
+variables
 
-`rider_age`, (integer), The customer expicity requested age to be examined so we calculate age to the nearest year during a hire. 
-
-
+`rider_age`, (integer), The customer expicity requested age to be examined so 
+we calculate age to the nearest year during a hire. 
 
 # 3. Data visualisation
 
@@ -464,4 +509,90 @@ Developers could test if they also offered to make providing an age optional
 the same way as gender whether the number claiming a birth_year of 1969 would 
 drop and improve the accuracy of the age data.
 
-### Hires by geography
+### Hires by geographical spread
+
+```{r}
+nyc_bikes_station_locations <- tibble(nyc_bikes) %>%
+  select(start_station, start_lat, start_long) %>%
+  group_by(start_station,start_lat, start_long) %>%
+  #select(start_lat, start_long) %>%
+ # group_by(start_lat, start_long) %>%
+  summarise(number_of_hires = n()) %>%
+  ungroup()
+#nyc_bikes_station_locations
+
+nyc_bikes_station_start_map <- leaflet(nyc_bikes_station_locations) %>%
+  addTiles() %>% # use the default base map which is OpenStreetMap tiles
+  #?addMarkers
+
+  addCircleMarkers(
+    lng = ~ start_long,
+    lat = ~ start_lat,
+    radius = ~ number_of_hires/20,
+    #popup = ~paste("<strong>Number of Hires:</strong>", number_of_hires),
+        popup = ~paste("<strong>Number of Hires:</strong>", number_of_hires,
+      "<br /><strong>Station Number:</strong>", 
+                   start_station),
+    label = ~paste("Number of Hires:",number_of_hires)
+  ) 
+
+nyc_bikes_station_start_map
+```
+
+## Other insights
+### Duration
+```{r}
+#View(nyc_bikes)
+nyc_bikes_duration <- nyc_bikes %>%
+  select(hire_duration,type, gender, rider_age) %>% 
+  mutate(hire_duration_minutes =  
+           round(as.numeric(hire_duration, "minutes")),
+    duration_category =    
+      case_when(
+ hire_duration_minutes < 10 ~ "< 10 minutes",
+   between(hire_duration_minutes, 10, 19)  ~ "10 -19 minutes",
+   between(hire_duration_minutes, 20, 29)  ~ "20 -29 minutes",
+   #between(hire_duration_minutes, 30, 3600)  ~ "30 minutes - 6 hours",
+  hire_duration_minutes >= 30 ~ "> 30 minutes",
+ # hire_duration_minutes >= 10 <= 5 ~ "Medium 10 -19 minutes",
+  TRUE   ~ "Unknown"
+),
+  .after = hire_duration)
+
+nyc_bikes_duration %>% 
+  ggplot(aes(x = fct_infreq(duration_category))) +
+  geom_histogram(stat="count")+
+  plot_theme+
+  scale_fill_colorblind()+
+  labs(
+    title = "Hires by Duration Category",
+    subtitle = "Sample data from 2018",
+    x = "\nDuration Category",
+    y = "Number of Hires\n"
+  )    
+```
+
+This plot shows number of hires broken down by duration. Duration is the time 
+taken between a bike being undocked at a starting station and docked at a
+destination station.
+
+[CitiBike pricing](https://citibikenyc.com/pricing) already offers financial 
+incentives to keep trips < 30 minutes by charging extra per 15 mins over. 
+Majority of trips are well within this with the highest usage being very short 
+trips lasting less than 10 minutes. Suggests users find CitiBike worthwhile even 
+for relatively short journeys outweighing any time spent walking to find a bike.
+
+
+## Conclusion
+
+* There are different patterns of usage across a calendar year. Much less usage 
+in winter. Suggest further research to see if people feel too unsafe to use 
+the service in poor weather. Capitalise on "fair weather" users by offering 
+cheaper and easier options for "day trips".
+* Overwhelming majority of users are subscribers with yearly membership 
+suggesting satisfaction with the service CitiBike offers. Use this confidence 
+to tempt potential new users with better financial incentives to try a short 
+pass first - discounts on full membership for new customers trying a short pass.
+* Males use CitiBike far more than females. Quick win could be to attempt to 
+grow female usage through trying targeted marketing campaigns and working with 
+female groups in New York City.
