@@ -61,10 +61,19 @@ There are 10 different bikes in this sample.
 ```{r}
 nyc_bikes_raw %>% 
   count(start_station, sort = TRUE)
+# 52 different starting stations
 
 nyc_bikes_raw %>% 
   count(end_station, sort = TRUE)
+# 55 different end stations
 
+nyc_bikes_raw %>% 
+  count(start_station, end_station, sort = TRUE) %>% 
+  #?count
+  slice_head(n = 5)
+# top 5 start/end combinations
+# 1023 different combinations
+# Most popular journey is between station 3203 and 3186
 ```
 
 ## User Types
@@ -73,7 +82,7 @@ nyc_bikes_raw %>%
 #‘Subscriber’ is a long-term Annual Member
 
 nyc_bikes_raw %>% 
-    count(type, sort = TRUE)
+    count(type, sort = TRUE) 
 
 # Vast majority 3953 are already subscribers - good!
 # Only 315 are using the short term options - opportunties to grow 'casual' use?
