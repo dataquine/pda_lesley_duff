@@ -1,24 +1,27 @@
 ---
-title: "Citi Bike"
+pdf_document: default
+author: "Lesley Duff"
+date: "`r format(Sys.Date())`"
 output:
   html_document:
-    toc: true
-    toc_float: true
-date: "`r format(Sys.Date())`"
-author: "Lesley Duff"
-pdf_document: default
+    toc: yes
+    toc_float: yes
+  pdf_document:
+    toc: yes
+title: "Citi Bike"
 ---
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(message = FALSE, warning = FALSE,
-                      echo = FALSE# 
-                     # eval = FALSE, fig.align = "center", 
-              )
+knitr::opts_chunk$set(
+  message = FALSE, warning = FALSE,
+  echo = FALSE #
+  # eval = FALSE, fig.align = "center",
+)
 ```
 
 ```{r}
 library(e1071) # tests for skewness
 library(ggthemes) # Contains colourblind palette
-library(leaflet)  # Maps
+library(leaflet) # Maps
 library(tidyverse)
 library(tsibble) # Time-based functions
 ```
@@ -26,18 +29,18 @@ library(tsibble) # Time-based functions
 
 ```{r}
 # Load clean dataset
-#nyc_bikes <- read_csv("clean_data/nyc_bikes.csv",
+# nyc_bikes <- read_csv("clean_data/nyc_bikes.csv",
 #  locale = locale(tz = "America/New_York"))
 
 # nyc_bikes <- as_tsibble(nyc_bikes,
 #                        index = start_time,
 #                        key = "bike_id")
-#str(nyc_bikes)
+# str(nyc_bikes)
 source("data_cleaning_scripts/nyc_citibike.R")
 # Not happy with this but simply have too many problems reading
 # a tsibble back in again things break right left and centre
 
-nyc_bikes <- nyc_bikes_clean
+citibike_hires <- nyc_bikes_clean
 ```
 
 # 1. Documentation
@@ -93,7 +96,7 @@ and show a map where the largest number of hires is displayed.
 ## Business processes and data flow
 <!-- (1.3) -->
 
-![This diagram was created using draw.io at https://app.diagrams.net](analysis_and_documentation/citibike_flow_diagram.drawio.png)
+![This diagram was created using draw.io at https://app.diagrams.net](analysis_and_documentation/images/citibike_flow_diagram.drawio.png)
 
 * First time user creates account using website or app. They add their payment details and buy a short pass or a long term membership. Customer charged.
 * User undocks bike by scanning QR code
@@ -197,8 +200,7 @@ All visualisations were made in RStudio using the `ggplot` package.*
 ```{r}
 # Visualisation variables for consistent plots
 plot_bar_colour <- "white"
-plot_fill_colour <- "steelblue"
-plot_theme <- theme_minimal()
+plot_theme <- theme_minimal(base_size = 12)
 ```
 
 For each plot you include in your report, please:
@@ -213,16 +215,14 @@ For example: _The highlighted relationship between age and spending can be used 
 
 ### Hires over time
 
-#### Year by day of year
+#### Hires by Day of Year
 ```{r}
 # Aggregate by date
-nyc_bikes_by_date <- nyc_bikes %>%
+citibike_hires_by_date <- citibike_hires %>%
   index_by(start_date) %>%
-  summarise(hires = n()) 
+  summarise(hires = n())
 
-nyc_bikes_by_date %>%
- # index_by(start_date) %>%
-  #summarise(hires = n()) %>%
+citibike_hires_by_day_of_year <- citibike_hires_by_date %>%
   ggplot(aes(x = start_date, y = hires)) +
   geom_line() +
   plot_theme +
@@ -232,65 +232,80 @@ nyc_bikes_by_date %>%
     x = "\nDate",
     y = "Number of Hires\n"
   )
-#nyc_bikes_by_date
+citibike_hires_by_day_of_year
+ggsave("analysis_and_documentation/images/plot_01_citibike_hires_by_day_of_year.png")
 ```
-This line plot shows the relationship between Date by each day of 2018 and the 
-Number of Hires.
+This line plot shows the pattern of hires with one value for every day of 2018.
 In general terms we see hires at their lowest in winter months, higher in summer 
-with a peak in August.
+with a peak in August. CitiBike could do promotions at quieter times of year to 
+try and even out usage. Or look at the top days and was there anything CitiBike 
+did to boost hires and to repeat anything similar. We will pull out tables of 
+high and low hires.
 
-Just to check which dates are top 5 peaks of hires
+##### Top 5 hires dates
 ```{r}
-nyc_bikes_by_date %>%
+top_5_hire_dates <- citibike_hires_by_date %>%
   arrange(desc(hires)) %>%
   head(5)
-```
-Three of the top 5 peaks are in August.
 
-#### Year by month
+top_5_hire_dates
+```
+##### Lowest hires dates
+There are some days where hires were barely measurable with only one hire.
+CitiBike should check their records for reasons why this may be. Was the 
+weather particularly bad, were there road problems, were CitiBike having 
+technical issues etc.
+
+```{r}
+lowest_hire_dates <- citibike_hires_by_date %>%
+  filter(hires == 1) %>%
+  arrange(hires)
+
+print(lowest_hire_dates, n = Inf)
+```
+
+#### Hires by month
 ```{r}
 # Aggregate by month of year
-nyc_bikes_by_month <- nyc_bikes %>%
-  index_by(start_month_name) %>% 
-  summarise(hires = n())
-
-nyc_bikes_by_month %>%
+citibike_hires_by_month <- citibike_hires %>%
+  index_by(start_month_name) %>%
+  summarise(hires = n()) %>%
   ggplot(aes(x = start_month_name, y = hires)) +
   geom_point() +
   geom_line(group = 1) +
   plot_theme +
   labs(
-    title = "Hires by Month of Year",
+    title = "Hires by Month",
     subtitle = "Sample data from 2018",
     x = "\nMonth",
     y = "Number of Hires\n"
   )
+citibike_hires_by_month
+ggsave("analysis_and_documentation/images/plot_02_citibike_hires_by_month.png")
 ```
 
-This line plot shows the relationship between each month of 2018 and the 
-number of hires.
+This line plot shows the pattern of hires each month of 2018.
 
 This confirms a steadily rising number of hires per month between February and 
-August. Usage then drops sharply in September and carries on dropping til the 
-end of the year.
+August. Usage then drops very sharply in September and carries on dropping 
+til the end of the year.
 
 The drop is interestingly not as steep from September to October. CitiBike 
 should check whether there's a similar effect in later years. Is there a new 
 source of customers specifically in October perhaps related to marketing 
-activity or an influx of e.g. students in New York?
+activity or an influx of e.g. shortly after start of academic term for students 
+in New York?
 
-
-
-#### Days of the Week
+#### Hires by Day of the Week
 ```{r}
 # Aggregate by day of week
 weekend_days <- c("Sun", "Sat")
-day_type_labels <-  c("Weekday", "Weekend")
-nyc_bikes_by_day_of_week <- nyc_bikes %>%
-  index_by(start_day_of_week) %>% 
+day_type_labels <- c("Weekday", "Weekend")
+citibike_hires_by_day_of_week <- citibike_hires %>%
+  index_by(start_day_of_week) %>%
   summarise(hires = n())
 
-nyc_bikes_by_day_of_week %>%
+citibike_hires_by_day_of_week %>%
   ggplot(aes(x = start_day_of_week, y = hires, fill = start_day_of_week %in% weekend_days)) +
   geom_col() +
   geom_text(aes(label = hires), vjust = 1.5, colour = "white") +
@@ -299,61 +314,73 @@ nyc_bikes_by_day_of_week %>%
   ) +
   plot_theme +
   labs(
-    title = "Hires by Days of the Week",
+    title = "Hires by Day of the Week",
     subtitle = "Sample data from 2018",
     x = "\nDay of Week",
     y = "Number of Hires\n",
     fill = "Weekend"
   )
+ggsave("analysis_and_documentation/images/plot_03_citibike_hires_by_day_of_week.png")
 ```
 
-This line plot shows the relationship between the Day of the Week and the 
-Number of Hires across 2018.
+This line bar plot shows the pattern of hires for each day of the week and also 
+highlights which days are weekend usage.
 
 We see that hires are lower at weekends than weekdays. Resources are less 
-heavily used on weekends so there may be scope for promoting more leisure trips 
-within the current service capacity.
+heavily used on weekends so there should be scope for promoting more leisure 
+trips within the current service capacity. Could leisure promotions at weekends 
+help compensate for loss of local weekday commuters. There is no immediately 
+obvious reason why Tuesday should be higher than the others.
 
-#### Hours of Day
+#### Hires by Hour of Day
 ```{r}
 # Aggregate by hour of day
 office_hours <- c(8:18) # 9-5 and 1 hr commute
 
-nyc_bikes_by_hour_of_day <- nyc_bikes %>%
-  index_by(start_hour_of_day) %>% 
+citibike_hires_by_hour_of_day <- citibike_hires %>%
+  index_by(start_hour_of_day) %>%
   summarise(hires = n())
-nyc_bikes_by_hour_of_day
 
- nyc_bikes_by_hour_of_day %>%
+citibike_hires_by_hour_of_day %>%
   mutate(is_office_hours = if_else(start_hour_of_day %in% office_hours,
-                                   "Yes", "No")) %>%
-
-  ggplot(aes(x = start_hour_of_day, y = hires, fill=is_office_hours)) +
-  geom_col()+
-  scale_fill_colorblind("Office Hours")+
-  plot_theme+
-    scale_x_continuous(breaks = 1:24) + 
-
-  labs(title = "Hires by Hour of the Day",
-       subtitle = "Sample data from 2018",
-       x = "\nHour of Day",
-       y = "Number of Hires\n",
-       fill = "Office Hours")
+    "Yes", "No"
+  )) %>%
+  ggplot(aes(x = start_hour_of_day, y = hires, fill = is_office_hours)) +
+  geom_col() +
+  scale_fill_colorblind("Office Hours") +
+  plot_theme +
+  scale_x_continuous(breaks = 1:24) +
+  labs(
+    title = "Hires by Hour of the Day",
+    subtitle = "Sample data from 2018",
+    x = "\nHour of Day",
+    y = "Number of Hires\n",
+    fill = "Office Hours"
+  )
+ggsave("analysis_and_documentation/images/plot_04_citibike_hires_by_hour_of_day.png")
 ```
+This bar plot shows hires for all 24 hours of the day.
 
-### Demographics: User Type (Subscriber vs Customer)
+As migh be expected this shows peak movement before and after traditional 
+"office hours" 9-5 with an hour or two either side. We must remember this was 
+before COVID-19 and many more people commuted into city centre offices for work. Hires are remarkably even from 10am to 3pm. Thse are the dip in the middle. CityBike might like to experiment with promotions to encourage more 
+use if bike trip started during these hours. Not really any sign of workers going on bike trips during lunch breaks. Perhaps incentivise tourists able to move at these times. Very little usage from 1-4am, could CitiBike target shift workers e.g. health/emergency workers or the entertainment sectors.
+
+### Demographics: Hires by User Type 
+
+**Subscriber vs Customer**
 
 ```{r}
-nyc_user_type <- tibble(nyc_bikes) %>%
-  select(type, start_month_name) %>% 
-  group_by(type, month = start_month_name) %>% 
+citibike_hires_user_type <- tibble(citibike_hires) %>%
+  select(type, start_month_name) %>%
+  group_by(type, month = start_month_name) %>%
   summarise(hires = n())
 
-nyc_user_type %>% 
+citibike_hires_user_type %>%
   ggplot(aes(x = month, y = hires, fill = type)) +
   geom_col() +
   plot_theme +
-  scale_fill_colorblind()+
+  scale_fill_colorblind() +
   labs(
     title = "Hires by User Type",
     subtitle = "Sample data from 2018",
@@ -361,29 +388,40 @@ nyc_user_type %>%
     y = "Number of Hires\n",
     fill = "User Type"
   )
+ggsave("analysis_and_documentation/images/plot_05_citibike_hires_user_type.png")
 ```
 
-This bar plot examines the proportions of users who are customers 
-vs. subscribers each month of 2018.
+This bar plot shows hires by users who are customers vs. subscribers each month
+of 2018.
 
 We can see that the subscribers drop greatly between August/September and again between October/November.
 
-Subscribers are those who took paid for a year of use. It suggests that many of those who took out subscriptions in August or October the previous year 2017 did not choose to renew. CitiBike should look for explanations - were there any special promotions those months in the previous year? Is there a cyclical drop showing the same pattern in later years?
+Subscribers are those who paid for a full year of use. It suggests that a 
+significant group of those who took out subscriptions in August or October the 
+previous year 2017 did not choose to renew at this time. Were there any 
+special promotions those months in the previous year? Is there a cyclical drop 
+showing the same pattern in later years?
 
-The proportion of customers seems highest in the summer months. Are people more likely to experiment with the CitiBike service in good weather?
+The proportion of customers seems highest in the summer months. Are people more
+likely to experiment with short passes for the CitiBike service in good weather?
+Are tourists accounting for these increases? Maybe on signing up for the 
+service CitiBike could ask for optional data around what use the user had 
+planned.
 
 ### Demographics: Age and Gender
 
 ```{r}
-nyc_user_age <- tibble(nyc_bikes) %>%
+citibike_hires_user_age <- tibble(citibike_hires) %>%
   select(rider_age, birth_year, gender)
 
-nyc_user_age %>% 
+citibike_hires_user_age %>%
   ggplot(aes(x = rider_age, fill = gender)) +
-  geom_histogram(colour = plot_bar_colour, 
-                 binwidth = 1) +
-  plot_theme+
-  scale_fill_colorblind()+
+  geom_histogram(
+    colour = plot_bar_colour,
+    binwidth = 1
+  ) +
+  plot_theme +
+  scale_fill_colorblind() +
   labs(
     title = "Hires by Age and Gender",
     subtitle = "Sample data from 2018",
@@ -391,6 +429,7 @@ nyc_user_age %>%
     y = "Number of Hires\n",
     fill = "Gender"
   )
+ggsave("analysis_and_documentation/images/plot_06_citibike_hires_user_age.png")
 ```
 This bar plot shows the numbers of users broken down by the age of the person 
 making the hire and their gender during 2018.
@@ -404,12 +443,11 @@ now test this.
 
 #### Testing skew by age
 ```{r}
-nyc_user_age_skewed <- nyc_user_age %>%
-  select(rider_age) %>% 
+citibike_hires_user_age_skewed <- citibike_hires_user_age %>%
+  select(rider_age) %>%
+  summarise(skewness = skewness(rider_age, type = 1))
 
-  summarise(skewness = skewness(rider_age, type = 1)) 
-
-nyc_user_age_skewed
+citibike_hires_user_age_skewed
 ```
 
 The age distribution is moderately right-skewed with greater hires by younger 
@@ -418,12 +456,13 @@ people.
 #### Examining hires by gender
 
 ```{r}
-nyc_user_age %>% 
-  select(gender) %>% 
-  group_by(gender) %>% 
-  summarise(hires = n()) %>% 
-  ungroup() %>% 
+citibike_hires_gender <- citibike_hires_user_age %>%
+  select(gender) %>%
+  group_by(gender) %>%
+  summarise(hires = n()) %>%
+  ungroup() %>%
   arrange(desc(hires))
+citibike_hires_gender
 ```
 
 Percentage of those providing a gender female = 930/3069 * 100 = 30.3%
@@ -444,15 +483,15 @@ We will try to investigate why there is such a high proportion of unknown gender
 for just one age.
 
 ```{r}
-nyc_user_age_unknown <- nyc_user_age %>% 
-  filter (gender == "Unknown") %>% 
-  group_by(rider_age, birth_year, gender) %>% 
-  summarise(hires = n()) %>% 
-  ungroup() %>% 
-  arrange(desc(hires)) %>% 
+citibike_hires_user_age_unknown <- citibike_hires_user_age %>%
+  filter(gender == "Unknown") %>%
+  group_by(rider_age, birth_year, gender) %>%
+  summarise(hires = n()) %>%
+  ungroup() %>%
+  arrange(desc(hires)) %>%
   top_n(3)
 
-nyc_user_age_unknown
+citibike_hires_user_age_unknown
 ```
 We see that those who claimed to be 49 (born in 1969) account for an 
 extraordinarily high proportion of people not supplying a gender.
@@ -466,64 +505,67 @@ drop and improve the accuracy of the age data.
 ### Hires by geographical spread
 
 ```{r}
-nyc_bikes_station_locations <- tibble(nyc_bikes) %>%
+citibike_hires_station_locations <- tibble(citibike_hires) %>%
   select(start_station, start_lat, start_long) %>%
-  group_by(start_station,start_lat, start_long) %>%
-  #select(start_lat, start_long) %>%
- # group_by(start_lat, start_long) %>%
+  group_by(start_station, start_lat, start_long) %>%
   summarise(number_of_hires = n()) %>%
   ungroup()
-#nyc_bikes_station_locations
 
-nyc_bikes_station_start_map <- leaflet(nyc_bikes_station_locations) %>%
+citibike_hires_station_start_map <- leaflet(citibike_hires_station_locations) %>%
   addTiles() %>% # use the default base map which is OpenStreetMap tiles
-  #?addMarkers
+  # ?addMarkers
 
   addCircleMarkers(
-    lng = ~ start_long,
-    lat = ~ start_lat,
-    radius = ~ number_of_hires/20,
-    #popup = ~paste("<strong>Number of Hires:</strong>", number_of_hires),
-        popup = ~paste("<strong>Number of Hires:</strong>", number_of_hires,
-      "<br /><strong>Station Number:</strong>", 
-                   start_station),
-    label = ~paste("Number of Hires:",number_of_hires)
-  ) 
+    lng = ~start_long,
+    lat = ~start_lat,
+    radius = ~ number_of_hires / 20,
+    # popup = ~paste("<strong>Number of Hires:</strong>", number_of_hires),
+    popup = ~ paste(
+      "<strong>Number of Hires:</strong>", number_of_hires,
+      "<br /><strong>Station Number:</strong>",
+      start_station
+    ),
+    label = ~ paste("Number of Hires:", number_of_hires)
+  )
 
-nyc_bikes_station_start_map
+citibike_hires_station_start_map
+ggsave("analysis_and_documentation/images/plot_07_citibike_hires_station_start_map.png")
 ```
 
 ## Other insights
 ### Duration
 ```{r}
-#View(nyc_bikes)
-nyc_bikes_duration <- nyc_bikes %>%
-  select(hire_duration,type, gender, rider_age) %>% 
-  mutate(hire_duration_minutes =  
-           round(as.numeric(hire_duration, "minutes")),
-    duration_category =    
+# View(nyc_bikes)
+citibike_hires_duration_duration <- citibike_hires %>%
+  select(hire_duration, type, gender, rider_age) %>%
+  mutate(
+    hire_duration_minutes =
+      round(as.numeric(hire_duration, "minutes")),
+    duration_category =
       case_when(
- hire_duration_minutes < 10 ~ "< 10 minutes",
-   between(hire_duration_minutes, 10, 19)  ~ "10 -19 minutes",
-   between(hire_duration_minutes, 20, 29)  ~ "20 -29 minutes",
-   #between(hire_duration_minutes, 30, 3600)  ~ "30 minutes - 6 hours",
-  hire_duration_minutes >= 30 ~ "> 30 minutes",
- # hire_duration_minutes >= 10 <= 5 ~ "Medium 10 -19 minutes",
-  TRUE   ~ "Unknown"
-),
-  .after = hire_duration)
+        hire_duration_minutes < 10 ~ "< 10 minutes",
+        between(hire_duration_minutes, 10, 19) ~ "10 -19 minutes",
+        between(hire_duration_minutes, 20, 29) ~ "20 -29 minutes",
+        # between(hire_duration_minutes, 30, 3600)  ~ "30 minutes - 6 hours",
+        hire_duration_minutes >= 30 ~ "> 30 minutes",
+        # hire_duration_minutes >= 10 <= 5 ~ "Medium 10 -19 minutes",
+        TRUE ~ "Unknown"
+      ),
+    .after = hire_duration
+  )
 
-nyc_bikes_duration %>% 
+citibike_hires_duration_duration %>%
   ggplot(aes(x = fct_infreq(duration_category))) +
-  geom_histogram(stat="count")+
-  plot_theme+
-  scale_fill_colorblind()+
+  geom_histogram(stat = "count") +
+  plot_theme +
+  scale_fill_colorblind() +
   labs(
     title = "Hires by Duration Category",
     subtitle = "Sample data from 2018",
     x = "\nDuration Category",
     y = "Number of Hires\n"
-  )    
+  )
+ggsave("analysis_and_documentation/images/plot_08_citibike_hires_duration.png")
 ```
 
 This plot shows number of hires broken down by duration. Duration is the time 
@@ -580,10 +622,10 @@ as part of a hire.
 ### Location (double)
 We have the latitude and longitude as numbers telling us the exactly where the 
 bike stations used during a hire are located.
-`start_lat`,`end_lat`: Latitude of starting/ending station
+`start_lat`,`end_lat`: Latitude of starting/ending station. 
 `start_long`,`end_long`: Longitude of starting/ending station
 
 ### User-supplied information
-* `birth_year`: (double) The bike rider’s year of birth.
-* `gender`: (factor) User can optionally declare their gender (Male/Female/Unknown)
-
+* `birth_year`: (double) The bike rider’s year of birth.  
+* `gender`: (factor) User can optionally declare their gender 
+(Male/Female/Unknown)
