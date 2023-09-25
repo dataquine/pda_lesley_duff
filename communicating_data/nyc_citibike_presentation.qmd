@@ -1,0 +1,76 @@
+---
+title: "CitiBike "
+author: "Lesley DUff"
+format: revealjs
+editor: visual
+---
+
+# CitiBike
+
+[Citi Bike](https://ride.citibikenyc.com/about) is the largest [bike share system](https://en.wikipedia.org/wiki/Bicycle-sharing_system) in the United States of America. Fleet of bikes available for hire to people using CitiBike docking stations throughout New York City.
+
+# Ethics
+
+## Consent
+
+User data obtained from users creating account accepting terms and conditions. Trip data recored automatically via electronics on bikes and docking stations. CitiBike provides a small sample dataset of usage of 10 bikes throughout 2018.
+
+### Human Rights: Privacy
+
+-   Information about people and places. **Anonymised** data stored in the sample dataset. Nothing to uniquely identify the demographics or behaviour of a particular person
+
+-   User data: year of birth is stored and not birth date, gender is optional
+
+-   Location: latitude and longitude of the start and end of the journey. This is the locations of the docking **bike station** only, not the location of a person. No live tracking of bikes during trip.
+
+## Bike hire process
+
+-   One-time-only: Customer signs up for short term pass or annual membership via app or kiosk code.
+
+-   Each journey: Customer undocks bike from a starting station. Hired bikes can be returned to **any** station. Charges based on duration of journey.
+
+-   Citi Bike available 24 hours/day, 7 days/week, 365 days/year
+
+-   User signs up as a **Customer** purchasing a short-term 24-hour or 3-day pass or as a **Subscriber** as a long-term Annual Member.
+
+## Hires over time
+
+Pattern of bike hires over time
+
+## Year
+
+![](analysis_and_documentation/images/plot_01_citibike_hires_by_day_of_year.png)
+
+## Month
+
+![](analysis_and_documentation/images/plot_02_citibike_hires_by_month.png)
+
+## Week
+
+## Day
+
+# Demographics
+
+## Age and Gender
+
+Any differences in hires between different demographic groups such as age and gender or user type.
+
+## User Type
+
+Users are either a **Customer** purchasing short-term 24-hour or 3-day pass or a **Subscriber** with a long-term Annual Membership
+
+# Station Location
+
+1.  Where are the start points of bike hires?
+
+# Other Insights
+
+## Duration of Trip
+
+Longer than 30 minutes incur extra charges, penalties for non-return within 24hrs.
+
+# Recommendations
+
+-   Increase marketing activity to encourage underrepresented groups such as females and over 40s
+
+-   Examine relationship between weather/daylight and hiring patterns. Offer extra incentives for casual users during 'nice' weather.
