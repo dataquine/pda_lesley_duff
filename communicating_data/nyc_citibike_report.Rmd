@@ -529,7 +529,7 @@ citibike_hires_station_start_map <- leaflet(citibike_hires_station_locations) %>
   )
 
 citibike_hires_station_start_map
-ggsave("analysis_and_documentation/images/plot_07_citibike_hires_station_start_map.png")
+#ggsave("analysis_and_documentation/images/plot_07_citibike_hires_station_start_map.png")
 ```
 
 ## Other insights
