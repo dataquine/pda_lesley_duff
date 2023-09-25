@@ -13,7 +13,8 @@ library(tsibbledata)
 
 # Load original dataset ----
 nyc_bikes_raw <- nyc_bikes
-
+#View(nyc_bikes)
+#str(nyc_bikes)
 # Examine time-based info
 #index_var(nyc_bikes_raw)
 #"start_time"
