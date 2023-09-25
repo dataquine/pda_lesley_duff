@@ -6,8 +6,6 @@ output:
   html_document:
     toc: yes
     toc_float: yes
-  pdf_document:
-    toc: yes
 title: "Citi Bike"
 ---
 ```{r setup, include=FALSE}
@@ -54,24 +52,25 @@ at docking stations throughout New York City. Hired bikes can be returned to
 any station. Citi Bike is available for use 24 hours/day, 7 days/week, 
 365 days/year.
 
-The data provided to us is a small sample of NYC Citi Bike usage of 10 bikes 
-throughout 2018.
+## Ethics
+### Consent
+
+User data obtained by Citi Bike from users creating accounts and accepting terms
+and conditions. 
+Trip data recorded automatically via electronics on bikes and docking stations. 
+Citi Bike has provided a small sample dataset of usage of 10 bikes throughout 
+2018.
 
 **Data Source:**
 
 * [NYC Citi Bike trips](https://rdrr.io/github/tidyverts/tsibbledata/man/nyc_bikes.html) dataset from tsibbledata used in this analysis
 * [Citi Bike NYC](https://www.citibikenyc.com/system-data) Original Source
 
-## Ethics
-### Consent
-
-User data obtained from users creating account accepting terms and conditions. 
-Trip data recorded automatically via electronics on bikes and docking stations. 
-CitiBike provides a small sample dataset of usage of 10 bikes throughout 2018.
-
 ### Human Rights: Privacy
 
-There is information about people and places. Only anonymised data stored in the sample public dataset. Nothing to uniquely identify the demographics or behaviour of a particular person.
+There is information about people and places. Only anonymised data stored in th
+e sample public dataset. Nothing to uniquely identify the demographics or 
+behaviour of a particular person.
 
 **User data:** year of birth is stored and not birth date, gender is optional.  
 **Location:** latitude and longitude of the start and end of the journey. This 
@@ -89,7 +88,7 @@ type of trip, age)
 * What is the geographical spread of the start points of bike hires?
 * Any other insights?
 
-The main Key Performance Indicatior (KPI) that CitiBike could use to measure 
+The main Key Performance Indicatior (KPI) that Citi Bike could use to measure 
 success is 'Hires'. We will visualise hires against time, against demographics 
 and show a map where the largest number of hires is displayed.
 
@@ -102,7 +101,7 @@ and show a map where the largest number of hires is displayed.
 * User undocks bike by scanning QR code
 * User goes on bike trip
 * User docks bike
-* CitiBike checks the duration of the hire and charges any payment due in excess of user type allowances
+* Citi Bike checks the duration of the hire and charges any payment due in excess of user type allowances
 
 ## Data visualisation as a tool for decision-making
 <!-- (1.4)
@@ -132,20 +131,20 @@ of trips the gender of the user was unknown. A couple of entries gave year of
 birth of the person hiring the bike as being in the 1880s.
 
 ### Bias
-The dataset has been provided by the CitiBike company obtained from 
+The dataset has been provided by the Citi Bike company obtained from 
 their systems. The data we have is a sample of a larger dataset. We have no way 
 of independently verifying whether the technical information gathered by 
-CitiBike about hires is accurate e.g. are the date/time stamps correct?
+Citi Bike about hires is accurate e.g. are the date/time stamps correct?
 
-CitiBike bikes hire process involves users using their mobile phones to 'unlock'
-bikes. CitiBike will be unable to determine from this dataset whether there are 
+Citi Bike bikes hire process involves users using their mobile phones to 'unlock'
+bikes. Citi Bike will be unable to determine from this dataset whether there are 
 people who would like to use the service but do not have a mobile phone or can't
 use the apps involved. There is no information on failed attempts e.g. technical faults or not enough bikes available.
 
 We have been provided with no initial information about about how this smaller 
 sample was generated e.g. whether truly random over the full data or whether the
 sample is from a specific subcategory of e.g. stations/bikes/users or other data 
-CitiBike holds but not made public. We are unable to claim how well this sample 
+Citi Bike holds but not made public. We are unable to claim how well this sample 
 represents the full dataset to which we do not have access.
 
 Possible undercoverage bias? The sample is only for over 4,000 trips over the 
@@ -184,8 +183,8 @@ distribution of available data. From there I chose which time-based information
 seemed most valuable for business decision making. 
 
 For demographics it seemed helpful to combine both age and gender on the same 
-diagram. This highlighted a possible issue with data quality regarding age for 
-CitiBike to examine later. 
+diagram. This uncovered a possible issue with data quality regarding age for 
+Citi Bike to examine later. 
 
 I tried to make sure the plots were as aesthetically pleasing as possible, 
 correctly labelled and used colour schemes to assist those with 
@@ -193,16 +192,8 @@ colour-blindness.
 
 All visualisations were made in RStudio using the `ggplot` package.*
 
-
-
-## Visualisations (2.2, 2.3, 2.4, 2.5, 2.6)
-
-```{r}
-# Visualisation variables for consistent plots
-plot_bar_colour <- "white"
-plot_theme <- theme_minimal(base_size = 12)
-```
-
+## Visualisations
+<!-- (2.2, 2.3, 2.4, 2.5, 2.6) 
 For each plot you include in your report, please:
 
 **Describe the visualisation: what kind of visualisation is it and what information does it contain?**
@@ -212,6 +203,13 @@ For example: _This scatter plot shows the relationship between age (years) and s
 **Why is this visualisation important to the business? What does it mean/how can it be used?**
 
 For example: _The highlighted relationship between age and spending can be used by the business to create better targeted advertisements for different age groups as well as make better predictions of customer behaviour._
+-->
+
+```{r}
+# Visualisation variables for consistent plots
+plot_bar_colour <- "white"
+plot_theme <- theme_minimal(base_size = 12)
+```
 
 ### Hires over time
 
@@ -237,8 +235,8 @@ ggsave("analysis_and_documentation/images/plot_01_citibike_hires_by_day_of_year.
 ```
 This line plot shows the pattern of hires with one value for every day of 2018.
 In general terms we see hires at their lowest in winter months, higher in summer 
-with a peak in August. CitiBike could do promotions at quieter times of year to 
-try and even out usage. Or look at the top days and was there anything CitiBike 
+with a peak in August. Citi Bike could do promotions at quieter times of year to 
+try and even out usage. Or look at the top days and was there anything Citi Bike 
 did to boost hires and to repeat anything similar. We will pull out tables of 
 high and low hires.
 
@@ -252,8 +250,8 @@ top_5_hire_dates
 ```
 ##### Lowest hires dates
 There are some days where hires were barely measurable with only one hire.
-CitiBike should check their records for reasons why this may be. Was the 
-weather particularly bad, were there road problems, were CitiBike having 
+Citi Bike should check their records for reasons why this may be. Was the 
+weather particularly bad, were there road problems, were Citi Bike having 
 technical issues etc.
 
 ```{r}
@@ -290,7 +288,7 @@ This confirms a steadily rising number of hires per month between February and
 August. Usage then drops very sharply in September and carries on dropping 
 til the end of the year.
 
-The drop is interestingly not as steep from September to October. CitiBike 
+The drop is interestingly not as steep from September to October. Citi Bike 
 should check whether there's a similar effect in later years. Is there a new 
 source of customers specifically in October perhaps related to marketing 
 activity or an influx of e.g. shortly after start of academic term for students 
@@ -364,7 +362,7 @@ This bar plot shows hires for all 24 hours of the day.
 As migh be expected this shows peak movement before and after traditional 
 "office hours" 9-5 with an hour or two either side. We must remember this was 
 before COVID-19 and many more people commuted into city centre offices for work. Hires are remarkably even from 10am to 3pm. Thse are the dip in the middle. CityBike might like to experiment with promotions to encourage more 
-use if bike trip started during these hours. Not really any sign of workers going on bike trips during lunch breaks. Perhaps incentivise tourists able to move at these times. Very little usage from 1-4am, could CitiBike target shift workers e.g. health/emergency workers or the entertainment sectors.
+use if bike trip started during these hours. Not really any sign of workers going on bike trips during lunch breaks. Perhaps incentivise tourists able to move at these times. Very little usage from 1-4am, could Citi Bike target shift workers e.g. health/emergency workers or the entertainment sectors.
 
 ### Demographics: Hires by User Type 
 
@@ -403,9 +401,9 @@ special promotions those months in the previous year? Is there a cyclical drop
 showing the same pattern in later years?
 
 The proportion of customers seems highest in the summer months. Are people more
-likely to experiment with short passes for the CitiBike service in good weather?
+likely to experiment with short passes for the Citi Bike service in good weather?
 Are tourists accounting for these increases? Maybe on signing up for the 
-service CitiBike could ask for optional data around what use the user had 
+service Citi Bike could ask for optional data around what use the user had 
 planned.
 
 ### Demographics: Age and Gender
@@ -470,11 +468,11 @@ This suggests there could be at least 2,000 females in this sample not using
 the service.
 
 More research should be done into why females are less likely to use the
-CitiBike service. Do we know whether females are deliberately choosing not to 
+Citi Bike service. Do we know whether females are deliberately choosing not to 
 use the services or are there factors like whether they've learned to ride a 
 bike when younger?
 
-CitiBike should consider demographically targeted marketing campaigns to 
+Citi Bike should consider demographically targeted marketing campaigns to 
 women e.g. online adverts.
 
 #### Checking the high number of unknowns on only one age group
@@ -572,12 +570,11 @@ This plot shows number of hires broken down by duration. Duration is the time
 taken between a bike being undocked at a starting station and docked at a
 destination station.
 
-[CitiBike pricing](https://citibikenyc.com/pricing) already offers financial 
+[Citi Bike pricing](https://citibikenyc.com/pricing) already offers financial 
 incentives to keep trips < 30 minutes by charging extra per 15 mins over. 
 Majority of trips are well within this with the highest usage being very short 
-trips lasting less than 10 minutes. Suggests users find CitiBike worthwhile even 
+trips lasting less than 10 minutes. Suggests users find Citi Bike worthwhile even 
 for relatively short journeys outweighing any time spent walking to find a bike.
-
 
 ## Conclusion
 
@@ -586,10 +583,10 @@ in winter. Suggest further research to see if people feel too unsafe to use
 the service in poor weather. Capitalise on "fair weather" users by offering 
 cheaper and easier options for impromptu "day trips".
 * Overwhelming majority of users are subscribers with yearly membership 
-suggesting satisfaction with the service CitiBike offers. Use this vote of 
+suggesting satisfaction with the service Citi Bike offers. Use this vote of 
 confidence to tempt potential new users using incentives to try 
 a short pass first - discounts on full membership for new customers.
-* Males use CitiBike far more than females. Quick win could be to attempt to 
+* Males use Citi Bike far more than females. Quick win could be to attempt to 
 grow female usage through trying targeted marketing campaigns and working with 
 female groups in New York City.
 * Developers/designers should check whether the user interface provided could be 
