@@ -68,40 +68,43 @@ Citi Bike has provided a small sample dataset of usage of 10 bikes throughout
 
 ### Human Rights: Privacy
 
-There is information about people and places. Only anonymised data stored in th
-e sample public dataset. Nothing to uniquely identify the demographics or 
+Information about people and places but only **anonymised** data stored in 
+sample public dataset. Nothing to uniquely identify the demographics or 
 behaviour of a particular person.
 
 **User data:** year of birth is stored and not birth date, gender is optional.  
 **Location:** latitude and longitude of the start and end of the journey. This 
-is the locations of the docking bike station only, not the location of a person. 
-No live tracking of bikes during trip.
+is the location of the docking bike station only, not the location of a person. 
+No live tracking of bikes between start and end stations.
 
 ## Business requirements
 <!-- (1.2) -->
 
 Citi Bike would like to know more about the following:
 
-* The pattern of bike hires over time
-* Do bike hire patterns differ between bike rider demographics? (e.g. gender, 
-type of trip, age)
+* Pattern of bike hires over time
+* Do hire patterns differ between bike rider demographics?
 * What is the geographical spread of the start points of bike hires?
 * Any other insights?
 
 The main Key Performance Indicatior (KPI) that Citi Bike could use to measure 
-success is 'Hires'. We will visualise hires against time, against demographics 
-and show a map where the largest number of hires is displayed.
+success is **hires**. A hire is defined as when a bike has been successfully 
+undocked at a start station and docked at a destination station. We will 
+plot hires against time/demographics and show a map where the number of hires 
+is visualised.
 
 ## Business processes and data flow
 <!-- (1.3) -->
 
 ![This diagram was created using draw.io at https://app.diagrams.net](analysis_and_documentation/images/citibike_flow_diagram.drawio.png)
 
-* First time user creates account using website or app. They add their payment details and buy a short pass or a long term membership. Customer charged.
+* First time user creates account using website or app. User adds payment 
+details and buys a short pass or a long term membership. Customer charged
 * User undocks bike by scanning QR code
 * User goes on bike trip
 * User docks bike
-* Citi Bike checks the duration of the hire and charges any payment due in excess of user type allowances
+* Citi Bike checks the duration of the hire and charges any payment due in 
+excess of user type allowances
 
 ## Data visualisation as a tool for decision-making
 <!-- (1.4)
@@ -138,8 +141,9 @@ Citi Bike about hires is accurate e.g. are the date/time stamps correct?
 
 Citi Bike bikes hire process involves users using their mobile phones to 'unlock'
 bikes. Citi Bike will be unable to determine from this dataset whether there are 
-people who would like to use the service but do not have a mobile phone or can't
-use the apps involved. There is no information on failed attempts e.g. technical faults or not enough bikes available.
+people who would like to use the bikes but do not have a mobile phone or can't
+use the apps involved. There is no information on failed attempts e.g. technical
+faults or not enough bikes available for users wishing to travel.
 
 We have been provided with no initial information about about how this smaller 
 sample was generated e.g. whether truly random over the full data or whether the
@@ -147,14 +151,14 @@ sample is from a specific subcategory of e.g. stations/bikes/users or other data
 Citi Bike holds but not made public. We are unable to claim how well this sample 
 represents the full dataset to which we do not have access.
 
-Possible undercoverage bias? The sample is only for over 4,000 trips over the 
+Possible undercoverage? The sample is only for over 4,000 trips over the 
 course of 2018 for just 10 different bikes and only around 50 stations. We can
-only examine that particular year without examining whether there are 
-year-to-year trends such a seasonal variations.
+only examine that particular year in isolation without testing whether there are 
+year-to-year trends such seasonal variations.
 
-Response bias: There are some questionable entries in birth year information 
-comes from the user so might have been an error on their part mistyping, bug in 
-app or deliberately choosing the wrong year.
+Response: there are some questionable entries in birth year information 
+provided by the user so might have been a bug or design issue in app or users 
+deliberately choosing the wrong year.
 
 # 2. Data cleaning
 
@@ -184,11 +188,14 @@ seemed most valuable for business decision making.
 
 For demographics it seemed helpful to combine both age and gender on the same 
 diagram. This uncovered a possible issue with data quality regarding age for 
-Citi Bike to examine later. 
+Citi Bike to examine later.
 
 I tried to make sure the plots were as aesthetically pleasing as possible, 
 correctly labelled and used colour schemes to assist those with 
 colour-blindness.
+
+For some visualisations the images raised questions regarding particular points 
+of interest. For these items I supplemented plots with some tabular information.
 
 All visualisations were made in RStudio using the `ggplot` package.*
 
@@ -233,34 +240,17 @@ citibike_hires_by_day_of_year <- citibike_hires_by_date %>%
 citibike_hires_by_day_of_year
 ggsave("analysis_and_documentation/images/plot_01_citibike_hires_by_day_of_year.png")
 ```
-This line plot shows the pattern of hires with one value for every day of 2018.
-In general terms we see hires at their lowest in winter months, higher in summer 
-with a peak in August. Citi Bike could do promotions at quieter times of year to 
-try and even out usage. Or look at the top days and was there anything Citi Bike 
-did to boost hires and to repeat anything similar. We will pull out tables of 
-high and low hires.
+This line plot shows the pattern of hires per day of 2018.
+Hires are lower in winter months, higher in summer. Citi Bike could do 
+promotions at quieter times of year to try and encourage more usage. They could 
+further examine the top days and was there anything they did to boost hires in 
+the past and to repeat anything similar in future. On 21 days hires were 
+barely measurable with only a single hire. Check for reasons why this may be 
+e.g. was the weather particularly severe, were there road problems, was 
+something affecting accurate usage recording like mobile phone network problems,
+were Citi Bike having other technical issues etc.
 
-##### Top 5 hires dates
-```{r}
-top_5_hire_dates <- citibike_hires_by_date %>%
-  arrange(desc(hires)) %>%
-  head(5)
-
-top_5_hire_dates
-```
-##### Lowest hires dates
-There are some days where hires were barely measurable with only one hire.
-Citi Bike should check their records for reasons why this may be. Was the 
-weather particularly bad, were there road problems, were Citi Bike having 
-technical issues etc.
-
-```{r}
-lowest_hire_dates <- citibike_hires_by_date %>%
-  filter(hires == 1) %>%
-  arrange(hires)
-
-print(lowest_hire_dates, n = Inf)
-```
+See appendix for tables of [dates of highest and lowest hires](#tables-of-dates-of-highest-and-lowest-hires).
 
 #### Hires by month
 ```{r}
@@ -285,14 +275,14 @@ ggsave("analysis_and_documentation/images/plot_02_citibike_hires_by_month.png")
 This line plot shows the pattern of hires each month of 2018.
 
 This confirms a steadily rising number of hires per month between February and 
-August. Usage then drops very sharply in September and carries on dropping 
-til the end of the year.
+peaking in August. Usage then drops very sharply in September and carries on 
+dropping til the end of the year.
 
-The drop is interestingly not as steep from September to October. Citi Bike 
-should check whether there's a similar effect in later years. Is there a new 
-source of customers specifically in October perhaps related to marketing 
-activity or an influx of e.g. shortly after start of academic term for students 
-in New York?
+Interestingly the drop is not as steep from September to October. If data from 
+later years is available they should check whether there's a similar effect. 
+Is there a new source of customers specifically in October perhaps related to 
+marketing activity or an influx shortly after start of academic term for 
+students in New York?
 
 #### Hires by Day of the Week
 ```{r}
@@ -321,14 +311,14 @@ citibike_hires_by_day_of_week %>%
 ggsave("analysis_and_documentation/images/plot_03_citibike_hires_by_day_of_week.png")
 ```
 
-This line bar plot shows the pattern of hires for each day of the week and also 
-highlights which days are weekend usage.
+This bar plot shows the pattern of hires for each day of the week across the 
+whole of 2018 and highlighting which days are weekday/weekend usage.
 
-We see that hires are lower at weekends than weekdays. Resources are less 
-heavily used on weekends so there should be scope for promoting more leisure 
-trips within the current service capacity. Could leisure promotions at weekends 
-help compensate for loss of local weekday commuters. There is no immediately 
-obvious reason why Tuesday should be higher than the others.
+Hires are lower at weekends than weekdays. There should be scope for promoting 
+more leisure trips within the current service capacity. Could leisure promotions
+at weekends help compensate for loss of local weekday commuters. There is no 
+immediately obvious reason from this dataset why Tuesday should be higher than 
+the others.
 
 #### Hires by Hour of Day
 ```{r}
@@ -357,12 +347,18 @@ citibike_hires_by_hour_of_day %>%
   )
 ggsave("analysis_and_documentation/images/plot_04_citibike_hires_by_hour_of_day.png")
 ```
-This bar plot shows hires for all 24 hours of the day.
+This bar plot shows hires for all 24 hours of the day across the whole of 2018.
 
-As migh be expected this shows peak movement before and after traditional 
-"office hours" 9-5 with an hour or two either side. We must remember this was 
-before COVID-19 and many more people commuted into city centre offices for work. Hires are remarkably even from 10am to 3pm. Thse are the dip in the middle. CityBike might like to experiment with promotions to encourage more 
-use if bike trip started during these hours. Not really any sign of workers going on bike trips during lunch breaks. Perhaps incentivise tourists able to move at these times. Very little usage from 1-4am, could Citi Bike target shift workers e.g. health/emergency workers or the entertainment sectors.
+As might be expected, this shows peak movement before and after  
+"office hours" (traditionally 9-5 with an hour commuting either side, this is 
+marked by yellow bars). Remember this was before COVID-19 when many more people commuted into city centre offices for work. Could Citi Bike do deals with 
+larger organisations to help workers be more physically active to improve 
+wellbeing and reduce business expenses ?Hires are remarkably consistent from 
+10am to 3pm as seen by the dip in the middle of the day. Incentivise tourists 
+or retired people to encourage more use during these hours. No real sign of 
+workers going on bike trips during lunch (12-2pm). Exceptionally light usage 
+from 1-4am, target late shift workers in e.g. health/emergency or leisure 
+sectors.
 
 ### Demographics: Hires by User Type 
 
@@ -392,19 +388,24 @@ ggsave("analysis_and_documentation/images/plot_05_citibike_hires_user_type.png")
 This bar plot shows hires by users who are customers vs. subscribers each month
 of 2018.
 
-We can see that the subscribers drop greatly between August/September and again between October/November.
+Overwhelming majority of users are subscribers with yearly membership 
+suggesting satisfaction with the service Citi Bike offers. Use this vote of 
+confidence to tempt potential new users using incentives to try 
+a short pass first - discounts to "upgrade" to full membership for new 
+customers. Proportion of customers seems highest in the summer months. Are 
+people more likely to experiment with short passes for the Citi Bike service in 
+good weather? Are tourists accounting for higher summer customers?  
 
-Subscribers are those who paid for a full year of use. It suggests that a 
-significant group of those who took out subscriptions in August or October the 
-previous year 2017 did not choose to renew at this time. Were there any 
-special promotions those months in the previous year? Is there a cyclical drop 
-showing the same pattern in later years?
+Subscribers drop greatly from August to September and again from October to 
+November. Subscribers are those who paid for a full year of use. This suggests 
+that a significant group of those who took out subscriptions in August or 
+October previously in 2017 did not choose to renew at that time. Were there any 
+special promotions those months in the previous year?
 
-The proportion of customers seems highest in the summer months. Are people more
-likely to experiment with short passes for the Citi Bike service in good weather?
-Are tourists accounting for these increases? Maybe on signing up for the 
-service Citi Bike could ask for optional data around what use the user had 
-planned.
+Using account contact details Citi Bike could periodically survey users for 
+optional data around intended use for greater insights or revealing unmet needs.
+Reward loyal customers to improve retention, recommend to friends to get 
+discounts.
 
 ### Demographics: Age and Gender
 
@@ -576,24 +577,22 @@ Majority of trips are well within this with the highest usage being very short
 trips lasting less than 10 minutes. Suggests users find Citi Bike worthwhile even 
 for relatively short journeys outweighing any time spent walking to find a bike.
 
-## Conclusion
+## Recommendations
 
-* There are different patterns of usage across a calendar year. Much less usage 
+* Different patterns of usage across a calendar year. Much less usage 
 in winter. Suggest further research to see if people feel too unsafe to use 
-the service in poor weather. Capitalise on "fair weather" users by offering 
-cheaper and easier options for impromptu "day trips".
-* Overwhelming majority of users are subscribers with yearly membership 
-suggesting satisfaction with the service Citi Bike offers. Use this vote of 
-confidence to tempt potential new users using incentives to try 
-a short pass first - discounts on full membership for new customers.
-* Males use Citi Bike far more than females. Quick win could be to attempt to 
-grow female usage through trying targeted marketing campaigns and working with 
-female groups in New York City.
-* Developers/designers should check whether the user interface provided could be 
-adjusted to make birth_year optional to see if it improves quality of age data 
+the service in poor weather. 
+* Promote better short passes deals for fair weather "day trip" users, these are potential new subscribers who might wish to experiment with the service before 
+commiting to a full yeqr.
+* Heaviest usage during weekday work commute times. Work with employers for 
+Citi Bike to be part of employee benefit schemes.
+* Males use the service considerably more than females. Quick win could be to attempt to grow female usage through targeted marketing campaigns and working 
+with female-oriented groups in New York City.
+* Developers/designers should check whether the user information interface provided could be adjusted to make birth_year optional to improve quality of age data 
 reducing those deliberately choosing to give a false year.
 
-## Technical Appendix: Data types 
+## Appendix
+### Technical Data types 
 <!-- (1.5) 
 
 List the different types of variables contained in the dataset and explain each 
@@ -626,3 +625,26 @@ bike stations used during a hire are located.
 * `birth_year`: (double) The bike rider’s year of birth.  
 * `gender`: (factor) User can optionally declare their gender 
 (Male/Female/Unknown)
+
+
+## Tables of dates of highest and lowest hires
+
+### Top 10 highest hires dates
+```{r}
+top_10_hire_dates <- citibike_hires_by_date %>%
+  arrange(desc(hires)) %>%
+  head(10)
+
+top_10_hire_dates
+```
+
+### Lowest (single) hire dates
+
+```{r}
+lowest_hire_dates <- citibike_hires_by_date %>%
+  filter(hires == 1) %>%
+  arrange(hires)
+
+print(lowest_hire_dates, n = Inf)
+```
+
