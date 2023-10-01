@@ -1,0 +1,35 @@
+---
+title: 'PDA Data Transformation Task'
+output:
+  html_document:
+    df_print: paged
+author: "Lesley Duff"
+date: "`r format(Sys.Date())`"
+---
+# Data Transformation Task
+```{r}
+library(tidyverse)
+```
+
+## 1
+Load in the transaction data and create a column date from the day, month and year columns.
+```{r}
+toy_transactions <- read_csv("raw_data/toy_transactions.csv")
+
+toy_transactions_with_date <- toy_transactions %>% 
+  mutate(date = as.Date(make_datetime(year, month, day)) )
+toy_transactions_with_date
+```
+
+
+
+## 2
+## 3
+## 4
+## 5
+## 6
+## 7
+## 8
+## 9
+## 10
+## 11
