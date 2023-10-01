@@ -165,4 +165,11 @@ toys_joined_no_pi
 
 
 ## 10
+Write your new joined dataset (which does not contain personal/sensitive 
+information) to a csv file.
+
+```{r}
+write_csv(toys_joined_no_pi, "clean_data/toys_joined.csv")
+```
+
 ## 11
