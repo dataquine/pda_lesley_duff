@@ -95,9 +95,22 @@ customers <- fs::dir_ls("raw_data",
 customers 
 ```
 
-
-
 ## 5
+Impute missing values in numeric columns with the median value of customers with the same gender and country. For example, a customer whose gender is female and whose country is Australia with a missing age should get the median age of all Australian females in the dataset.
+
+Hint: You can combine a group by() with mutate(across()) to apply coalesce across columns which meet a logical criteria specified with where(). Also remember, in across() we can define our own anonymous function like so ~ mean(.x, na.rm = TRUE) where the .x represents what is being iterated on (when using across, this is the columns).
+
+```{r}
+customers_clean <- customers %>% 
+  group_by(customer_gender, customer_country) %>% 
+  
+  mutate(across(where(is.numeric),
+     ~ coalesce( ., median(.x, na.rm = TRUE)))) 
+
+customers_clean
+```
+
+
 ## 6
 ## 7
 ## 8
