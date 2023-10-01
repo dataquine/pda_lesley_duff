@@ -7,3 +7,43 @@ author: "Lesley Duff"
 date: "`r format(Sys.Date())`"
 ---
 # Reviewing & debugging code
+```{r}
+library(tidyverse)
+```
+```{r}
+energy_scotland <- read_csv("data/energy_scotland.csv")
+energy_scotland
+
+all_salaries <- read_csv("data/all_salaries.csv")
+all_salaries
+```
+## Task 1
+
+Old code:
+
+```{r}
+max(energy_scotland$energy_prod)
+# this returns value 25165.9 
+
+energy_scotland %>%
+  filter(energy_prod == 25165.9)
+```
+
+New code
+```{r}
+energy_scotland %>% 
+  slice_max(energy_prod, n = 1)
+```
+In the old code the value obtained from max was manually hard-coded to one value.
+The filter line did not automatically use this maximimum value. Both lines 
+replaced by one more efficient line using slice_max which will always 
+recalculate the maximum value for energy_prod.
+
+
+
+## Task 2
+## Task 3
+## Task 4
+## Task 5
+## Task 6
+
