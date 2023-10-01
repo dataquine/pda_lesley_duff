@@ -7,7 +7,9 @@ output:
 ---
 # Decision Tree
 ```{r}
-libary(tidyverse)
+library(rpart)
+library(rpart.plot)
+library(tidyverse)
 ```
 
 This is a mini homework for people doing the PDA. You are going to continue 
@@ -26,4 +28,90 @@ and add your predictions to your data, and create a confusion matrix.
 # Load clean meteorite data
 meteorite_landings <- read_csv("clean_data/meteorite_landings.csv")
 ```
+
+```{r}
+#View(meteorite_landings)
+
+# Meterorites are ordered by year shuffle them
+shuffle_index <- sample(1:nrow(meteorite_landings))
+
+# shuffle the data so class order isn't in order - need this for training/testing split later on 
+meteorite_landings_shuffled <- meteorite_landings[shuffle_index, ]
+
+# First, you want to convert any character column to a factor. 
+meteorite_landings_factored <- meteorite_landings_shuffled %>%
+  mutate(across(where(is.character), as.factor))
+
+head(meteorite_landings_factored)
+
+skimr::skim(meteorite_landings_factored)
+
+meteorite_landings_factored <- meteorite_landings_factored %>% 
+  # We still have some missing entries for year lets clean them
+  na.omit() %>% 
+  
+  #remove some unneeded columns
+  select(-id, -name)
+
+glimpse(meteorite_landings_factored)
+
+```
+split your dataset into training and testing datasets.
+
+
+```{r}
+# 80% of our data going into the training set, and the 
+# remaining 20% go in our test set.
+
+# get how many rows we have in total to work out the percentage
+n_data <- nrow(meteorite_landings_factored)
+
+# create a test sample index
+test_index <- sample(1:n_data, size = n_data*0.2)
+
+# create test set
+meteorite_landings_test  <- slice(meteorite_landings_factored, test_index)
+
+# create training set
+meteorite_landings_train <- slice(meteorite_landings_factored, -test_index)
+```
+
+
+ check that our test and training sets have similar proportions of 
+fall. 
+
+```{r}
+meteorite_landings_test %>%
+ janitor::tabyl(fall)
+```
+
+```{r}
+meteorite_landings_train %>%
+ janitor::tabyl(fall)
+```
+
+Build tree model based on training dataset
+Then create a decision tree with rpart
+
+```{r}
+meteorite_landings_fit <- rpart(
+  #?rpart
+  # Based on the mass and year
+  # mass_g and year,
+  formula = fall ~ mass_g + year,  
+  data = meteorite_landings_train, 
+  method = 'class'
+)
+#meteorite_landings_fit
+```
+plot it using rpart.plot
+
+```{r}
+rpart.plot(meteorite_landings_fit, 
+           yesno = 2, 
+           fallen.leaves = TRUE, 
+           faclen = 6, 
+           digits = 2)
+```
+
 
