@@ -1,0 +1,29 @@
+---
+title: "Meteors Continued, Again"
+subtitle: Decision Tree
+output:
+  html_document:
+    df_print: paged
+---
+# Decision Tree
+```{r}
+libary(tidyverse)
+```
+
+This is a mini homework for people doing the PDA. You are going to continue 
+working on your week 2 weekend homework.
+
+Based on the mass and year, create a decision tree model of your meteorites 
+data which predicts whether a meteorite was seen falling, or was discovered 
+after its impact (fell/found).
+
+First, you want to convert any character column to a factor. Next (and most 
+importantly) split your dataset into training and testing datasets. Then 
+create a decision tree with rpart and plot it using rpart.plot. Finally, test 
+and add your predictions to your data, and create a confusion matrix.
+
+```{r}
+# Load clean meteorite data
+meteorite_landings <- read_csv("clean_data/meteorite_landings.csv")
+```
+
