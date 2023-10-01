@@ -120,6 +120,19 @@ customers_clean
 ![star schema](diagrams/pda-starschema.drawio.png) 
 
 ## 7
+Join your four cleaned datasets together and call the joined dataset toys_joined. This join should keep all observations from all tables.
+
+```{r}
+toys_joined <-  toy_transactions_with_date %>% 
+  full_join(toys_clean, by = join_by("toy_id" == "id")) %>% 
+  full_join(customers_clean, by = join_by("customer_id" == "id")) %>% 
+  full_join(quality_clean, by = join_by("quality" == "id"))
+
+toys_joined
+```
+
+
+
 ## 8
 ## 9
 ## 10
