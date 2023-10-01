@@ -19,10 +19,10 @@ toy_transactions <- read_csv("raw_data/toy_transactions.csv")
 toy_transactions_with_date <- toy_transactions %>%
   mutate(date = as.Date(make_datetime(year, month, day)))
 
-  # N.B. This could also be done in base R as below but this would involve 
-  # processing a string which I think would be less efficient for things 
-  # already numbers
-  #mutate(date = as.Date(paste(year, month, day, sep = "-")))
+# N.B. This could also be done in base R as below but this would involve
+# processing a string which I think would be less efficient for things
+# already numbers
+# mutate(date = as.Date(paste(year, month, day, sep = "-")))
 
 toy_transactions_with_date
 ```
@@ -68,7 +68,7 @@ quality_clean <- quality %>%
       description == "Awesome" ~ "Good",
       description == "Very Awesome" ~ "Very Good",
       description == "Awful" ~ "Bad",
-      
+
       # I'm assuming 'Very Awful' has to be treated like 'Very Awesome' but if
       # meant literally *only* 'Awful' I would comment the following line out
       description == "Very Awful" ~ "Very Bad",
@@ -87,12 +87,12 @@ With fs::dir_ls() you can first list all files which meet a certain regex patter
 Using the steps above, create a dataframe called customers which contains data on customers from all countries by reading in and binding all customer datasets in one pipeline.
 
 ```{r}
+customers <- fs::dir_ls("raw_data",
+  regexp = "_customers\\.csv$"
+) %>%
+  map_dfr(read_csv)
 
-customers <- fs::dir_ls("raw_data", 
-                        regexp="_customers\\.csv$") %>% 
-    map_dfr(read_csv)
-
-customers 
+customers
 ```
 
 ## 5
@@ -101,11 +101,12 @@ Impute missing values in numeric columns with the median value of customers with
 Hint: You can combine a group by() with mutate(across()) to apply coalesce across columns which meet a logical criteria specified with where(). Also remember, in across() we can define our own anonymous function like so ~ mean(.x, na.rm = TRUE) where the .x represents what is being iterated on (when using across, this is the columns).
 
 ```{r}
-customers_clean <- customers %>% 
-  group_by(customer_gender, customer_country) %>% 
-  
-  mutate(across(where(is.numeric),
-     ~ coalesce( ., median(.x, na.rm = TRUE)))) 
+customers_clean <- customers %>%
+  group_by(customer_gender, customer_country) %>%
+  mutate(across(
+    where(is.numeric),
+    ~ coalesce(., median(.x, na.rm = TRUE))
+  ))
 
 customers_clean
 ```
@@ -123,9 +124,9 @@ customers_clean
 Join your four cleaned datasets together and call the joined dataset toys_joined. This join should keep all observations from all tables.
 
 ```{r}
-toys_joined <-  toy_transactions_with_date %>% 
-  full_join(toys_clean, by = join_by("toy_id" == "id")) %>% 
-  full_join(customers_clean, by = join_by("customer_id" == "id")) %>% 
+toys_joined <- toy_transactions_with_date %>%
+  full_join(toys_clean, by = join_by("toy_id" == "id")) %>%
+  full_join(customers_clean, by = join_by("customer_id" == "id")) %>%
   full_join(quality_clean, by = join_by("quality" == "id"))
 
 toys_joined
@@ -138,18 +139,30 @@ Write a short answer
 
 Data contains European customers so will be affected by GDPR legislation.
 There is more detail stored than is necessary for processing toy transactions
-leading to risks of personal data leaking. There does not seem to be a use for 
-things like personal height and weight data of the customer so it shouldn't be 
-stored.
+leading to risks of personal data leaking. The data is not anonymised. There 
+does not seem to be a use for things like personal height and weight data of the customer so it shouldn't be stored.
 
 ```{r eval=FALSE, include=FALSE}
 str(toys_joined)
 ```
 
-
-
-
-
 ## 9
+Remove any personally identifiable or sensitive information on customers.
+
+
+```{r}
+toys_joined_no_pi <- toys_joined %>%
+  select(
+    -first_name, 
+    -last_name, 
+    -customer_gender,
+    -customer_height_cm, 
+    -customer_weight_kg
+  )
+
+toys_joined_no_pi
+```
+
+
 ## 10
 ## 11
