@@ -79,8 +79,24 @@ quality_clean <- quality %>%
 quality_clean
 ```
 
-
 ## 4
+With fs::dir_ls() you can first list all files which meet a certain regex pattern (regexp argument). So for example, any files that have a .csv extension. You can then pipe those file path names into purrr::map_dfr() to apply read_csv() to all of them and bind them all into one dataframe.
+
+[Here is a tutorial on how to do it](https://www.gerkelab.com/blog/2018/09/import-directory-csv-purrr-readr)
+
+Using the steps above, create a dataframe called customers which contains data on customers from all countries by reading in and binding all customer datasets in one pipeline.
+
+```{r}
+
+customers <- fs::dir_ls("raw_data", 
+                        regexp="_customers\\.csv$") %>% 
+    map_dfr(read_csv)
+
+customers 
+```
+
+
+
 ## 5
 ## 6
 ## 7

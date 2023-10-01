@@ -1750,6 +1750,81 @@ quality_clean</code></pre>
 </div>
 <div id="section-3" class="section level2">
 <h2>4</h2>
+<p>With fs::dir_ls() you can first list all files which meet a certain
+regex pattern (regexp argument). So for example, any files that have a
+.csv extension. You can then pipe those file path names into
+purrr::map_dfr() to apply read_csv() to all of them and bind them all
+into one dataframe.</p>
+<p><a href="https://www.gerkelab.com/blog/2018/09/import-directory-csv-purrr-readr">Here
+is a tutorial on how to do it</a></p>
+<p>Using the steps above, create a dataframe called customers which
+contains data on customers from all countries by reading in and binding
+all customer datasets in one pipeline.</p>
+<pre class="r"><code>customers &lt;- fs::dir_ls(&quot;raw_data&quot;, 
+                        regexp=&quot;_customers\\.csv$&quot;) %&gt;% 
+    map_dfr(read_csv)</code></pre>
+<pre><code>## Rows: 7 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): customer_country, customer_gender, first_name, last_name
+## dbl (4): id, customer_age, customer_height_cm, customer_weight_kg
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## Rows: 11 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): customer_country, customer_gender, first_name, last_name
+## dbl (4): id, customer_age, customer_height_cm, customer_weight_kg
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## Rows: 5 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): customer_country, customer_gender, first_name, last_name
+## dbl (4): id, customer_age, customer_height_cm, customer_weight_kg
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## Rows: 8 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): customer_country, customer_gender, first_name, last_name
+## dbl (4): id, customer_age, customer_height_cm, customer_weight_kg
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## Rows: 9 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): customer_country, customer_gender, first_name, last_name
+## dbl (4): id, customer_age, customer_height_cm, customer_weight_kg
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## Rows: 7 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): customer_country, customer_gender, first_name, last_name
+## dbl (4): id, customer_age, customer_height_cm, customer_weight_kg
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+## Rows: 11 Columns: 8
+## ── Column specification ────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (4): customer_country, customer_gender, first_name, last_name
+## dbl (4): id, customer_age, customer_height_cm, customer_weight_kg
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
+<pre class="r"><code>customers </code></pre>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["id"],"name":[1],"type":["dbl"],"align":["right"]},{"label":["customer_country"],"name":[2],"type":["chr"],"align":["left"]},{"label":["customer_age"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["customer_height_cm"],"name":[4],"type":["dbl"],"align":["right"]},{"label":["customer_weight_kg"],"name":[5],"type":["dbl"],"align":["right"]},{"label":["customer_gender"],"name":[6],"type":["chr"],"align":["left"]},{"label":["first_name"],"name":[7],"type":["chr"],"align":["left"]},{"label":["last_name"],"name":[8],"type":["chr"],"align":["left"]}],"data":[{"1":"61","2":"Australia","3":"NA","4":"169","5":"79","6":"Female","7":"Linda","8":"Lee"},{"1":"17","2":"Australia","3":"NA","4":"189","5":"83","6":"Female","7":"Rebecca","8":"Morris"},{"1":"24","2":"Australia","3":"33","4":"180","5":"80","6":"Male","7":"Dennis","8":"Price"},{"1":"67","2":"Australia","3":"19","4":"170","5":"60","6":"Female","7":"Christina","8":"Vasquez"},{"1":"36","2":"Australia","3":"NA","4":"189","5":"79","6":"Male","7":"Aaron","8":"Brooks"},{"1":"83","2":"Australia","3":"50","4":"170","5":"NA","6":"Male","7":"Jacob","8":"Rivera"},{"1":"30","2":"Australia","3":"36","4":"NA","5":"66","6":"Male","7":"Brandon","8":"Roberts"},{"1":"89","2":"France","3":"29","4":"180","5":"67","6":"Male","7":"Michael","8":"Smith"},{"1":"85","2":"France","3":"NA","4":"166","5":"90","6":"Female","7":"Mary","8":"Rodriguez"},{"1":"18","2":"France","3":"35","4":"177","5":"NA","6":"Female","7":"Jennifer","8":"Wilson"},{"1":"42","2":"France","3":"48","4":"167","5":"97","6":"Male","7":"John","8":"Williams"},{"1":"6","2":"France","3":"NA","4":"177","5":"66","6":"Female","7":"Patricia","8":"Taylor"},{"1":"48","2":"France","3":"NA","4":"168","5":"75","6":"Male","7":"William","8":"Garcia"},{"1":"53","2":"France","3":"19","4":"183","5":"67","6":"Female","7":"Cynthia","8":"Gutierrez"},{"1":"82","2":"France","3":"NA","4":"NA","5":"65","6":"Female","7":"Amy","8":"Rogers"},{"1":"76","2":"France","3":"37","4":"166","5":"63","6":"Male","7":"Benjamin","8":"Bell"},{"1":"22","2":"France","3":"20","4":"178","5":"88","6":"Female","7":"Kelly","8":"Watson"},{"1":"47","2":"France","3":"38","4":"167","5":"95","6":"Male","7":"Ronald","8":"Adams"},{"1":"92","2":"Germany","3":"42","4":"180","5":"60","6":"Female","7":"Deborah","8":"Morales"},{"1":"93","2":"Germany","3":"NA","4":"180","5":"75","6":"Female","7":"Margaret","8":"Cook"},{"1":"49","2":"Germany","3":"37","4":"189","5":"65","6":"Male","7":"Jordan","8":"Jimenez"},{"1":"13","2":"Germany","3":"NA","4":"181","5":"82","6":"Male","7":"Nathan","8":"Hughes"},{"1":"80","2":"Germany","3":"NA","4":"178","5":"89","6":"Male","7":"Adam","8":"Mendoza"},{"1":"71","2":"New Zealand","3":"42","4":"176","5":"85","6":"Male","7":"David","8":"Jones"},{"1":"84","2":"New Zealand","3":"37","4":"176","5":"62","6":"Female","7":"Carol","8":"Murphy"},{"1":"37","2":"New Zealand","3":"33","4":"169","5":"81","6":"Male","7":"Alexander","8":"Gonzales"},{"1":"91","2":"New Zealand","3":"NA","4":"179","5":"79","6":"Female","7":"Samantha","8":"Kelly"},{"1":"23","2":"New Zealand","3":"36","4":"168","5":"97","6":"Male","7":"Gregory","8":"Kim"},{"1":"33","2":"New Zealand","3":"35","4":"175","5":"81","6":"Male","7":"Eric","8":"Scott"},{"1":"12","2":"New Zealand","3":"47","4":"181","5":"NA","6":"Male","7":"Nicholas","8":"Green"},{"1":"50","2":"New Zealand","3":"NA","4":"165","5":"81","6":"Female","7":"Donna","8":"Collins"},{"1":"45","2":"Spain","3":"26","4":"172","5":"93","6":"Male","7":"James","8":"Johnson"},{"1":"97","2":"Spain","3":"37","4":"165","5":"93","6":"Male","7":"Kyle","8":"Long"},{"1":"64","2":"Spain","3":"26","4":"NA","5":"89","6":"Female","7":"Katherine","8":"Castillo"},{"1":"99","2":"Spain","3":"49","4":"NA","5":"61","6":"Female","7":"Christine","8":"Gray"},{"1":"94","2":"Spain","3":"32","4":"174","5":"98","6":"Male","7":"Gary","8":"Turner"},{"1":"44","2":"Spain","3":"35","4":"NA","5":"NA","6":"Female","7":"Heather","8":"Wood"},{"1":"41","2":"Spain","3":"35","4":"168","5":"86","6":"Female","7":"Rachel","8":"James"},{"1":"21","2":"Spain","3":"21","4":"176","5":"99","6":"Male","7":"Jonathan","8":"Hill"},{"1":"40","2":"Spain","3":"25","4":"188","5":"93","6":"Male","7":"Justin","8":"Campbell"},{"1":"31","2":"UK","3":"26","4":"180","5":"95","6":"Male","7":"Robert","8":"Brown"},{"1":"39","2":"UK","3":"28","4":"174","5":"60","6":"Female","7":"Debra","8":"Alvarez"},{"1":"98","2":"UK","3":"45","4":"189","5":"98","6":"Male","7":"Stephen","8":"Cruz"},{"1":"43","2":"UK","3":"42","4":"172","5":"64","6":"Female","7":"Maria","8":"Peterson"},{"1":"81","2":"UK","3":"27","4":"187","5":"91","6":"Female","7":"Melissa","8":"Evans"},{"1":"96","2":"UK","3":"NA","4":"170","5":"92","6":"Male","7":"Michelle","8":"Baker"},{"1":"26","2":"UK","3":"24","4":"NA","5":"60","6":"Female","7":"Karen","8":"Nguyen"},{"1":"63","2":"USA","3":"NA","4":"NA","5":"65","6":"Female","7":"Laura","8":"Ortiz"},{"1":"2","2":"USA","3":"NA","4":"184","5":"73","6":"Female","7":"Anna","8":"Foster"},{"1":"70","2":"USA","3":"18","4":"171","5":"86","6":"Female","7":"Julie","8":"Sanders"},{"1":"38","2":"USA","3":"34","4":"NA","5":"NA","6":"Male","7":"Zachary","8":"Bennett"},{"1":"35","2":"USA","3":"42","4":"180","5":"60","6":"Female","7":"Pamela","8":"Ruiz"},{"1":"87","2":"USA","3":"27","4":"NA","5":"91","6":"Female","7":"Kathleen","8":"Bailey"},{"1":"95","2":"USA","3":"43","4":"171","5":"69","6":"Female","7":"Betty","8":"Ward"},{"1":"66","2":"USA","3":"49","4":"NA","5":"NA","6":"Female","7":"Brenda","8":"Cox"},{"1":"9","2":"USA","3":"NA","4":"168","5":"73","6":"Male","7":"Larry","8":"Cooper"},{"1":"73","2":"USA","3":"24","4":"165","5":"70","6":"Male","7":"Edward","8":"Reyes"},{"1":"20","2":"USA","3":"50","4":"166","5":"96","6":"Male","7":"Jeffrey","8":"Wright"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
 </div>
 <div id="section-4" class="section level2">
 <h2>5</h2>
