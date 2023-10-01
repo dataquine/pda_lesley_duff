@@ -131,9 +131,25 @@ toys_joined <-  toy_transactions_with_date %>%
 toys_joined
 ```
 
-
-
 ## 8
+Are there any ethical and legal considerations with storing this data in its current state?
+
+Write a short answer
+
+Data contains European customers so will be affected by GDPR legislation.
+There is more detail stored than is necessary for processing toy transactions
+leading to risks of personal data leaking. There does not seem to be a use for 
+things like personal height and weight data of the customer so it shouldn't be 
+stored.
+
+```{r eval=FALSE, include=FALSE}
+str(toys_joined)
+```
+
+
+
+
+
 ## 9
 ## 10
 ## 11
