@@ -173,3 +173,10 @@ write_csv(toys_joined_no_pi, "clean_data/toys_joined.csv")
 ```
 
 ## 11
+Use a .gitignore file to make sure the raw data on customers which still contains personal/sensitive information is not pushed up to your PDA GitHub.
+
+```{r}
+# Repo .gitignore contains
+# data_transformation_task/raw_data/*_customers.csv
+```
+

@@ -51,3 +51,4 @@ rsconnect/
 # Exclude database info
 meteorites/meteorites_credentials.R
 communicating_data/clean_data/nyc_bikes_clean.csv
+data_transformation_task/raw_data/*_customers.csv
