@@ -1,0 +1,1001 @@
+gender,name,surname,job_area,salary,age,retired,location,savings
+Female,Florence,Johnson,Human Resources,22000,46,No,Shetland,31394
+Male,Freddy,Johnson,Training,23000,59,No,Western Isles,27730
+Male,Freddy,Williamson,Human Resources,16000,70,Yes,Edinburgh,41067
+Male,Bert,Jamieson,Sales,16000,64,No,Glasgow,42729
+Female,Florence,Thomason,Human Resources,21000,42,No,Aberdeen,39691
+Male,Charles,Williamson,Sales,20000,77,Yes,Glasgow,28519
+Female,Emmy,Galdie,Sales,20000,72,Yes,Western Isles,21672
+Female,Gilly,Smith,Training,16000,32,No,Aberdeen,37760
+Male,Freddy,Manson,Training,27000,74,Yes,Stirling,33052
+Male,Gord,Peterson,Human Resources,16000,43,No,Edinburgh,33664
+Female,Helena,Irvine,Product Management,14000,55,No,Edinburgh,36343
+Male,Angus,Irvine,Product Management,14000,57,No,Aberdeen,16371
+Male,Harry,Mowat,Human Resources,21000,67,Yes,Western Isles,37275
+Female,Amy,Smith,Sales,23000,77,Yes,Inverness,31736
+Female,Cara,Henderson,Human Resources,27000,79,Yes,Edinburgh,24720
+Male,Harry,Thomason,Legal,22000,58,No,Glasgow,45438
+Female,Bonnie,Galdie,Product Management,20000,68,Yes,Shetland,19107
+Female,Helena,Halcrow,Sales,17000,89,Yes,Orkney,5165
+Male,Freddy,Laurenceso,Legal,22000,79,Yes,Edinburgh,26687
+Female,Helena,Halcrow,Sales,19000,83,Yes,Inverness,34701
+Female,Emmy,Manson,Product Management,18000,70,Yes,Inverness,-6826
+Male,Gord,Henderson,Human Resources,29000,37,No,Shetland,48863
+Female,Amy,Manson,Training,18000,22,No,Orkney,34462
+Male,Angus,Henderson,Human Resources,17000,51,No,Orkney,36078
+Male,Jimmy,Henderson,Training,20000,79,Yes,Glasgow,36529
+Male,Angus,Peterson,Sales,26000,38,No,Shetland,44698
+Male,Harry,Galdie,Product Management,21000,73,Yes,Shetland,14095
+Male,Jimmy,Irvine,Legal,17000,21,No,Orkney,29928
+Female,India,Anderson,Sales,16000,54,No,Stirling,20013
+Female,Gilly,Manson,Sales,17000,47,No,Edinburgh,38059
+Male,Freddy,Jamieson,Training,22000,64,No,Stirling,46654
+Female,Gilly,Manson,Legal,26000,50,No,Shetland,38461
+Male,Bert,Manson,Human Resources,28000,58,No,Western Isles,37303
+Female,Emmy,Mowat,Product Management,17000,60,No,Western Isles,31086
+Female,Amy,Peterson,Product Management,20000,41,No,Aberdeen,32566
+Male,Ed,Leask,Sales,18000,66,Yes,Western Isles,18544
+Female,India,Smith,Human Resources,17000,46,No,Aberdeen,23462
+Male,Gord,Leask,Training,22000,63,No,Inverness,41479
+Female,Bonnie,Irvine,Training,17000,19,No,Orkney,36108
+Female,Amy,Manson,Product Management,13000,37,No,Stirling,31499
+Male,Gord,Thomason,Legal,19000,86,Yes,Western Isles,33717
+Female,Dora,Henderson,Training,27000,75,Yes,Glasgow,23518
+Female,Gilly,Halcrow,Legal,24000,77,Yes,Orkney,20830
+Male,Jimmy,Williamson,Sales,23000,27,No,Inverness,29446
+Male,Donald,Henderson,Training,20000,60,No,Inverness,57813
+Male,Harry,Galdie,Training,19000,87,Yes,Shetland,15243
+Female,Dora,Mowat,Legal,21000,58,No,Aberdeen,17137
+Female,India,Irvine,Legal,26000,88,Yes,Western Isles,20667
+Male,Charles,Thomason,Sales,19000,56,No,Shetland,39501
+Male,Ed,Thomason,Training,23000,55,No,Orkney,50825
+Female,Bonnie,Manson,Training,20000,28,No,Inverness,26711
+Female,India,Fraser,Human Resources,22000,48,No,Inverness,42135
+Male,Bert,Halcrow,Sales,21000,85,Yes,Stirling,13812
+Male,Freddy,Thomason,Human Resources,17000,30,No,Aberdeen,21158
+Female,Emmy,Mowat,Product Management,18000,75,Yes,Aberdeen,19728
+Female,Gilly,Halcrow,Training,16000,52,No,Shetland,35559
+Female,Jools,Henderson,Human Resources,20000,50,No,Shetland,38161
+Female,Amy,Williamson,Sales,21000,46,No,Inverness,21663
+Male,Ed,Johnson,Training,18000,71,Yes,Inverness,21926
+Female,Bonnie,Smith,Human Resources,23000,58,No,Aberdeen,23870
+Female,Emmy,Peterson,Product Management,16000,28,No,Western Isles,18634
+Male,Gord,Irvine,Sales,24000,88,Yes,Aberdeen,41983
+Female,Helena,Halcrow,Sales,24000,21,No,Orkney,34104
+Female,Bonnie,Nicolson,Product Management,22000,55,No,Glasgow,45675
+Female,Florence,Jamieson,Legal,19000,47,No,Shetland,27921
+Female,Helena,Sinclair,Sales,19000,18,No,Edinburgh,32005
+Female,Amy,Henderson,Human Resources,20000,35,No,Stirling,43346
+Male,Angus,Irvine,Legal,21000,71,Yes,Shetland,42958
+Male,Angus,Manson,Training,22000,31,No,Shetland,37499
+Female,Emmy,Smith,Training,19000,52,No,Orkney,40981
+Male,Bert,Sinclair,Human Resources,8000,69,Yes,Western Isles,19066
+Female,Emmy,Peterson,Product Management,16000,27,No,Glasgow,27326
+Female,Florence,Williamson,Legal,19000,78,Yes,Western Isles,43394
+Female,Emmy,Leask,Legal,18000,80,Yes,Edinburgh,9365
+Female,Helena,Manson,Human Resources,11000,82,Yes,Inverness,11843
+Male,Gord,Smith,Training,12000,37,No,Glasgow,25125
+Female,India,Jamieson,Sales,22000,74,Yes,Stirling,16542
+Male,Ed,Henderson,Sales,16000,77,Yes,Western Isles,13630
+Female,Emmy,Mowat,Legal,14000,32,No,Glasgow,38142
+Male,Harry,Tait,Human Resources,14000,33,No,Western Isles,30822
+Female,Gilly,Williamson,Human Resources,25000,31,No,Inverness,47680
+Female,Florence,Galdie,Human Resources,26000,59,No,Orkney,40129
+Female,Emmy,Manson,Sales,30000,40,No,Glasgow,54845
+Male,Bert,Halcrow,Sales,17000,70,Yes,Inverness,19701
+Female,Helena,Jamieson,Product Management,16000,26,No,Western Isles,47049
+Male,Bert,Irvine,Training,15000,77,Yes,Shetland,26057
+Male,Ivan,Galdie,Sales,17000,45,No,Inverness,40396
+Female,Amy,Halcrow,Sales,16000,61,No,Orkney,33708
+Male,Donald,Robertson,Sales,28000,64,No,Western Isles,48091
+Male,Harry,Mowat,Product Management,17000,87,Yes,Edinburgh,29476
+Male,Freddy,Jamieson,Legal,26000,40,No,Aberdeen,39933
+Male,Gord,Manson,Sales,15000,28,No,Edinburgh,41327
+Female,Dora,Halcrow,Sales,18000,74,Yes,Glasgow,40428
+Male,Angus,Jamieson,Sales,17000,36,No,Aberdeen,46775
+Female,Amy,Williamson,Product Management,25000,64,No,Inverness,45484
+Female,Helena,Jamieson,Product Management,27000,58,No,Inverness,50125
+Female,Florence,Johnson,Legal,21000,67,Yes,Orkney,25003
+Female,Gilly,Thomason,Product Management,28000,63,No,Shetland,45390
+Male,Freddy,Leask,Training,25000,22,No,Shetland,40417
+Male,Harry,Leask,Sales,22000,62,No,Inverness,47804
+Female,Helena,Laurenceso,Sales,22000,83,Yes,Glasgow,40499
+Female,Dora,Laurenceso,Legal,16000,83,Yes,Inverness,25553
+Male,Gord,Tait,Legal,20000,67,Yes,Aberdeen,34973
+Male,Gord,Johnson,Sales,21000,41,No,Stirling,39148
+Female,Bonnie,Robertson,Human Resources,14000,74,Yes,Stirling,15893
+Male,Freddy,Williamson,Sales,22000,44,No,Edinburgh,38134
+Female,Florence,Galdie,Product Management,12000,66,Yes,Inverness,10682
+Female,Florence,Williamson,Product Management,18000,86,Yes,Aberdeen,12854
+Male,Harry,Fraser,Product Management,23000,48,No,Orkney,48636
+Female,Jools,Anderson,Human Resources,19000,23,No,Stirling,46391
+Male,Gord,Fraser,Human Resources,24000,30,No,Edinburgh,41802
+Female,Dora,Thomason,Human Resources,18000,90,Yes,Glasgow,13147
+Male,Ivan,Thomason,Product Management,21000,61,No,Shetland,40407
+Female,India,Williamson,Product Management,25000,40,No,Western Isles,46114
+Female,Helena,Manson,Product Management,20000,52,No,Orkney,45479
+Male,Jimmy,Thomason,Human Resources,20000,47,No,Aberdeen,48513
+Male,Harry,Mowat,Human Resources,20000,34,No,Aberdeen,27727
+Male,Gord,Irvine,Sales,20000,68,Yes,Edinburgh,14936
+Male,Gord,Thomason,Human Resources,17000,20,No,Stirling,26524
+Female,Jools,Anderson,Legal,14000,84,Yes,Aberdeen,13176
+Male,Ed,Thomason,Human Resources,29000,23,No,Western Isles,35349
+Female,Amy,Henderson,Human Resources,17000,58,No,Glasgow,52121
+Female,Jools,Williamson,Legal,18000,84,Yes,Orkney,24353
+Female,Dora,Leask,Training,15000,46,No,Aberdeen,38701
+Female,Helena,Jamieson,Product Management,21000,59,No,Edinburgh,27768
+Female,India,Sinclair,Product Management,31000,42,No,Shetland,35610
+Female,India,Galdie,Product Management,30000,23,No,Inverness,51400
+Female,Cara,Sinclair,Sales,17000,31,No,Glasgow,45854
+Male,Harry,Sinclair,Legal,25000,50,No,Glasgow,25657
+Male,Charles,Robertson,Sales,24000,68,Yes,Glasgow,30151
+Female,Emmy,Irvine,Sales,23000,79,Yes,Glasgow,31575
+Female,Amy,Fraser,Sales,27000,47,No,Shetland,61105
+Female,Dora,Anderson,Legal,16000,79,Yes,Glasgow,12878
+Male,Ed,Tait,Legal,25000,56,No,Aberdeen,36672
+Male,Harry,Irvine,Human Resources,15000,37,No,Shetland,19737
+Male,Ivan,Anderson,Legal,18000,31,No,Western Isles,44288
+Female,Florence,Jamieson,Sales,17000,67,Yes,Stirling,30741
+Female,Jools,Robertson,Sales,13000,38,No,Orkney,36440
+Female,Helena,Smith,Product Management,23000,63,No,Stirling,37379
+Male,Charles,Fraser,Sales,22000,20,No,Orkney,35202
+Male,Freddy,Sinclair,Human Resources,19000,39,No,Glasgow,39888
+Female,Cara,Robertson,Product Management,22000,59,No,Western Isles,36655
+Male,Jimmy,Williamson,Training,16000,74,Yes,Aberdeen,18965
+Male,Freddy,Galdie,Training,19000,83,Yes,Shetland,37502
+Female,India,Irvine,Sales,22000,63,No,Glasgow,42452
+Male,Charles,Galdie,Sales,25000,74,Yes,Glasgow,23832
+Female,Dora,Manson,Product Management,17000,50,No,Shetland,31501
+Female,Dora,Johnson,Human Resources,24000,82,Yes,Shetland,14595
+Male,Gord,Halcrow,Product Management,18000,68,Yes,Inverness,29141
+Male,Angus,Williamson,Training,21000,87,Yes,Inverness,23891
+Female,Amy,Anderson,Sales,18000,33,No,Orkney,29279
+Male,Harry,Thomason,Product Management,20000,83,Yes,Stirling,20050
+Female,Amy,Anderson,Human Resources,23000,32,No,Orkney,43433
+Female,Bonnie,Robertson,Legal,17000,76,Yes,Aberdeen,12599
+Male,Angus,Irvine,Training,29000,22,No,Aberdeen,36874
+Male,Ivan,Halcrow,Legal,15000,83,Yes,Shetland,29013
+Female,Bonnie,Peterson,Product Management,25000,68,Yes,Edinburgh,5169
+Female,Bonnie,Nicolson,Legal,18000,54,No,Western Isles,33417
+Male,Gord,Tait,Legal,19000,60,No,Glasgow,37302
+Male,Charles,Smith,Sales,20000,53,No,Stirling,38873
+Male,Ed,Irvine,Human Resources,21000,56,No,Shetland,46365
+Female,Emmy,Tait,Product Management,20000,42,No,Shetland,44476
+Female,Cara,Laurenceso,Sales,16000,58,No,Edinburgh,25362
+Female,Bonnie,Laurenceso,Training,19000,23,No,Orkney,20556
+Female,Helena,Henderson,Legal,19000,76,Yes,Edinburgh,30711
+Female,Florence,Fraser,Product Management,16000,19,No,Edinburgh,32806
+Female,Cara,Jamieson,Sales,19000,40,No,Edinburgh,69463
+Female,Bonnie,Irvine,Sales,17000,26,No,Orkney,31507
+Male,Bert,Tait,Training,12000,36,No,Stirling,28566
+Male,Jimmy,Johnson,Human Resources,18000,68,Yes,Inverness,14228
+Male,Ivan,Halcrow,Sales,20000,50,No,Glasgow,61712
+Female,Helena,Johnson,Legal,31000,76,Yes,Aberdeen,30924
+Male,Angus,Jamieson,Training,22000,59,No,Orkney,41482
+Female,Gilly,Halcrow,Training,23000,31,No,Aberdeen,39905
+Male,Gord,Nicolson,Human Resources,20000,79,Yes,Glasgow,11253
+Female,India,Nicolson,Legal,18000,83,Yes,Inverness,29959
+Male,Freddy,Jamieson,Legal,27000,65,No,Glasgow,54166
+Female,Cara,Peterson,Training,17000,32,No,Inverness,47760
+Male,Ed,Jamieson,Human Resources,14000,67,Yes,Shetland,33128
+Female,Dora,Laurenceso,Training,17000,78,Yes,Shetland,9509
+Female,India,Sinclair,Sales,18000,31,No,Glasgow,28828
+Male,Freddy,Leask,Sales,16000,66,Yes,Inverness,15923
+Female,Jools,Peterson,Training,23000,85,Yes,Glasgow,36870
+Female,Gilly,Manson,Product Management,17000,69,Yes,Edinburgh,32987
+Female,Emmy,Jamieson,Training,21000,75,Yes,Western Isles,25771
+Female,Amy,Anderson,Product Management,26000,45,No,Stirling,45019
+Female,Bonnie,Johnson,Sales,21000,28,No,Shetland,29745
+Female,Amy,Nicolson,Training,14000,52,No,Glasgow,42839
+Male,Freddy,Mowat,Training,15000,34,No,Stirling,22263
+Female,Amy,Johnson,Product Management,19000,54,No,Orkney,39166
+Female,Cara,Mowat,Legal,24000,61,No,Aberdeen,24528
+Female,Florence,Thomason,Human Resources,14000,68,Yes,Stirling,34308
+Female,Dora,Nicolson,Training,23000,73,Yes,Orkney,19957
+Male,Ed,Halcrow,Product Management,21000,19,No,Glasgow,32338
+Male,Charles,Laurenceso,Training,19000,55,No,Aberdeen,41321
+Male,Charles,Laurenceso,Sales,24000,31,No,Inverness,44601
+Male,Ivan,Williamson,Legal,16000,53,No,Aberdeen,48379
+Female,Amy,Thomason,Human Resources,14000,22,No,Aberdeen,15270
+Female,Emmy,Peterson,Sales,21000,42,No,Shetland,16035
+Female,Jools,Sinclair,Product Management,19000,84,Yes,Stirling,24374
+Male,Jimmy,Thomason,Legal,21000,63,No,Edinburgh,37752
+Female,Florence,Nicolson,Training,27000,45,No,Aberdeen,28975
+Female,Bonnie,Jamieson,Product Management,18000,18,No,Shetland,34588
+Male,Ed,Tait,Product Management,14000,87,Yes,Shetland,23561
+Male,Gord,Peterson,Legal,12000,41,No,Glasgow,33857
+Female,Dora,Tait,Sales,26000,59,No,Aberdeen,18364
+Female,Helena,Laurenceso,Product Management,14000,69,Yes,Shetland,21797
+Female,Jools,Halcrow,Human Resources,17000,48,No,Shetland,35618
+Female,Helena,Peterson,Product Management,20000,42,No,Inverness,29546
+Female,Jools,Tait,Product Management,28000,73,Yes,Stirling,22707
+Male,Angus,Thomason,Training,21000,25,No,Aberdeen,27688
+Male,Harry,Leask,Training,23000,56,No,Edinburgh,45855
+Male,Charles,Leask,Human Resources,18000,63,No,Stirling,39726
+Male,Angus,Sinclair,Human Resources,21000,89,Yes,Shetland,30565
+Male,Harry,Manson,Sales,16000,69,Yes,Shetland,24782
+Female,India,Williamson,Training,17000,27,No,Aberdeen,24581
+Female,India,Mowat,Legal,19000,22,No,Inverness,30051
+Female,Cara,Galdie,Training,20000,25,No,Edinburgh,29656
+Male,Donald,Manson,Product Management,20000,65,No,Edinburgh,39317
+Female,Cara,Nicolson,Human Resources,20000,84,Yes,Orkney,42603
+Female,Gilly,Nicolson,Legal,23000,31,No,Western Isles,24459
+Male,Jimmy,Leask,Product Management,22000,46,No,Inverness,30247
+Male,Charles,Tait,Human Resources,28000,37,No,Edinburgh,47149
+Male,Gord,Johnson,Training,30000,25,No,Inverness,27453
+Female,Bonnie,Robertson,Training,25000,82,Yes,Glasgow,34663
+Male,Donald,Irvine,Training,15000,51,No,Inverness,36528
+Male,Ed,Jamieson,Product Management,22000,76,Yes,Aberdeen,24704
+Male,Jimmy,Tait,Sales,20000,84,Yes,Edinburgh,24083
+Male,Harry,Tait,Training,20000,83,Yes,Aberdeen,29016
+Female,Gilly,Manson,Human Resources,26000,84,Yes,Edinburgh,30315
+Male,Gord,Sinclair,Sales,24000,58,No,Inverness,50164
+Female,Jools,Robertson,Legal,21000,21,No,Edinburgh,22329
+Male,Angus,Tait,Legal,26000,69,Yes,Edinburgh,19639
+Female,Amy,Thomason,Product Management,22000,71,Yes,Orkney,14446
+Female,Florence,Halcrow,Sales,14000,86,Yes,Orkney,24445
+Female,Amy,Mowat,Sales,27000,35,No,Edinburgh,39388
+Female,Cara,Tait,Legal,19000,71,Yes,Aberdeen,30568
+Male,Charles,Laurenceso,Human Resources,22000,67,Yes,Shetland,45226
+Female,Cara,Halcrow,Human Resources,15000,56,No,Glasgow,33764
+Male,Donald,Irvine,Legal,20000,23,No,Edinburgh,35261
+Male,Donald,Peterson,Human Resources,12000,69,Yes,Edinburgh,12106
+Male,Bert,Tait,Human Resources,14000,64,No,Glasgow,35354
+Male,Ed,Tait,Sales,20000,26,No,Stirling,53729
+Male,Jimmy,Halcrow,Product Management,18000,51,No,Aberdeen,34292
+Male,Harry,Johnson,Training,20000,23,No,Stirling,36902
+Male,Bert,Manson,Sales,16000,83,Yes,Western Isles,24286
+Male,Ed,Fraser,Product Management,14000,31,No,Edinburgh,18847
+Male,Jimmy,Smith,Product Management,19000,55,No,Inverness,42236
+Male,Freddy,Laurenceso,Human Resources,23000,83,Yes,Aberdeen,22088
+Female,Florence,Fraser,Sales,15000,77,Yes,Glasgow,30107
+Male,Ivan,Laurenceso,Training,19000,63,No,Stirling,50277
+Male,Ed,Tait,Sales,15000,37,No,Inverness,25223
+Male,Donald,Fraser,Human Resources,17000,28,No,Shetland,30840
+Male,Ivan,Galdie,Legal,22000,82,Yes,Orkney,5802
+Female,Helena,Robertson,Training,25000,29,No,Orkney,45676
+Female,Cara,Johnson,Legal,13000,74,Yes,Glasgow,32670
+Male,Ed,Mowat,Training,12000,33,No,Shetland,37201
+Female,Jools,Leask,Human Resources,15000,33,No,Orkney,29132
+Female,India,Mowat,Legal,13000,76,Yes,Edinburgh,28452
+Female,Amy,Williamson,Product Management,20000,34,No,Orkney,49876
+Female,India,Henderson,Legal,15000,61,No,Glasgow,49109
+Male,Harry,Nicolson,Training,16000,72,Yes,Glasgow,35912
+Male,Bert,Fraser,Sales,30000,61,No,Inverness,51885
+Female,Amy,Jamieson,Sales,20000,45,No,Aberdeen,40204
+Male,Gord,Irvine,Legal,10000,74,Yes,Aberdeen,22319
+Male,Jimmy,Laurenceso,Training,12000,48,No,Western Isles,24427
+Male,Gord,Fraser,Product Management,11000,28,No,Glasgow,18089
+Male,Freddy,Peterson,Human Resources,25000,88,Yes,Edinburgh,16450
+Female,Bonnie,Henderson,Human Resources,16000,47,No,Shetland,12918
+Male,Harry,Jamieson,Training,14000,58,No,Glasgow,52517
+Male,Jimmy,Fraser,Human Resources,23000,27,No,Glasgow,38345
+Male,Freddy,Mowat,Sales,29000,41,No,Aberdeen,48219
+Male,Jimmy,Manson,Product Management,16000,45,No,Stirling,32062
+Female,Gilly,Leask,Human Resources,23000,19,No,Orkney,44032
+Male,Ivan,Mowat,Legal,14000,55,No,Shetland,37027
+Male,Donald,Irvine,Legal,22000,19,No,Aberdeen,43413
+Female,Florence,Tait,Training,25000,59,No,Glasgow,39492
+Male,Angus,Tait,Sales,22000,27,No,Edinburgh,28312
+Female,Helena,Williamson,Human Resources,22000,50,No,Orkney,42179
+Female,Gilly,Johnson,Human Resources,27000,38,No,Shetland,65979
+Male,Jimmy,Robertson,Sales,19000,72,Yes,Edinburgh,20203
+Male,Ed,Thomason,Product Management,17000,38,No,Orkney,37831
+Male,Ed,Johnson,Training,16000,66,Yes,Edinburgh,12143
+Female,India,Irvine,Sales,24000,33,No,Orkney,40320
+Male,Bert,Leask,Training,30000,82,Yes,Orkney,34199
+Male,Ivan,Thomason,Sales,11000,83,Yes,Glasgow,-6709
+Female,Cara,Irvine,Product Management,18000,48,No,Orkney,37782
+Female,Bonnie,Jamieson,Product Management,19000,72,Yes,Orkney,16428
+Female,Cara,Henderson,Product Management,18000,57,No,Orkney,39815
+Male,Ivan,Nicolson,Human Resources,21000,46,No,Edinburgh,31578
+Male,Jimmy,Manson,Legal,19000,36,No,Stirling,32970
+Female,India,Tait,Legal,23000,23,No,Shetland,41761
+Female,Bonnie,Mowat,Product Management,24000,38,No,Orkney,47198
+Male,Donald,Tait,Legal,22000,66,Yes,Orkney,37906
+Female,Emmy,Sinclair,Legal,21000,67,Yes,Shetland,37345
+Male,Gord,Williamson,Training,19000,63,No,Orkney,69764
+Male,Donald,Laurenceso,Product Management,19000,85,Yes,Orkney,24012
+Male,Jimmy,Peterson,Product Management,21000,46,No,Western Isles,38266
+Female,Amy,Tait,Sales,22000,45,No,Glasgow,29334
+Male,Bert,Johnson,Sales,19000,43,No,Edinburgh,15181
+Male,Angus,Fraser,Training,16000,59,No,Inverness,45905
+Male,Ivan,Leask,Legal,16000,18,No,Stirling,19254
+Male,Bert,Galdie,Product Management,24000,80,Yes,Shetland,33821
+Female,Gilly,Fraser,Sales,21000,78,Yes,Western Isles,29790
+Female,Bonnie,Halcrow,Human Resources,22000,26,No,Aberdeen,30235
+Male,Jimmy,Leask,Product Management,19000,36,No,Inverness,24463
+Female,Jools,Smith,Training,22000,60,No,Shetland,45881
+Female,Gilly,Galdie,Human Resources,29000,18,No,Stirling,36453
+Male,Gord,Anderson,Product Management,19000,48,No,Shetland,42484
+Female,Dora,Peterson,Legal,21000,74,Yes,Stirling,19947
+Male,Angus,Smith,Sales,18000,24,No,Glasgow,19963
+Female,Emmy,Halcrow,Legal,21000,56,No,Shetland,40784
+Male,Angus,Peterson,Human Resources,15000,48,No,Shetland,24583
+Female,Cara,Robertson,Training,27000,88,Yes,Aberdeen,35084
+Female,Gilly,Henderson,Legal,21000,54,No,Stirling,43977
+Male,Gord,Galdie,Human Resources,22000,54,No,Shetland,55212
+Male,Harry,Leask,Sales,14000,33,No,Stirling,37893
+Male,Gord,Fraser,Sales,16000,82,Yes,Stirling,30645
+Female,Amy,Galdie,Legal,23000,89,Yes,Shetland,40262
+Male,Charles,Mowat,Legal,21000,54,No,Stirling,37649
+Female,Dora,Nicolson,Sales,18000,42,No,Glasgow,54208
+Male,Harry,Galdie,Training,19000,53,No,Inverness,38325
+Male,Charles,Sinclair,Legal,17000,61,No,Inverness,43713
+Female,Helena,Tait,Legal,23000,84,Yes,Inverness,33923
+Female,India,Irvine,Product Management,17000,30,No,Inverness,41886
+Male,Jimmy,Nicolson,Sales,19000,68,Yes,Inverness,32430
+Female,Amy,Robertson,Training,19000,89,Yes,Aberdeen,20508
+Female,Cara,Tait,Legal,23000,80,Yes,Glasgow,39847
+Female,India,Robertson,Human Resources,16000,54,No,Glasgow,27342
+Male,Ivan,Galdie,Legal,17000,29,No,Western Isles,36081
+Male,Charles,Leask,Sales,21000,65,No,Orkney,52170
+Male,Gord,Robertson,Training,20000,75,Yes,Edinburgh,16215
+Female,Amy,Manson,Human Resources,24000,44,No,Inverness,48756
+Female,Florence,Johnson,Training,22000,43,No,Shetland,51468
+Male,Charles,Sinclair,Human Resources,16000,62,No,Orkney,43410
+Male,Angus,Henderson,Sales,26000,46,No,Glasgow,39643
+Male,Harry,Nicolson,Product Management,21000,71,Yes,Western Isles,8666
+Female,Bonnie,Johnson,Product Management,22000,57,No,Stirling,46120
+Male,Freddy,Smith,Training,25000,60,No,Stirling,50334
+Male,Gord,Peterson,Human Resources,19000,87,Yes,Western Isles,30091
+Male,Ivan,Laurenceso,Training,26000,22,No,Inverness,47509
+Male,Gord,Laurenceso,Legal,18000,56,No,Orkney,38475
+Female,Amy,Leask,Sales,21000,36,No,Glasgow,37829
+Female,Emmy,Tait,Training,21000,46,No,Inverness,38201
+Male,Freddy,Mowat,Training,19000,84,Yes,Western Isles,14486
+Female,India,Galdie,Sales,23000,86,Yes,Aberdeen,29992
+Male,Bert,Manson,Sales,26000,19,No,Shetland,31870
+Male,Ivan,Manson,Product Management,22000,46,No,Shetland,37260
+Male,Charles,Fraser,Legal,24000,60,No,Stirling,55350
+Female,Florence,Peterson,Product Management,20000,39,No,Glasgow,2759
+Male,Ivan,Thomason,Training,19000,48,No,Orkney,45588
+Female,Jools,Robertson,Sales,17000,55,No,Edinburgh,34213
+Female,Dora,Peterson,Training,19000,70,Yes,Shetland,12196
+Male,Freddy,Halcrow,Product Management,24000,25,No,Glasgow,44447
+Male,Jimmy,Jamieson,Training,20000,86,Yes,Shetland,26821
+Male,Angus,Irvine,Training,23000,57,No,Edinburgh,44696
+Female,Cara,Jamieson,Training,20000,54,No,Stirling,42267
+Female,Emmy,Johnson,Sales,24000,84,Yes,Edinburgh,4843
+Male,Ed,Laurenceso,Human Resources,27000,79,Yes,Stirling,38821
+Female,Jools,Fraser,Sales,28000,72,Yes,Orkney,33601
+Female,Bonnie,Laurenceso,Product Management,23000,64,No,Glasgow,62269
+Male,Ivan,Henderson,Product Management,25000,63,No,Orkney,45943
+Male,Ed,Halcrow,Training,21000,62,No,Aberdeen,45660
+Female,Bonnie,Jamieson,Training,17000,71,Yes,Glasgow,33883
+Female,Bonnie,Smith,Training,17000,81,Yes,Inverness,3851
+Male,Ed,Johnson,Legal,24000,19,No,Glasgow,23503
+Female,Dora,Leask,Human Resources,22000,62,No,Inverness,46966
+Female,Dora,Manson,Sales,30000,49,No,Shetland,55326
+Male,Jimmy,Leask,Sales,24000,38,No,Inverness,50466
+Male,Gord,Fraser,Legal,25000,75,Yes,Western Isles,25296
+Female,Cara,Thomason,Training,15000,23,No,Glasgow,36961
+Female,Florence,Jamieson,Legal,20000,71,Yes,Aberdeen,16920
+Female,Cara,Tait,Training,24000,19,No,Orkney,38621
+Female,Cara,Tait,Legal,23000,42,No,Glasgow,32618
+Male,Gord,Galdie,Legal,21000,83,Yes,Orkney,21467
+Female,Amy,Tait,Legal,27000,75,Yes,Glasgow,26582
+Male,Bert,Robertson,Product Management,17000,69,Yes,Glasgow,20058
+Male,Harry,Irvine,Product Management,21000,30,No,Inverness,45354
+Male,Ivan,Halcrow,Training,21000,89,Yes,Aberdeen,14945
+Male,Freddy,Jamieson,Legal,20000,53,No,Shetland,46575
+Male,Ivan,Nicolson,Training,22000,24,No,Orkney,29800
+Female,Florence,Johnson,Training,20000,84,Yes,Western Isles,21064
+Male,Donald,Johnson,Legal,19000,70,Yes,Glasgow,21379
+Male,Angus,Leask,Training,26000,36,No,Glasgow,43274
+Female,India,Mowat,Sales,14000,82,Yes,Aberdeen,13871
+Female,Helena,Halcrow,Human Resources,18000,75,Yes,Glasgow,18957
+Male,Ed,Peterson,Human Resources,19000,85,Yes,Western Isles,15521
+Male,Gord,Nicolson,Legal,14000,82,Yes,Orkney,7967
+Male,Jimmy,Irvine,Legal,17000,37,No,Orkney,36163
+Male,Angus,Anderson,Training,22000,57,No,Shetland,57376
+Female,Helena,Tait,Human Resources,20000,86,Yes,Inverness,26532
+Male,Jimmy,Nicolson,Sales,19000,41,No,Shetland,33974
+Female,Emmy,Williamson,Sales,23000,28,No,Aberdeen,35620
+Female,Helena,Nicolson,Human Resources,12000,37,No,Orkney,31272
+Female,Cara,Jamieson,Human Resources,26000,88,Yes,Western Isles,33066
+Male,Ivan,Galdie,Human Resources,20000,26,No,Edinburgh,18043
+Female,India,Halcrow,Human Resources,26000,36,No,Inverness,51058
+Female,Cara,Johnson,Human Resources,21000,51,No,Western Isles,37330
+Female,Florence,Sinclair,Training,23000,50,No,Western Isles,41035
+Male,Bert,Anderson,Training,18000,40,No,Western Isles,36301
+Female,Bonnie,Thomason,Sales,21000,68,Yes,Western Isles,23190
+Female,Helena,Irvine,Product Management,18000,78,Yes,Inverness,28456
+Female,India,Mowat,Sales,17000,44,No,Inverness,26789
+Female,Cara,Smith,Human Resources,22000,73,Yes,Stirling,34817
+Female,India,Leask,Training,20000,30,No,Inverness,43605
+Female,Cara,Tait,Human Resources,25000,43,No,Aberdeen,40327
+Male,Gord,Anderson,Human Resources,14000,90,Yes,Inverness,25608
+Male,Gord,Williamson,Human Resources,24000,43,No,Edinburgh,41076
+Male,Ed,Laurenceso,Sales,19000,38,No,Shetland,29480
+Female,Florence,Henderson,Product Management,12000,56,No,Orkney,34289
+Male,Charles,Sinclair,Product Management,27000,72,Yes,Shetland,42518
+Female,Gilly,Fraser,Human Resources,14000,80,Yes,Glasgow,33409
+Female,Jools,Irvine,Product Management,18000,26,No,Inverness,17078
+Female,Dora,Tait,Product Management,22000,51,No,Shetland,34202
+Female,Emmy,Irvine,Legal,19000,77,Yes,Stirling,36997
+Female,Dora,Robertson,Legal,27000,79,Yes,Stirling,39777
+Female,Bonnie,Jamieson,Legal,15000,79,Yes,Inverness,33949
+Male,Charles,Laurenceso,Human Resources,20000,43,No,Aberdeen,40960
+Male,Bert,Leask,Human Resources,23000,21,No,Western Isles,19927
+Female,Jools,Sinclair,Product Management,21000,76,Yes,Aberdeen,18666
+Male,Angus,Smith,Legal,26000,76,Yes,Inverness,29468
+Male,Gord,Laurenceso,Sales,21000,44,No,Western Isles,25192
+Male,Gord,Tait,Product Management,14000,38,No,Stirling,46423
+Female,Amy,Sinclair,Product Management,23000,86,Yes,Glasgow,31199
+Female,Bonnie,Fraser,Sales,17000,73,Yes,Inverness,-6884
+Male,Ed,Manson,Legal,27000,30,No,Stirling,49725
+Male,Freddy,Robertson,Legal,17000,45,No,Stirling,38119
+Female,Helena,Manson,Product Management,15000,25,No,Western Isles,36761
+Female,Amy,Williamson,Training,23000,78,Yes,Shetland,37047
+Male,Ivan,Nicolson,Training,25000,49,No,Orkney,44889
+Male,Jimmy,Johnson,Product Management,16000,68,Yes,Orkney,33385
+Male,Angus,Laurenceso,Training,23000,42,No,Edinburgh,36315
+Male,Angus,Henderson,Training,16000,36,No,Orkney,28328
+Female,Florence,Nicolson,Training,22000,42,No,Orkney,34636
+Male,Freddy,Thomason,Legal,20000,83,Yes,Orkney,18921
+Male,Ivan,Nicolson,Sales,22000,41,No,Western Isles,50716
+Female,India,Laurenceso,Training,25000,54,No,Inverness,20930
+Female,Cara,Sinclair,Legal,20000,85,Yes,Edinburgh,29455
+Female,Emmy,Fraser,Human Resources,26000,55,No,Aberdeen,36564
+Female,Emmy,Irvine,Training,22000,79,Yes,Inverness,34956
+Female,Emmy,Robertson,Sales,20000,89,Yes,Edinburgh,24891
+Female,Helena,Manson,Training,24000,35,No,Inverness,52930
+Male,Gord,Johnson,Sales,12000,31,No,Western Isles,36021
+Male,Jimmy,Henderson,Training,15000,48,No,Western Isles,20242
+Male,Angus,Leask,Product Management,21000,53,No,Glasgow,55169
+Female,Florence,Jamieson,Legal,21000,82,Yes,Orkney,11217
+Male,Ed,Galdie,Human Resources,18000,20,No,Aberdeen,54960
+Male,Gord,Leask,Legal,21000,40,No,Edinburgh,38866
+Male,Angus,Manson,Human Resources,21000,83,Yes,Stirling,21297
+Female,Bonnie,Sinclair,Training,20000,36,No,Shetland,45152
+Female,Florence,Peterson,Human Resources,21000,43,No,Shetland,44877
+Male,Freddy,Thomason,Human Resources,22000,86,Yes,Orkney,43451
+Female,Gilly,Laurenceso,Legal,20000,83,Yes,Stirling,24178
+Male,Angus,Sinclair,Legal,20000,75,Yes,Inverness,35987
+Female,Jools,Laurenceso,Sales,22000,68,Yes,Stirling,27303
+Male,Bert,Peterson,Sales,20000,71,Yes,Glasgow,29111
+Female,Cara,Manson,Product Management,17000,47,No,Stirling,39310
+Male,Angus,Sinclair,Sales,13000,60,No,Inverness,49880
+Female,India,Mowat,Sales,22000,59,No,Stirling,41136
+Male,Charles,Tait,Training,19000,54,No,Edinburgh,33358
+Male,Jimmy,Anderson,Training,18000,18,No,Shetland,15674
+Female,Amy,Robertson,Product Management,21000,18,No,Aberdeen,30546
+Male,Freddy,Halcrow,Sales,23000,61,No,Shetland,58086
+Male,Donald,Robertson,Human Resources,19000,88,Yes,Orkney,25265
+Male,Freddy,Henderson,Human Resources,17000,29,No,Edinburgh,24584
+Female,India,Anderson,Legal,21000,33,No,Edinburgh,27589
+Male,Harry,Jamieson,Legal,26000,61,No,Shetland,39336
+Male,Freddy,Jamieson,Legal,20000,54,No,Inverness,30931
+Female,Emmy,Irvine,Product Management,18000,28,No,Aberdeen,41965
+Male,Ivan,Sinclair,Training,21000,33,No,Western Isles,30940
+Male,Gord,Tait,Product Management,21000,63,No,Western Isles,35404
+Male,Bert,Tait,Training,9000,45,No,Edinburgh,59317
+Female,Amy,Galdie,Product Management,18000,21,No,Inverness,54024
+Male,Angus,Robertson,Sales,26000,77,Yes,Edinburgh,39788
+Male,Jimmy,Anderson,Human Resources,23000,22,No,Shetland,32804
+Female,Bonnie,Nicolson,Product Management,24000,56,No,Inverness,40682
+Male,Ed,Henderson,Sales,23000,77,Yes,Glasgow,25490
+Male,Ed,Smith,Training,17000,56,No,Edinburgh,29526
+Female,Gilly,Leask,Legal,24000,87,Yes,Western Isles,24007
+Male,Angus,Henderson,Human Resources,18000,38,No,Inverness,34869
+Male,Freddy,Johnson,Legal,21000,35,No,Inverness,30932
+Female,Bonnie,Peterson,Legal,28000,54,No,Orkney,52389
+Male,Ivan,Fraser,Product Management,21000,38,No,Glasgow,50590
+Male,Ed,Williamson,Legal,19000,89,Yes,Shetland,8680
+Female,India,Leask,Legal,24000,21,No,Glasgow,12946
+Male,Ed,Peterson,Legal,18000,35,No,Inverness,43646
+Male,Ivan,Henderson,Product Management,20000,70,Yes,Edinburgh,20186
+Male,Ivan,Laurenceso,Sales,14000,71,Yes,Stirling,13215
+Female,Jools,Williamson,Training,19000,89,Yes,Aberdeen,25545
+Female,Bonnie,Johnson,Product Management,12000,67,Yes,Aberdeen,-4117
+Male,Charles,Robertson,Human Resources,18000,31,No,Orkney,48066
+Male,Ed,Galdie,Legal,12000,50,No,Aberdeen,33725
+Female,Emmy,Anderson,Product Management,16000,20,No,Western Isles,29675
+Male,Donald,Fraser,Product Management,23000,68,Yes,Inverness,29243
+Female,Helena,Williamson,Sales,20000,43,No,Glasgow,29792
+Male,Harry,Laurenceso,Human Resources,15000,66,Yes,Shetland,25947
+Male,Bert,Irvine,Legal,20000,49,No,Orkney,35876
+Female,Florence,Tait,Human Resources,14000,83,Yes,Edinburgh,15020
+Female,Jools,Sinclair,Sales,14000,53,No,Aberdeen,38901
+Female,Emmy,Laurenceso,Product Management,16000,48,No,Inverness,39586
+Female,Emmy,Jamieson,Human Resources,21000,25,No,Orkney,21249
+Female,Amy,Galdie,Human Resources,20000,79,Yes,Glasgow,28430
+Female,Jools,Nicolson,Training,15000,87,Yes,Orkney,17021
+Female,Helena,Fraser,Human Resources,25000,38,No,Western Isles,55971
+Male,Angus,Thomason,Training,21000,56,No,Orkney,30070
+Male,Jimmy,Nicolson,Sales,14000,55,No,Glasgow,14096
+Male,Jimmy,Anderson,Sales,22000,79,Yes,Edinburgh,25400
+Female,Gilly,Henderson,Product Management,25000,81,Yes,Shetland,30519
+Male,Donald,Peterson,Sales,23000,70,Yes,Aberdeen,6182
+Female,Florence,Irvine,Legal,16000,63,No,Orkney,39248
+Male,Angus,Robertson,Human Resources,28000,56,No,Stirling,41922
+Female,India,Williamson,Legal,17000,82,Yes,Edinburgh,23559
+Female,Gilly,Anderson,Training,27000,88,Yes,Inverness,23294
+Female,Bonnie,Smith,Training,17000,76,Yes,Orkney,7576
+Male,Ivan,Leask,Sales,23000,35,No,Orkney,36506
+Female,Amy,Jamieson,Human Resources,17000,89,Yes,Orkney,18719
+Female,Jools,Sinclair,Sales,22000,64,No,Aberdeen,56138
+Female,Jools,Fraser,Human Resources,15000,67,Yes,Stirling,25924
+Female,Bonnie,Leask,Human Resources,7000,83,Yes,Western Isles,21103
+Male,Donald,Irvine,Product Management,14000,59,No,Shetland,37463
+Male,Ed,Williamson,Product Management,16000,63,No,Edinburgh,34264
+Female,Helena,Sinclair,Training,21000,63,No,Western Isles,32876
+Male,Ivan,Mowat,Human Resources,16000,61,No,Shetland,39002
+Female,India,Sinclair,Product Management,23000,69,Yes,Glasgow,32260
+Male,Harry,Tait,Product Management,28000,30,No,Aberdeen,34031
+Female,Cara,Mowat,Product Management,16000,25,No,Inverness,42497
+Female,Dora,Anderson,Training,14000,64,No,Glasgow,45978
+Male,Freddy,Henderson,Sales,15000,39,No,Glasgow,33230
+Female,Amy,Thomason,Training,18000,46,No,Aberdeen,34943
+Male,Angus,Williamson,Human Resources,23000,61,No,Inverness,49744
+Male,Harry,Peterson,Sales,25000,42,No,Edinburgh,57012
+Male,Gord,Halcrow,Training,21000,74,Yes,Western Isles,29146
+Male,Charles,Jamieson,Sales,26000,67,Yes,Inverness,23845
+Female,Jools,Tait,Training,19000,67,Yes,Orkney,25625
+Male,Ivan,Jamieson,Training,16000,39,No,Shetland,32383
+Female,Gilly,Jamieson,Sales,22000,23,No,Shetland,69498
+Female,Cara,Anderson,Human Resources,14000,78,Yes,Orkney,13429
+Female,Cara,Mowat,Product Management,28000,61,No,Inverness,48551
+Male,Ivan,Robertson,Legal,22000,44,No,Stirling,31324
+Male,Gord,Galdie,Human Resources,20000,30,No,Shetland,53160
+Female,Jools,Tait,Human Resources,28000,84,Yes,Edinburgh,34160
+Male,Charles,Irvine,Sales,22000,84,Yes,Edinburgh,21898
+Female,India,Leask,Sales,12000,34,No,Inverness,1953
+Male,Charles,Henderson,Human Resources,25000,43,No,Glasgow,38992
+Male,Jimmy,Fraser,Product Management,18000,54,No,Inverness,31223
+Male,Donald,Jamieson,Legal,20000,89,Yes,Glasgow,24787
+Male,Bert,Thomason,Legal,17000,29,No,Edinburgh,20316
+Female,India,Manson,Human Resources,21000,39,No,Glasgow,29474
+Female,Gilly,Irvine,Legal,19000,67,Yes,Glasgow,13424
+Male,Bert,Leask,Product Management,28000,66,Yes,Edinburgh,26597
+Male,Harry,Halcrow,Sales,23000,86,Yes,Edinburgh,35613
+Female,Jools,Williamson,Human Resources,17000,40,No,Western Isles,19122
+Female,Gilly,Manson,Sales,15000,26,No,Edinburgh,29953
+Male,Ed,Anderson,Product Management,24000,86,Yes,Western Isles,30632
+Female,Jools,Smith,Legal,12000,56,No,Edinburgh,33534
+Male,Harry,Laurenceso,Legal,26000,32,No,Inverness,35221
+Female,Cara,Jamieson,Legal,20000,55,No,Shetland,36391
+Male,Jimmy,Leask,Human Resources,28000,20,No,Edinburgh,32787
+Female,Emmy,Irvine,Legal,21000,20,No,Orkney,35248
+Male,Angus,Williamson,Legal,19000,28,No,Aberdeen,19244
+Female,Emmy,Smith,Training,14000,29,No,Shetland,31208
+Female,Florence,Peterson,Human Resources,21000,37,No,Inverness,18628
+Female,Dora,Jamieson,Product Management,14000,64,No,Edinburgh,38218
+Female,Jools,Anderson,Sales,19000,48,No,Edinburgh,21490
+Male,Harry,Tait,Product Management,25000,21,No,Glasgow,32009
+Male,Freddy,Smith,Human Resources,19000,87,Yes,Western Isles,34783
+Male,Charles,Williamson,Training,18000,23,No,Shetland,27182
+Female,Gilly,Sinclair,Product Management,20000,84,Yes,Glasgow,35453
+Female,India,Smith,Sales,33000,22,No,Edinburgh,41194
+Female,Bonnie,Smith,Product Management,29000,39,No,Inverness,28470
+Female,Florence,Irvine,Training,21000,67,Yes,Inverness,13354
+Female,Jools,Mowat,Product Management,21000,40,No,Western Isles,38206
+Male,Jimmy,Jamieson,Sales,17000,18,No,Stirling,21944
+Male,Bert,Sinclair,Product Management,27000,71,Yes,Inverness,27792
+Male,Jimmy,Henderson,Training,14000,52,No,Western Isles,41352
+Female,Gilly,Anderson,Training,15000,44,No,Glasgow,34262
+Male,Charles,Smith,Sales,16000,43,No,Edinburgh,39335
+Female,Emmy,Laurenceso,Legal,20000,76,Yes,Glasgow,35979
+Female,Helena,Fraser,Sales,15000,30,No,Stirling,33719
+Male,Ivan,Galdie,Human Resources,18000,35,No,Glasgow,37858
+Female,Helena,Jamieson,Legal,36000,27,No,Western Isles,50211
+Female,Amy,Williamson,Training,15000,22,No,Aberdeen,29245
+Male,Ivan,Nicolson,Training,16000,52,No,Glasgow,38666
+Male,Angus,Tait,Training,23000,50,No,Western Isles,45297
+Male,Gord,Anderson,Training,16000,46,No,Orkney,33226
+Female,Amy,Thomason,Product Management,18000,62,No,Aberdeen,47624
+Female,Bonnie,Sinclair,Product Management,17000,23,No,Western Isles,34843
+Male,Ivan,Robertson,Product Management,20000,34,No,Western Isles,31526
+Female,Cara,Thomason,Human Resources,16000,46,No,Glasgow,31653
+Female,Cara,Halcrow,Product Management,14000,27,No,Inverness,45240
+Male,Gord,Jamieson,Legal,22000,47,No,Glasgow,36160
+Male,Jimmy,Peterson,Human Resources,15000,55,No,Glasgow,36966
+Female,Emmy,Williamson,Product Management,26000,20,No,Western Isles,41144
+Male,Charles,Nicolson,Sales,19000,49,No,Stirling,37583
+Female,Dora,Sinclair,Product Management,21000,39,No,Edinburgh,54139
+Female,Amy,Anderson,Training,18000,39,No,Glasgow,38745
+Female,Emmy,Henderson,Product Management,19000,40,No,Edinburgh,32943
+Female,Florence,Henderson,Product Management,23000,62,No,Western Isles,43957
+Female,Emmy,Robertson,Training,25000,27,No,Shetland,35865
+Female,Dora,Manson,Sales,11000,55,No,Inverness,37754
+Male,Freddy,Smith,Human Resources,18000,40,No,Orkney,48371
+Male,Ed,Leask,Training,23000,74,Yes,Western Isles,31359
+Male,Jimmy,Nicolson,Product Management,24000,86,Yes,Edinburgh,40598
+Female,Helena,Manson,Human Resources,13000,45,No,Edinburgh,36027
+Male,Jimmy,Robertson,Training,18000,29,No,Western Isles,55013
+Female,Bonnie,Henderson,Legal,14000,37,No,Glasgow,42640
+Female,Gilly,Tait,Legal,17000,48,No,Glasgow,32288
+Male,Angus,Henderson,Training,17000,58,No,Stirling,31957
+Female,Florence,Smith,Legal,25000,73,Yes,Edinburgh,33234
+Female,Bonnie,Halcrow,Legal,17000,62,No,Stirling,36522
+Female,Florence,Tait,Product Management,21000,42,No,Orkney,27773
+Male,Charles,Sinclair,Training,21000,57,No,Western Isles,49324
+Male,Angus,Manson,Human Resources,19000,59,No,Inverness,50046
+Female,Amy,Anderson,Sales,17000,75,Yes,Glasgow,24593
+Female,Bonnie,Robertson,Training,20000,75,Yes,Stirling,32905
+Male,Angus,Nicolson,Legal,21000,72,Yes,Inverness,14691
+Female,Emmy,Johnson,Product Management,17000,55,No,Aberdeen,26539
+Male,Charles,Jamieson,Product Management,24000,86,Yes,Stirling,27635
+Female,Helena,Mowat,Training,25000,86,Yes,Inverness,24427
+Female,Gilly,Manson,Sales,19000,36,No,Glasgow,26210
+Female,Emmy,Sinclair,Human Resources,23000,74,Yes,Stirling,23579
+Male,Ed,Galdie,Legal,27000,53,No,Glasgow,39699
+Male,Angus,Peterson,Human Resources,19000,37,No,Orkney,13121
+Female,Jools,Peterson,Training,13000,42,No,Orkney,37142
+Female,India,Leask,Legal,23000,61,No,Aberdeen,38293
+Male,Freddy,Galdie,Product Management,14000,41,No,Inverness,17032
+Female,Amy,Manson,Training,16000,33,No,Glasgow,23092
+Female,Dora,Galdie,Legal,21000,39,No,Western Isles,21744
+Female,Amy,Laurenceso,Sales,22000,55,No,Aberdeen,31745
+Female,Emmy,Thomason,Training,13000,79,Yes,Orkney,29683
+Female,India,Henderson,Human Resources,21000,31,No,Edinburgh,36425
+Female,Jools,Nicolson,Legal,16000,40,No,Shetland,46888
+Female,India,Jamieson,Training,18000,67,Yes,Edinburgh,26544
+Female,Gilly,Henderson,Product Management,14000,27,No,Edinburgh,41278
+Male,Charles,Peterson,Sales,19000,23,No,Inverness,19255
+Female,Helena,Nicolson,Product Management,16000,82,Yes,Orkney,17835
+Female,Jools,Peterson,Human Resources,29000,46,No,Glasgow,49017
+Male,Jimmy,Mowat,Training,30000,71,Yes,Glasgow,11094
+Female,Florence,Manson,Training,15000,53,No,Shetland,59847
+Male,Gord,Thomason,Product Management,22000,60,No,Edinburgh,55869
+Female,Helena,Johnson,Human Resources,17000,88,Yes,Inverness,34225
+Female,Emmy,Leask,Product Management,27000,37,No,Shetland,42530
+Female,Florence,Halcrow,Human Resources,21000,28,No,Orkney,47491
+Male,Jimmy,Leask,Human Resources,18000,64,No,Orkney,38436
+Female,Dora,Anderson,Human Resources,23000,72,Yes,Glasgow,27638
+Female,Amy,Nicolson,Human Resources,24000,34,No,Inverness,47721
+Male,Bert,Smith,Sales,16000,18,No,Aberdeen,29374
+Female,Bonnie,Peterson,Product Management,23000,59,No,Inverness,53250
+Male,Gord,Peterson,Product Management,26000,88,Yes,Western Isles,22831
+Female,Jools,Peterson,Product Management,16000,69,Yes,Orkney,35629
+Male,Ivan,Laurenceso,Human Resources,21000,79,Yes,Orkney,21428
+Male,Ed,Williamson,Human Resources,19000,85,Yes,Shetland,28406
+Male,Charles,Mowat,Product Management,18000,72,Yes,Orkney,37265
+Male,Charles,Robertson,Product Management,24000,54,No,Inverness,57879
+Female,Florence,Mowat,Legal,26000,53,No,Glasgow,33324
+Female,Amy,Manson,Human Resources,21000,18,No,Edinburgh,42904
+Male,Freddy,Anderson,Human Resources,26000,32,No,Shetland,35291
+Female,Bonnie,Thomason,Training,21000,61,No,Inverness,39550
+Female,Amy,Jamieson,Human Resources,21000,79,Yes,Shetland,29375
+Female,Cara,Robertson,Sales,27000,37,No,Shetland,42573
+Male,Ivan,Mowat,Sales,16000,56,No,Aberdeen,40124
+Female,Florence,Sinclair,Training,24000,51,No,Aberdeen,40091
+Male,Ivan,Williamson,Human Resources,18000,49,No,Stirling,31944
+Female,Dora,Thomason,Human Resources,14000,68,Yes,Shetland,24971
+Female,Dora,Jamieson,Sales,19000,84,Yes,Orkney,27142
+Female,Cara,Leask,Human Resources,15000,53,No,Edinburgh,37395
+Female,Jools,Mowat,Human Resources,23000,23,No,Western Isles,35134
+Female,Florence,Halcrow,Human Resources,29000,53,No,Glasgow,49928
+Male,Gord,Peterson,Legal,29000,72,Yes,Orkney,23367
+Male,Donald,Galdie,Training,12000,82,Yes,Western Isles,30660
+Male,Ivan,Henderson,Sales,11000,75,Yes,Inverness,-2088
+Male,Gord,Sinclair,Product Management,21000,50,No,Western Isles,48673
+Male,Freddy,Halcrow,Sales,13000,27,No,Shetland,30875
+Male,Jimmy,Sinclair,Human Resources,10000,73,Yes,Glasgow,24099
+Female,Amy,Nicolson,Training,15000,40,No,Western Isles,32437
+Female,India,Tait,Product Management,14000,78,Yes,Stirling,20386
+Female,Bonnie,Irvine,Product Management,23000,27,No,Aberdeen,35424
+Male,Angus,Anderson,Legal,24000,52,No,Stirling,28783
+Male,Gord,Halcrow,Legal,18000,33,No,Edinburgh,44331
+Male,Freddy,Peterson,Product Management,23000,45,No,Shetland,44565
+Male,Angus,Halcrow,Human Resources,21000,74,Yes,Stirling,22351
+Female,Emmy,Robertson,Sales,17000,26,No,Inverness,36384
+Female,Cara,Leask,Product Management,16000,62,No,Shetland,32931
+Female,Dora,Williamson,Human Resources,15000,36,No,Stirling,27737
+Male,Angus,Leask,Training,19000,40,No,Stirling,29366
+Female,Cara,Thomason,Legal,16000,83,Yes,Inverness,28264
+Female,Gilly,Mowat,Product Management,24000,67,Yes,Edinburgh,36150
+Male,Jimmy,Johnson,Sales,26000,46,No,Glasgow,44902
+Male,Jimmy,Johnson,Human Resources,22000,65,No,Shetland,54147
+Male,Bert,Smith,Human Resources,26000,28,No,Stirling,37328
+Male,Jimmy,Manson,Legal,23000,80,Yes,Orkney,34629
+Female,Amy,Fraser,Training,25000,49,No,Western Isles,37925
+Male,Jimmy,Robertson,Sales,23000,19,No,Stirling,39664
+Female,Florence,Halcrow,Sales,24000,20,No,Stirling,20453
+Female,Florence,Smith,Human Resources,18000,66,Yes,Aberdeen,20660
+Female,Emmy,Williamson,Training,24000,74,Yes,Stirling,23121
+Female,Helena,Jamieson,Human Resources,14000,28,No,Inverness,34270
+Male,Ed,Mowat,Training,19000,27,No,Edinburgh,23882
+Female,Amy,Johnson,Legal,22000,47,No,Orkney,28319
+Female,Cara,Jamieson,Training,23000,42,No,Orkney,41593
+Female,Gilly,Halcrow,Legal,19000,29,No,Western Isles,18626
+Male,Gord,Tait,Training,15000,58,No,Stirling,49946
+Female,Dora,Robertson,Legal,31000,88,Yes,Orkney,27883
+Female,Florence,Sinclair,Training,14000,59,No,Edinburgh,25842
+Female,Florence,Laurenceso,Training,26000,37,No,Glasgow,35036
+Female,India,Robertson,Training,27000,42,No,Edinburgh,31404
+Female,India,Mowat,Human Resources,20000,64,No,Stirling,48907
+Female,Helena,Nicolson,Product Management,17000,24,No,Orkney,27937
+Male,Harry,Robertson,Training,9000,66,Yes,Inverness,21930
+Female,Florence,Smith,Training,24000,78,Yes,Shetland,42180
+Male,Donald,Laurenceso,Human Resources,22000,33,No,Glasgow,32565
+Male,Bert,Williamson,Product Management,14000,34,No,Orkney,38296
+Male,Bert,Anderson,Product Management,22000,73,Yes,Glasgow,25884
+Female,Bonnie,Jamieson,Sales,23000,47,No,Shetland,45088
+Male,Ed,Williamson,Training,18000,63,No,Shetland,39844
+Male,Charles,Irvine,Sales,9000,58,No,Stirling,38336
+Female,Florence,Fraser,Human Resources,15000,55,No,Glasgow,44035
+Male,Jimmy,Anderson,Human Resources,16000,40,No,Stirling,28181
+Female,Jools,Irvine,Training,22000,65,No,Edinburgh,38976
+Female,Emmy,Mowat,Human Resources,24000,34,No,Orkney,47918
+Female,Cara,Mowat,Legal,17000,37,No,Glasgow,32309
+Female,Amy,Nicolson,Legal,23000,45,No,Stirling,46950
+Female,Bonnie,Halcrow,Training,27000,57,No,Edinburgh,25938
+Male,Freddy,Thomason,Legal,20000,63,No,Shetland,39598
+Female,Helena,Nicolson,Training,21000,75,Yes,Shetland,38258
+Male,Ed,Halcrow,Training,22000,77,Yes,Shetland,16045
+Female,Florence,Thomason,Training,16000,58,No,Orkney,36687
+Female,Jools,Halcrow,Training,15000,47,No,Glasgow,48813
+Female,Emmy,Peterson,Training,20000,88,Yes,Shetland,15446
+Female,Helena,Tait,Product Management,22000,63,No,Inverness,36501
+Female,Gilly,Laurenceso,Human Resources,25000,59,No,Shetland,39079
+Female,Jools,Manson,Training,20000,20,No,Aberdeen,21239
+Male,Angus,Irvine,Product Management,20000,23,No,Western Isles,35175
+Female,India,Anderson,Sales,25000,51,No,Stirling,53735
+Female,Bonnie,Anderson,Human Resources,18000,56,No,Stirling,40456
+Female,Dora,Thomason,Human Resources,17000,58,No,Shetland,42285
+Male,Ed,Galdie,Sales,16000,31,No,Aberdeen,42040
+Male,Charles,Johnson,Training,20000,85,Yes,Glasgow,32899
+Female,Florence,Anderson,Training,14000,53,No,Inverness,44421
+Female,Jools,Mowat,Training,26000,47,No,Aberdeen,30208
+Male,Freddy,Leask,Human Resources,10000,21,No,Orkney,25294
+Male,Donald,Tait,Legal,12000,22,No,Inverness,27126
+Female,India,Johnson,Training,21000,32,No,Shetland,36494
+Male,Charles,Williamson,Training,13000,26,No,Western Isles,40381
+Male,Jimmy,Laurenceso,Sales,10000,31,No,Aberdeen,40258
+Male,Donald,Tait,Product Management,20000,36,No,Aberdeen,28318
+Female,Dora,Leask,Sales,22000,86,Yes,Shetland,32474
+Female,Cara,Nicolson,Product Management,13000,55,No,Glasgow,49974
+Female,Helena,Galdie,Human Resources,19000,34,No,Aberdeen,49113
+Female,Bonnie,Henderson,Sales,25000,85,Yes,Aberdeen,30035
+Female,Dora,Peterson,Human Resources,24000,79,Yes,Shetland,42185
+Male,Charles,Peterson,Sales,19000,54,No,Inverness,34151
+Male,Donald,Thomason,Product Management,21000,65,No,Shetland,52780
+Male,Freddy,Smith,Training,21000,84,Yes,Edinburgh,17926
+Male,Angus,Henderson,Human Resources,11000,36,No,Shetland,12286
+Female,Florence,Laurenceso,Sales,18000,41,No,Glasgow,24882
+Female,India,Johnson,Legal,18000,22,No,Inverness,36138
+Male,Jimmy,Mowat,Legal,27000,59,No,Orkney,47613
+Male,Charles,Fraser,Legal,18000,25,No,Aberdeen,45327
+Female,Cara,Johnson,Product Management,20000,39,No,Orkney,35918
+Female,Dora,Fraser,Legal,23000,86,Yes,Glasgow,30515
+Male,Harry,Nicolson,Sales,20000,66,Yes,Stirling,29449
+Female,India,Mowat,Human Resources,17000,62,No,Orkney,43910
+Female,Gilly,Peterson,Product Management,19000,51,No,Glasgow,25331
+Female,Helena,Johnson,Training,22000,71,Yes,Inverness,16949
+Male,Bert,Thomason,Training,21000,56,No,Edinburgh,34749
+Female,Dora,Johnson,Product Management,15000,22,No,Orkney,38840
+Female,Dora,Peterson,Legal,26000,56,No,Orkney,36144
+Female,Amy,Nicolson,Legal,19000,84,Yes,Orkney,23129
+Male,Gord,Smith,Legal,16000,55,No,Shetland,58992
+Female,Gilly,Halcrow,Training,25000,71,Yes,Edinburgh,33801
+Female,Dora,Halcrow,Human Resources,17000,31,No,Western Isles,37610
+Male,Harry,Williamson,Training,16000,45,No,Stirling,43040
+Female,Bonnie,Henderson,Legal,17000,66,Yes,Shetland,22409
+Male,Donald,Fraser,Training,18000,22,No,Stirling,25236
+Male,Gord,Mowat,Training,13000,21,No,Aberdeen,8850
+Male,Gord,Irvine,Legal,17000,32,No,Western Isles,25091
+Male,Harry,Tait,Sales,26000,55,No,Inverness,41189
+Female,Dora,Henderson,Legal,24000,41,No,Orkney,38191
+Female,Cara,Leask,Sales,29000,76,Yes,Glasgow,248
+Female,Florence,Manson,Legal,20000,18,No,Inverness,27120
+Female,Florence,Thomason,Human Resources,28000,56,No,Aberdeen,47484
+Female,Gilly,Anderson,Training,20000,69,Yes,Shetland,30504
+Male,Angus,Peterson,Legal,15000,71,Yes,Western Isles,24762
+Female,Cara,Jamieson,Product Management,15000,78,Yes,Stirling,12122
+Female,Bonnie,Nicolson,Human Resources,18000,71,Yes,Western Isles,35642
+Female,Cara,Sinclair,Legal,16000,73,Yes,Glasgow,17921
+Female,Bonnie,Irvine,Legal,19000,55,No,Aberdeen,38095
+Female,Cara,Galdie,Training,16000,26,No,Western Isles,26777
+Female,Jools,Mowat,Human Resources,9000,67,Yes,Glasgow,15649
+Female,India,Tait,Product Management,31000,22,No,Western Isles,43451
+Female,Dora,Anderson,Product Management,30000,43,No,Stirling,53736
+Male,Jimmy,Williamson,Human Resources,15000,44,No,Glasgow,28680
+Female,Dora,Fraser,Training,26000,67,Yes,Stirling,44256
+Male,Angus,Halcrow,Human Resources,33000,54,No,Orkney,44806
+Female,Bonnie,Leask,Legal,19000,32,No,Glasgow,58895
+Female,Dora,Johnson,Legal,18000,29,No,Edinburgh,21690
+Male,Charles,Peterson,Sales,28000,72,Yes,Western Isles,39647
+Female,Dora,Manson,Sales,18000,19,No,Shetland,32791
+Female,India,Johnson,Sales,17000,55,No,Orkney,48634
+Male,Ed,Nicolson,Legal,17000,65,No,Orkney,51736
+Male,Ed,Manson,Training,20000,24,No,Western Isles,25541
+Female,Cara,Anderson,Training,25000,53,No,Shetland,40240
+Female,Bonnie,Robertson,Training,22000,48,No,Inverness,29239
+Female,Helena,Thomason,Sales,19000,49,No,Stirling,53827
+Female,Helena,Tait,Product Management,21000,84,Yes,Stirling,42959
+Female,Dora,Johnson,Legal,19000,77,Yes,Stirling,7945
+Male,Ivan,Galdie,Product Management,17000,61,No,Shetland,35473
+Male,Ivan,Mowat,Product Management,11000,71,Yes,Stirling,19469
+Female,Cara,Smith,Product Management,24000,20,No,Orkney,37562
+Female,Helena,Johnson,Human Resources,25000,66,Yes,Shetland,36559
+Female,Jools,Smith,Sales,18000,71,Yes,Western Isles,45089
+Male,Ivan,Nicolson,Legal,17000,76,Yes,Glasgow,31373
+Male,Ed,Irvine,Product Management,13000,82,Yes,Western Isles,16407
+Male,Freddy,Williamson,Legal,14000,54,No,Edinburgh,31868
+Male,Ivan,Peterson,Training,26000,68,Yes,Stirling,519
+Male,Ivan,Sinclair,Product Management,17000,21,No,Shetland,17960
+Male,Charles,Nicolson,Training,14000,52,No,Stirling,25434
+Male,Gord,Manson,Sales,15000,40,No,Stirling,36399
+Female,Cara,Manson,Legal,23000,27,No,Shetland,23500
+Male,Angus,Jamieson,Human Resources,16000,61,No,Aberdeen,36874
+Male,Bert,Anderson,Legal,17000,73,Yes,Inverness,7090
+Male,Bert,Tait,Product Management,27000,60,No,Shetland,40064
+Male,Gord,Williamson,Sales,8000,45,No,Shetland,20036
+Male,Harry,Peterson,Training,23000,29,No,Orkney,33423
+Female,Jools,Jamieson,Legal,17000,87,Yes,Edinburgh,32458
+Female,Dora,Leask,Training,16000,37,No,Inverness,22164
+Male,Ivan,Laurenceso,Human Resources,17000,81,Yes,Stirling,19815
+Female,India,Laurenceso,Sales,18000,51,No,Orkney,43782
+Female,Bonnie,Smith,Training,17000,30,No,Inverness,30348
+Female,Cara,Robertson,Training,18000,28,No,Orkney,23620
+Male,Bert,Jamieson,Training,25000,54,No,Shetland,39442
+Female,Cara,Henderson,Legal,25000,34,No,Inverness,46074
+Male,Angus,Williamson,Legal,17000,24,No,Aberdeen,35171
+Female,Florence,Manson,Product Management,24000,52,No,Shetland,39715
+Male,Donald,Galdie,Sales,31000,36,No,Glasgow,37203
+Male,Charles,Manson,Product Management,14000,29,No,Shetland,34800
+Male,Jimmy,Laurenceso,Sales,17000,80,Yes,Orkney,2719
+Female,Helena,Galdie,Product Management,28000,75,Yes,Glasgow,32064
+Female,India,Irvine,Product Management,21000,32,No,Stirling,29141
+Male,Harry,Thomason,Human Resources,19000,35,No,Stirling,52688
+Female,Bonnie,Laurenceso,Human Resources,23000,34,No,Western Isles,47477
+Male,Ed,Manson,Legal,14000,85,Yes,Glasgow,20078
+Male,Jimmy,Thomason,Product Management,16000,64,No,Glasgow,33806
+Male,Bert,Galdie,Training,19000,41,No,Shetland,22485
+Female,Gilly,Peterson,Legal,23000,22,No,Western Isles,37405
+Female,Bonnie,Tait,Legal,19000,31,No,Western Isles,44567
+Female,Florence,Sinclair,Sales,20000,57,No,Aberdeen,45248
+Female,Jools,Galdie,Human Resources,19000,21,No,Glasgow,30584
+Female,Helena,Johnson,Human Resources,22000,52,No,Shetland,18808
+Male,Angus,Tait,Product Management,18000,52,No,Stirling,46842
+Female,Bonnie,Galdie,Human Resources,27000,33,No,Glasgow,38254
+Female,Dora,Irvine,Training,24000,58,No,Glasgow,53290
+Male,Ed,Peterson,Human Resources,18000,64,No,Shetland,41291
+Female,Dora,Sinclair,Sales,23000,48,No,Western Isles,38268
+Male,Jimmy,Galdie,Sales,17000,85,Yes,Glasgow,12189
+Female,Gilly,Robertson,Legal,24000,58,No,Stirling,37743
+Male,Charles,Williamson,Human Resources,20000,67,Yes,Inverness,26314
+Male,Charles,Nicolson,Training,16000,76,Yes,Glasgow,17663
+Male,Harry,Jamieson,Product Management,25000,77,Yes,Inverness,36687
+Male,Jimmy,Sinclair,Training,18000,83,Yes,Inverness,11999
+Male,Ivan,Johnson,Human Resources,19000,51,No,Aberdeen,31390
+Female,Dora,Sinclair,Sales,14000,49,No,Aberdeen,25315
+Male,Charles,Peterson,Training,18000,29,No,Orkney,31951
+Female,Amy,Manson,Legal,24000,78,Yes,Inverness,25169
+Female,Bonnie,Mowat,Human Resources,20000,36,No,Shetland,41492
+Female,Amy,Nicolson,Sales,16000,50,No,Edinburgh,28215
+Female,India,Laurenceso,Product Management,19000,83,Yes,Inverness,30480
+Male,Bert,Sinclair,Product Management,26000,25,No,Western Isles,61327
+Male,Angus,Johnson,Sales,20000,63,No,Inverness,51033
+Male,Harry,Robertson,Product Management,21000,65,No,Glasgow,57830
+Male,Bert,Anderson,Sales,29000,65,No,Edinburgh,51302
+Male,Ivan,Nicolson,Training,23000,21,No,Edinburgh,43668
+Male,Gord,Irvine,Legal,17000,19,No,Shetland,34893
+Male,Charles,Robertson,Training,15000,73,Yes,Western Isles,39667
+Male,Bert,Peterson,Product Management,18000,39,No,Western Isles,24082
+Female,Bonnie,Mowat,Legal,16000,42,No,Edinburgh,33249
+Male,Harry,Manson,Human Resources,21000,35,No,Inverness,16440
+Female,India,Sinclair,Human Resources,27000,89,Yes,Glasgow,23719
+Male,Gord,Halcrow,Product Management,14000,51,No,Stirling,39023
+Female,Helena,Sinclair,Human Resources,19000,58,No,Shetland,38231
+Male,Donald,Leask,Human Resources,20000,51,No,Stirling,45397
+Male,Ivan,Laurenceso,Product Management,30000,54,No,Aberdeen,58591
+Female,Florence,Leask,Sales,16000,67,Yes,Orkney,19538
+Male,Ivan,Tait,Training,24000,54,No,Shetland,36824
+Male,Jimmy,Williamson,Training,13000,32,No,Orkney,22281
+Male,Angus,Smith,Human Resources,18000,39,No,Western Isles,37376
+Female,Cara,Galdie,Product Management,19000,41,No,Edinburgh,28138
+Male,Ivan,Halcrow,Legal,24000,42,No,Edinburgh,41213
+Female,Emmy,Sinclair,Human Resources,24000,73,Yes,Shetland,21747
+Male,Freddy,Mowat,Training,14000,25,No,Western Isles,24774
+Male,Ed,Johnson,Human Resources,17000,69,Yes,Inverness,16733
+Female,Jools,Peterson,Product Management,17000,31,No,Aberdeen,31160
+Male,Gord,Johnson,Legal,17000,58,No,Orkney,36590
+Female,Jools,Nicolson,Legal,20000,60,No,Stirling,51536
+Female,Dora,Johnson,Training,19000,83,Yes,Aberdeen,37055
+Female,Bonnie,Peterson,Sales,25000,30,No,Shetland,52207
+Male,Harry,Laurenceso,Sales,18000,33,No,Western Isles,20236
+Female,Amy,Smith,Product Management,21000,48,No,Glasgow,50618
+Female,Florence,Laurenceso,Product Management,16000,65,No,Orkney,37384
+Male,Gord,Irvine,Human Resources,19000,84,Yes,Inverness,16937
+Female,Jools,Halcrow,Legal,23000,47,No,Stirling,38197
+Male,Ivan,Mowat,Product Management,17000,59,No,Aberdeen,26211
+Male,Freddy,Henderson,Training,18000,66,Yes,Shetland,15994
+Female,Bonnie,Jamieson,Product Management,22000,29,No,Inverness,35391
+Male,Harry,Galdie,Product Management,18000,28,No,Shetland,39020
+Female,Emmy,Thomason,Sales,19000,89,Yes,Stirling,27214
+Male,Bert,Henderson,Legal,24000,47,No,Glasgow,43906
+Male,Ivan,Tait,Sales,25000,67,Yes,Western Isles,29884
+Female,Gilly,Sinclair,Sales,19000,19,No,Edinburgh,55506
+Female,Florence,Johnson,Legal,16000,70,Yes,Orkney,26224
+Male,Donald,Nicolson,Legal,23000,77,Yes,Orkney,45409
+Male,Gord,Fraser,Legal,19000,55,No,Orkney,36292
+Male,Jimmy,Tait,Human Resources,17000,47,No,Inverness,36290
+Female,Gilly,Thomason,Training,24000,51,No,Shetland,37422
+Female,Bonnie,Williamson,Legal,23000,22,No,Stirling,31076
+Male,Charles,Sinclair,Legal,22000,27,No,Stirling,50254
+Male,Gord,Fraser,Legal,19000,35,No,Edinburgh,26780
+Female,Amy,Irvine,Legal,19000,81,Yes,Shetland,34476
+Female,Cara,Leask,Human Resources,18000,74,Yes,Inverness,5510
+Female,Bonnie,Leask,Legal,16000,42,No,Stirling,32881
+Male,Bert,Sinclair,Sales,17000,19,No,Aberdeen,28421
+Male,Freddy,Mowat,Human Resources,14000,50,No,Edinburgh,51676
+Female,Gilly,Nicolson,Sales,18000,83,Yes,Western Isles,26538
+Female,Amy,Fraser,Human Resources,16000,86,Yes,Stirling,36076
+Male,Donald,Thomason,Human Resources,23000,29,No,Orkney,38914
+Female,Jools,Manson,Product Management,25000,54,No,Orkney,52437
+Female,Dora,Irvine,Legal,19000,64,No,Stirling,33891
+Male,Angus,Sinclair,Training,13000,26,No,Stirling,23036
+Female,Dora,Anderson,Product Management,13000,53,No,Glasgow,40555
+Female,Cara,Anderson,Human Resources,12000,24,No,Glasgow,34175
+Female,Bonnie,Mowat,Legal,26000,85,Yes,Aberdeen,41275
+Male,Charles,Sinclair,Training,20000,36,No,Inverness,33850
+Male,Freddy,Jamieson,Training,19000,38,No,Inverness,28230
+Female,Amy,Manson,Sales,25000,87,Yes,Western Isles,40064
+Male,Gord,Johnson,Product Management,20000,75,Yes,Shetland,20873
+Female,Bonnie,Tait,Product Management,24000,43,No,Shetland,47015
+Male,Charles,Manson,Training,17000,33,No,Glasgow,21731
+Male,Gord,Peterson,Product Management,10000,84,Yes,Orkney,36449
+Male,Bert,Tait,Legal,24000,20,No,Stirling,43628
+Female,India,Tait,Human Resources,17000,46,No,Stirling,35441
+Female,India,Smith,Product Management,26000,72,Yes,Stirling,28247
+Female,Dora,Irvine,Product Management,17000,85,Yes,Orkney,18878
+Female,Gilly,Johnson,Legal,23000,88,Yes,Edinburgh,15742
+Male,Bert,Peterson,Product Management,25000,53,No,Stirling,36060
+Female,Helena,Galdie,Sales,19000,62,No,Shetland,35782
+Male,Freddy,Halcrow,Sales,19000,62,No,Stirling,45828
+Female,India,Williamson,Legal,21000,77,Yes,Glasgow,41041
+Male,Ed,Halcrow,Human Resources,22000,83,Yes,Aberdeen,29097
+Male,Harry,Irvine,Sales,20000,32,No,Edinburgh,48614
+Male,Harry,Robertson,Sales,25000,83,Yes,Shetland,36260
+Male,Gord,Irvine,Sales,26000,42,No,Shetland,36579
+Female,Emmy,Henderson,Legal,19000,41,No,Aberdeen,50948
+Female,Dora,Henderson,Sales,22000,36,No,Shetland,51830
+Female,Helena,Manson,Legal,16000,78,Yes,Aberdeen,46555
+Male,Bert,Smith,Human Resources,21000,29,No,Western Isles,31823
+Male,Angus,Halcrow,Human Resources,18000,52,No,Stirling,52525
+Male,Charles,Laurenceso,Sales,26000,76,Yes,Orkney,29408
+Male,Freddy,Mowat,Product Management,17000,19,No,Aberdeen,14290
+Female,Bonnie,Robertson,Sales,22000,71,Yes,Orkney,35192
+Female,Jools,Mowat,Training,17000,33,No,Stirling,37617
+Female,Florence,Sinclair,Sales,16000,58,No,Edinburgh,23481
+Male,Angus,Halcrow,Human Resources,20000,55,No,Orkney,34634
+Male,Jimmy,Tait,Product Management,21000,85,Yes,Inverness,19441
+Male,Freddy,Williamson,Product Management,22000,22,No,Aberdeen,34041
+Female,Dora,Anderson,Sales,22000,61,No,Aberdeen,40954
+Male,Gord,Mowat,Sales,19000,42,No,Shetland,63282
+Male,Gord,Thomason,Legal,22000,42,No,Western Isles,27821
+Female,Emmy,Sinclair,Legal,26000,32,No,Western Isles,49437
+Male,Bert,Fraser,Human Resources,14000,54,No,Edinburgh,34406
+Female,Emmy,Smith,Legal,26000,73,Yes,Aberdeen,33903
+Female,India,Thomason,Human Resources,22000,43,No,Edinburgh,50368
+Female,Helena,Manson,Product Management,21000,78,Yes,Western Isles,30181
+Female,Dora,Nicolson,Training,18000,39,No,Western Isles,33240
+Male,Donald,Smith,Human Resources,21000,27,No,Edinburgh,48894
+Male,Donald,Halcrow,Human Resources,17000,31,No,Aberdeen,37279
+Male,Freddy,Leask,Sales,23000,65,No,Edinburgh,43876
+Male,Gord,Henderson,Human Resources,19000,41,No,Glasgow,25778
+Female,India,Leask,Human Resources,25000,35,No,Glasgow,36159
+Female,Bonnie,Mowat,Legal,13000,85,Yes,Edinburgh,10762
+Male,Charles,Thomason,Sales,18000,56,No,Glasgow,34618
+Male,Gord,Thomason,Human Resources,22000,58,No,Orkney,29502
+Male,Donald,Nicolson,Training,28000,86,Yes,Orkney,24972
+Female,Jools,Johnson,Product Management,22000,32,No,Edinburgh,26861
+Male,Donald,Smith,Human Resources,21000,24,No,Stirling,32964
+Female,Gilly,Irvine,Training,14000,77,Yes,Glasgow,24296
+Male,Donald,Leask,Sales,15000,63,No,Glasgow,49315
+Male,Gord,Sinclair,Human Resources,13000,69,Yes,Orkney,28226
+Male,Charles,Sinclair,Training,23000,63,No,Edinburgh,39658
+Female,Amy,Peterson,Training,23000,58,No,Western Isles,37917
+Female,India,Galdie,Legal,19000,56,No,Aberdeen,31417
+Male,Angus,Sinclair,Legal,18000,87,Yes,Glasgow,19621
+Female,Florence,Irvine,Sales,28000,74,Yes,Stirling,46275
+Female,Cara,Thomason,Human Resources,16000,28,No,Western Isles,41714
+Female,Jools,Fraser,Human Resources,18000,31,No,Inverness,26108
+Female,Helena,Halcrow,Training,21000,79,Yes,Edinburgh,30697
+Male,Donald,Henderson,Legal,14000,32,No,Orkney,35125
+Female,Cara,Johnson,Training,15000,46,No,Orkney,40614
+Male,Ed,Henderson,Legal,28000,42,No,Stirling,39852
+Male,Donald,Sinclair,Human Resources,23000,29,No,Inverness,53511
