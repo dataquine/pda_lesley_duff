@@ -16,8 +16,8 @@ Load in the transaction data and create a column date from the day, month and ye
 ```{r}
 toy_transactions <- read_csv("raw_data/toy_transactions.csv")
 
-toy_transactions_with_date <- toy_transactions %>% 
-  mutate(date = as.Date(make_datetime(year, month, day)) )
+toy_transactions_with_date <- toy_transactions %>%
+  mutate(date = as.Date(make_datetime(year, month, day)))
 toy_transactions_with_date
 ```
 ## 2
@@ -28,13 +28,52 @@ Load in the toys data and:
 
 ```{r}
 toys <- read_csv("raw_data/toys.csv")
-toys_clean <- toys %>% 
-  mutate(weight = parse_number(weight))
+toys_clean <- toys %>%
+  # Extract weight as a number
+  mutate(weight = parse_number(weight)) %>%
+  # Split into new column
+  separate(product, c("product_name", "product_title"), " - ") %>%
+  # remove any leading/trailing space
+  mutate(
+    product_name = str_trim(product_name),
+    product_title = str_trim(product_title)
+  )
+
 toys_clean
 ```
 
-
 ## 3
+Load in the dataset on quality labels and:
+
+1. Remove the unnecessary information for each descriptor
+2. Replace the categories so ‘Awesome’ and ‘Very Awesome’ become ‘Good’ and 
+‘Very Good’. Do the same thing for ‘Awful’ replacing it with ‘Bad’.
+```{r}
+quality <- read_csv("raw_data/quality.csv")
+# View(quality)
+
+quality_clean <- quality %>%
+  # Remove the unnecessary information for each descriptor
+  mutate(description = str_replace_all(description, "Quality: ", "")) %>%
+  # Replace the categories so ‘Awesome’ and ‘Very Awesome’ become ‘Good’
+  # and ‘Very Good’. Do the same thing for ‘Awful’ replacing it with ‘Bad
+  mutate(
+    description = case_when(
+      description == "Awesome" ~ "Good",
+      description == "Very Awesome" ~ "Very Good",
+      description == "Awful" ~ "Bad",
+      
+      # I'm assuming 'Very Awful' has to be treated like 'Very Awesome' but if
+      # meant literally *only* 'Awful' I would comment the following line out
+      description == "Very Awful" ~ "Very Bad",
+      TRUE ~ description
+    )
+  )
+
+quality_clean
+```
+
+
 ## 4
 ## 5
 ## 6
