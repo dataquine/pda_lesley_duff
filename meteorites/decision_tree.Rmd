@@ -4,6 +4,7 @@ subtitle: Decision Tree
 output:
   html_document:
     df_print: paged
+  pdf_document: default
 ---
 # Decision Tree
 ```{r}
