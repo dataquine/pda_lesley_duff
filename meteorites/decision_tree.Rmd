@@ -7,9 +7,11 @@ output:
 ---
 # Decision Tree
 ```{r}
+library(modelr)
 library(rpart)
 library(rpart.plot)
 library(tidyverse)
+library(yardstick)
 ```
 
 This is a mini homework for people doing the PDA. You are going to continue 
@@ -30,15 +32,15 @@ meteorite_landings <- read_csv("clean_data/meteorite_landings.csv")
 ```
 
 ```{r}
-#View(meteorite_landings)
+# View(meteorite_landings)
 
 # Meterorites are ordered by year shuffle them
 shuffle_index <- sample(1:nrow(meteorite_landings))
 
-# shuffle the data so class order isn't in order - need this for training/testing split later on 
+# shuffle the data so class order isn't in order - need this for training/testing split later on
 meteorite_landings_shuffled <- meteorite_landings[shuffle_index, ]
 
-# First, you want to convert any character column to a factor. 
+# First, you want to convert any character column to a factor.
 meteorite_landings_factored <- meteorite_landings_shuffled %>%
   mutate(across(where(is.character), as.factor))
 
@@ -46,31 +48,29 @@ head(meteorite_landings_factored)
 
 skimr::skim(meteorite_landings_factored)
 
-meteorite_landings_factored <- meteorite_landings_factored %>% 
+meteorite_landings_factored <- meteorite_landings_factored %>%
   # We still have some missing entries for year lets clean them
-  na.omit() %>% 
-  
-  #remove some unneeded columns
+  na.omit() %>%
+  # remove some unneeded columns
   select(-id, -name)
 
 glimpse(meteorite_landings_factored)
-
 ```
 split your dataset into training and testing datasets.
 
 
 ```{r}
-# 80% of our data going into the training set, and the 
+# 80% of our data going into the training set, and the
 # remaining 20% go in our test set.
 
 # get how many rows we have in total to work out the percentage
 n_data <- nrow(meteorite_landings_factored)
 
 # create a test sample index
-test_index <- sample(1:n_data, size = n_data*0.2)
+test_index <- sample(1:n_data, size = n_data * 0.2)
 
 # create test set
-meteorite_landings_test  <- slice(meteorite_landings_factored, test_index)
+meteorite_landings_test <- slice(meteorite_landings_factored, test_index)
 
 # create training set
 meteorite_landings_train <- slice(meteorite_landings_factored, -test_index)
@@ -82,12 +82,12 @@ fall.
 
 ```{r}
 meteorite_landings_test %>%
- janitor::tabyl(fall)
+  janitor::tabyl(fall)
 ```
 
 ```{r}
 meteorite_landings_train %>%
- janitor::tabyl(fall)
+  janitor::tabyl(fall)
 ```
 
 Build tree model based on training dataset
@@ -95,23 +95,77 @@ Then create a decision tree with rpart
 
 ```{r}
 meteorite_landings_fit <- rpart(
-  #?rpart
+  # ?rpart
   # Based on the mass and year
   # mass_g and year,
-  formula = fall ~ mass_g + year,  
-  data = meteorite_landings_train, 
-  method = 'class'
+  formula = fall ~ mass_g + year,
+  data = meteorite_landings_train,
+  method = "class"
 )
-#meteorite_landings_fit
+# meteorite_landings_fit
+# Do once to save tree
+# saveRDS(meteorite_landings_fit, file = "clean_data/meteorite_landings_fit.RDS")
 ```
 plot it using rpart.plot
 
 ```{r}
-rpart.plot(meteorite_landings_fit, 
-           yesno = 2, 
-           fallen.leaves = TRUE, 
-           faclen = 6, 
-           digits = 2)
+meteorite_landings_fit <- readRDS(file = "clean_data/meteorite_landings_fit.RDS")
+
+
+rpart.plot(meteorite_landings_fit,
+  yesno = 2,
+  fallen.leaves = TRUE,
+  faclen = 6,
+  digits = 2
+)
 ```
 
+Finally, test and add your predictions to your data
+
+
+```{r}
+# add the predictions
+meteorite_landings_test_pred <- meteorite_landings_test %>%
+  add_predictions(meteorite_landings_fit, type = "class")
+
+# look at the variables  choose the ones that our decision tree model showed
+# as most informative.
+# names(meteorite_landings_test)
+
+meteorite_landings_test_pred %>%
+  select(year, mass_g, fall, pred)
+```
+
+check predictive performance by creating a confusion matrix
+```{r}
+
+conf_mat <- meteorite_landings_test_pred %>%
+  conf_mat(truth = fall, estimate = pred)
+
+conf_mat
+```
+Accuracy
+
+```{r}
+accuracy <- meteorite_landings_test_pred %>%
+ accuracy(truth = fall, estimate = pred)
+
+accuracy 
+```
+Sensitivity
+
+```{r}
+sensitivity <- meteorite_landings_test_pred %>%
+  sensitivity(truth = fall, estimate = pred)
+
+sensitivity
+```
+Specificity
+
+```{r}
+specificity <- meteorite_landings_test_pred %>%
+  specificity(truth = fall, estimate = pred)
+
+specificity
+```
 
