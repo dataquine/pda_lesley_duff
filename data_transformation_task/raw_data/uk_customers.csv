@@ -1,0 +1,8 @@
+id,customer_country,customer_age,customer_height_cm,customer_weight_kg,customer_gender,first_name,last_name
+31,UK,26,180,95,Male,Robert,Brown
+39,UK,28,174,60,Female,Debra,Alvarez
+98,UK,45,189,98,Male,Stephen,Cruz
+43,UK,42,172,64,Female,Maria,Peterson
+81,UK,27,187,91,Female,Melissa,Evans
+96,UK,NA,170,92,Male,Michelle,Baker
+26,UK,24,NA,60,Female,Karen,Nguyen

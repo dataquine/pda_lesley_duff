@@ -1,0 +1,9 @@
+id,customer_country,customer_age,customer_height_cm,customer_weight_kg,customer_gender,first_name,last_name
+71,New Zealand,42,176,85,Male,David,Jones
+84,New Zealand,37,176,62,Female,Carol,Murphy
+37,New Zealand,33,169,81,Male,Alexander,Gonzales
+91,New Zealand,NA,179,79,Female,Samantha,Kelly
+23,New Zealand,36,168,97,Male,Gregory,Kim
+33,New Zealand,35,175,81,Male,Eric,Scott
+12,New Zealand,47,181,NA,Male,Nicholas,Green
+50,New Zealand,NA,165,81,Female,Donna,Collins

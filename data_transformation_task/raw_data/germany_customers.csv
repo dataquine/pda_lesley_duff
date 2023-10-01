@@ -1,0 +1,6 @@
+id,customer_country,customer_age,customer_height_cm,customer_weight_kg,customer_gender,first_name,last_name
+92,Germany,42,180,60,Female,Deborah,Morales
+93,Germany,NA,180,75,Female,Margaret,Cook
+49,Germany,37,189,65,Male,Jordan,Jimenez
+13,Germany,NA,181,82,Male,Nathan,Hughes
+80,Germany,NA,178,89,Male,Adam,Mendoza

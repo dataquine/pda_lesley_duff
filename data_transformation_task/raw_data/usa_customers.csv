@@ -1,0 +1,12 @@
+id,customer_country,customer_age,customer_height_cm,customer_weight_kg,customer_gender,first_name,last_name
+63,USA,NA,NA,65,Female,Laura,Ortiz
+2,USA,NA,184,73,Female,Anna,Foster
+70,USA,18,171,86,Female,Julie,Sanders
+38,USA,34,NA,NA,Male,Zachary,Bennett
+35,USA,42,180,60,Female,Pamela,Ruiz
+87,USA,27,NA,91,Female,Kathleen,Bailey
+95,USA,43,171,69,Female,Betty,Ward
+66,USA,49,NA,NA,Female,Brenda,Cox
+9,USA,NA,168,73,Male,Larry,Cooper
+73,USA,24,165,70,Male,Edward,Reyes
+20,USA,50,166,96,Male,Jeffrey,Wright

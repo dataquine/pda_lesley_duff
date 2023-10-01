@@ -1,0 +1,12 @@
+id,customer_country,customer_age,customer_height_cm,customer_weight_kg,customer_gender,first_name,last_name
+89,France,29,180,67,Male,Michael,Smith
+85,France,NA,166,90,Female,Mary,Rodriguez
+18,France,35,177,NA,Female,Jennifer,Wilson
+42,France,48,167,97,Male,John,Williams
+6,France,NA,177,66,Female,Patricia,Taylor
+48,France,NA,168,75,Male,William,Garcia
+53,France,19,183,67,Female,Cynthia,Gutierrez
+82,France,NA,NA,65,Female,Amy,Rogers
+76,France,37,166,63,Male,Benjamin,Bell
+22,France,20,178,88,Female,Kelly,Watson
+47,France,38,167,95,Male,Ronald,Adams

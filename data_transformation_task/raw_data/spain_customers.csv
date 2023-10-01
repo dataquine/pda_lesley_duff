@@ -1,0 +1,10 @@
+id,customer_country,customer_age,customer_height_cm,customer_weight_kg,customer_gender,first_name,last_name
+45,Spain,26,172,93,Male,James,Johnson
+97,Spain,37,165,93,Male,Kyle,Long
+64,Spain,26,NA,89,Female,Katherine,Castillo
+99,Spain,49,NA,61,Female,Christine,Gray
+94,Spain,32,174,98,Male,Gary,Turner
+44,Spain,35,NA,NA,Female,Heather,Wood
+41,Spain,35,168,86,Female,Rachel,James
+21,Spain,21,176,99,Male,Jonathan,Hill
+40,Spain,25,188,93,Male,Justin,Campbell
