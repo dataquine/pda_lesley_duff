@@ -179,4 +179,8 @@ Use a .gitignore file to make sure the raw data on customers which still contain
 # Repo .gitignore contains
 # data_transformation_task/raw_data/*_customers.csv
 ```
+Apologies, I believe I have the correct .gitignode but previous I had pushed my 
+repo containing the raw data at the start of the project Q1 and then for each 
+question and had not read through the questions til this point so _customers.csv 
+files are on the github repo.
 
