@@ -1655,6 +1655,12 @@ month and year columns.</p>
 ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <pre class="r"><code>toy_transactions_with_date &lt;- toy_transactions %&gt;%
   mutate(date = as.Date(make_datetime(year, month, day)))
+
+  # N.B. This could also be done in base R as below but this would involve 
+  # processing a string which I think would be less efficient for things 
+  # already numbers
+  #mutate(date = as.Date(paste(year, month, day, sep = &quot;-&quot;)))
+
 toy_transactions_with_date</code></pre>
 <div data-pagedtable="false">
 <script data-pagedtable-source type="application/json">

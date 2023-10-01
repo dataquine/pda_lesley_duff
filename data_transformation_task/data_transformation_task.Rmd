@@ -18,6 +18,12 @@ toy_transactions <- read_csv("raw_data/toy_transactions.csv")
 
 toy_transactions_with_date <- toy_transactions %>%
   mutate(date = as.Date(make_datetime(year, month, day)))
+
+  # N.B. This could also be done in base R as below but this would involve 
+  # processing a string which I think would be less efficient for things 
+  # already numbers
+  #mutate(date = as.Date(paste(year, month, day, sep = "-")))
+
 toy_transactions_with_date
 ```
 ## 2
