@@ -110,8 +110,15 @@ customers_clean <- customers %>%
 customers_clean
 ```
 
-
 ## 6
+```{r}
+# transactions = toy_transactions_with_date
+# toy details = toys_clean
+# customers = customers_clean
+# quality = quality_clean
+```
+![star schema](diagrams/pda-starschema.drawio.png) 
+
 ## 7
 ## 8
 ## 9

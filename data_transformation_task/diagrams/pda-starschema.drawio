@@ -1,0 +1,57 @@
+<mxfile host="app.diagrams.net" modified="2023-10-01T16:43:32.592Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="h8zsx-9xd75-zZ24B1cj" version="21.8.2" type="device">
+  <diagram name="Page-1" id="39a7Edy4mQyp7oBeC4k_">
+    <mxGraphModel dx="696" dy="400" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="LFJevburtfXSjNiumFmR-14" value="toy_transactions_with_date" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="280" y="240" width="190" height="190" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-15" value="transaction_id" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="LFJevburtfXSjNiumFmR-14">
+          <mxGeometry y="26" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-16" value="toy_id" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="LFJevburtfXSjNiumFmR-14">
+          <mxGeometry y="56" width="190" height="26" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-17" value="customer_id" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="LFJevburtfXSjNiumFmR-14">
+          <mxGeometry y="82" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-52" value="day&lt;br&gt;month&lt;br&gt;year&lt;br&gt;date" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="LFJevburtfXSjNiumFmR-14">
+          <mxGeometry y="112" width="190" height="78" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-40" value="toys_clean" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="130" width="170" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-41" value="&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;id&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;quality&lt;/div&gt;&lt;div&gt;product_name&lt;/div&gt;&lt;div&gt;product_title&lt;/div&gt;&lt;div&gt;price_euro&lt;/div&gt;&lt;div&gt;weight&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="LFJevburtfXSjNiumFmR-40">
+          <mxGeometry y="26" width="170" height="104" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-44" value="customers_clean" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="40" y="300" width="160" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-45" value="id&lt;br&gt;customer_country&lt;br&gt;customer_age&lt;br&gt;customer_height_cm&lt;br&gt;customer_weight_kg&lt;br&gt;customer_gender&lt;br&gt;first_name&lt;br&gt;last_name" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="LFJevburtfXSjNiumFmR-44">
+          <mxGeometry y="26" width="160" height="134" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-48" value="quality_clean" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;align=center;fontSize=14;" vertex="1" parent="1">
+          <mxGeometry x="520" y="130" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-49" value="id&lt;br&gt;description" style="text;strokeColor=none;fillColor=none;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontSize=12;whiteSpace=wrap;html=1;" vertex="1" parent="LFJevburtfXSjNiumFmR-48">
+          <mxGeometry y="26" width="160" height="44" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-57" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.012;entryY=0.096;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="LFJevburtfXSjNiumFmR-16" target="LFJevburtfXSjNiumFmR-41">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-58" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="LFJevburtfXSjNiumFmR-17">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="337" as="targetPoint" />
+            <mxPoint x="270" y="340" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LFJevburtfXSjNiumFmR-59" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.019;entryY=0.159;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" target="LFJevburtfXSjNiumFmR-49">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="211" y="180" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
