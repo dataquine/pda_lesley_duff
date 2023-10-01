@@ -1,0 +1,9 @@
+---
+title: "Reviewing & debugging code"
+output:
+  html_document:
+    df_print: paged
+author: "Lesley Duff"
+date: "`r format(Sys.Date())`"
+---
+# Reviewing & debugging code
