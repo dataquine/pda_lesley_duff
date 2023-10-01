@@ -18,6 +18,7 @@ all_salaries <- read_csv("data/all_salaries.csv")
 all_salaries
 ```
 ## Task 1
+Goal: return the row in the data which has the maximum energy production, making sure the code would work if new data was added to the dataset.
 
 Old code:
 
