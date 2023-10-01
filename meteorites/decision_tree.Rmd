@@ -69,9 +69,11 @@ n_data <- nrow(meteorite_landings_factored)
 # create a test sample index
 test_index <- sample(1:n_data, size = n_data * 0.2)
 
+# 4.2 Testing datasets (Week 11)
 # create test set
 meteorite_landings_test <- slice(meteorite_landings_factored, test_index)
 
+# 4.3 Training datasets (Week 11)
 # create training set
 meteorite_landings_train <- slice(meteorite_landings_factored, -test_index)
 ```
@@ -81,11 +83,13 @@ meteorite_landings_train <- slice(meteorite_landings_factored, -test_index)
 fall. 
 
 ```{r}
+# 4.2 Testing datasets (Week 11)
 meteorite_landings_test %>%
   janitor::tabyl(fall)
 ```
 
 ```{r}
+# 4.3 Training datasets (Week 11)
 meteorite_landings_train %>%
   janitor::tabyl(fall)
 ```
@@ -94,6 +98,7 @@ Build tree model based on training dataset
 Then create a decision tree with rpart
 
 ```{r}
+# 4.3 Training datasets (Week 11)
 meteorite_landings_fit <- rpart(
   # ?rpart
   # Based on the mass and year
@@ -111,7 +116,7 @@ plot it using rpart.plot
 ```{r}
 meteorite_landings_fit <- readRDS(file = "clean_data/meteorite_landings_fit.RDS")
 
-
+# 4.3 Training datasets (Week 11)
 rpart.plot(meteorite_landings_fit,
   yesno = 2,
   fallen.leaves = TRUE,
@@ -124,6 +129,7 @@ Finally, test and add your predictions to your data
 
 
 ```{r}
+# 4.2 Testing datasets (Week 11)
 # add the predictions
 meteorite_landings_test_pred <- meteorite_landings_test %>%
   add_predictions(meteorite_landings_fit, type = "class")
@@ -138,7 +144,7 @@ meteorite_landings_test_pred %>%
 
 check predictive performance by creating a confusion matrix
 ```{r}
-
+# 4.2 Testing datasets (Week 11)
 conf_mat <- meteorite_landings_test_pred %>%
   conf_mat(truth = fall, estimate = pred)
 
