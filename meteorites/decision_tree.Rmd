@@ -5,6 +5,8 @@ output:
   html_document:
     df_print: paged
   pdf_document: default
+author: "Lesley Duff"
+date: "`r format(Sys.Date())`"
 ---
 # Decision Tree
 ```{r}
