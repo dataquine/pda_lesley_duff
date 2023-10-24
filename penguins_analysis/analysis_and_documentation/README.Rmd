@@ -1,0 +1,77 @@
+---
+title: "README"
+author: "Lesley Duff"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+# Penguins Analysis
+```{r eval=FALSE, warning=FALSE, include=FALSE}
+# 4.8 Documenting analyses
+```
+
+This analysis has been done on the [Palmer Archipelago (Antarctica) Penguin Data](https://allisonhorst.github.io/palmerpenguins/)
+dataset. This `penguins` dataset is a simplified version of the raw data.
+
+## Process
+
+### Cleaning
+We cleaned the dataset to ensure three types of penguin were being 
+analysed using the minimum number of variables required for analysis.
+
+* Adelie
+* Chinstrap
+* Gentoo
+
+We removed a couple of observations for which there was no measurement 
+available for bill length.
+The cleaned dataset was then analysed.
+
+## Analysis
+
+### Plots
+As exploratory analysis we started by looking at a plot of **"How many of each species?"** with a simple count by species, Adelie was the 
+most common.
+
+A plot of **mean penguin bill length by species** was made Chinstrap had the longest 
+mean bill length
+
+The distribution of **penguin bill length by species** was plotted. Chinstrap and Gentoo appear to have a bimodal distribution
+
+### Calculations
+
+* The count and range of bill lengths were calculated.
+* The mean bill length by species was calculated and 
+* The centrality of bill length, mean and median were calculated
+* The spread of bill length was calculated via the standard deviation
+* The skewness of bill length by species was calculated
+
+###  Hypothesis test 
+A hypothesis test was carried out to check whether the mean bill length of 
+Gentoo was significantly longer than the mean bill length of Adelie.
+There is strong evidence to conclude that the mean bill length of Gentoo is significantly longer than the mean bill length of Adelie.
+
+### Correlation matrix
+
+We wanted to visualise the correlation between bill length, bill depth, flipper length, and body mass across species.
+
+A correlation matrix was created out of 4 variables for the penguin types from 
+the clean dataset. This diagram showed how strongly or otherwise bill length, bill depth, flipper length and body mass relate to each other. The default uses Pearson correlation coefficients, using pairwise observations by default.
+
+The correlation coefficients were displayed to get an indication of strength of
+correlation in numbers as well as by colour. Red shades indicate positive relationships where increasing one variable increases the other in the pair. 
+Blue are negative relationships where increasing one variable decreases the 
+other(s)
+
+One very strong correlation between flipper length and body mass was found.
+One very weak correlation between bill length and bill depth was found.
+The rest medium to strong suggesting linear relationships between bill depth flipper length and body mass and between bill length and flipper length and body mass.
+
+## Assumptions
+
+This analysis depends heavily on measurements taken in the field. There is 
+no indication in the dataset the span of time taken to make the measurements or 
+any other quality information. We assume the same ways of measuring the penguins is being used each time with the same degree of error in taking any measurements/recording the results.

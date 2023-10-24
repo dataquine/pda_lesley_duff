@@ -5,7 +5,8 @@ library(tidyverse)
 
 # Load in data
 penguin_data <- palmerpenguins::penguins 
-
+#View(penguin_data)
+#str(penguin_data)
 # Initial examination of dataset
 #dim(penguins)
 
@@ -29,9 +30,12 @@ penguin_data_clean <- penguin_data %>%
   filter(!is.na(bill_length_mm)) %>% 
   # Check that we only take the species of interest
   filter(species %in% penguin_species) %>% 
-  select(species, bill_length_mm)
+  
+  # Adjust cleaning script for correlation analysis need more columns
+  #Need to add bill depth, flipper length and body mass
+  select(species, bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
 
 
 # write data to csv
-write.csv(penguin_data_clean, "clean_data/penguins.csv")
-
+write_csv(penguin_data_clean, "clean_data/penguins.csv")
+#View(penguin_data_clean)

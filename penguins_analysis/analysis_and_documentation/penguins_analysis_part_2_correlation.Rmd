@@ -1,0 +1,64 @@
+---
+title: "Penguins analysis part 2"
+subtitle: "Correlation - PDA"
+author: "Lesley Duff"
+date: "`r format(Sys.Date())`"
+output: html_document
+---
+# Correlation
+```{r message=FALSE, warning=FALSE}
+library(GGally)
+library(ggplot2)
+library(tidyverse)
+```
+
+```{r}
+# read in cleaned data
+penguins <- read_csv("../clean_data/penguins.csv")
+```
+## Correlation matrix
+
+Create a correlation matrix using GGally::ggcorr() that shows the correlation between bill length, bill depth, flipper length, and body mass across species. (Hint: you can add correlation coefficient labels to your plot if you look at the ?ggcorr help file)
+
+Write a short summary of your results.
+
+```{r include=FALSE}
+# My cleaned data on the previous analysis dropped the other columns
+# I need to revisit the cleaning script
+# Old clean = species and bill length
+# Need to add bill depth, flipper length and body mass
+
+names(penguins)
+#[1] "species"           "bill_length_mm"    "bill_depth_mm"    
+#[4] "flipper_length_mm" "body_mass_g"  
+```
+
+### Correlation between bill length, bill depth, flipper length, and body mass across species
+
+```{r warning=TRUE}
+# 4.5 Concept of correlation and correlation matrices
+corr_data_penguins <- penguins %>% 
+  select(bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g)
+#correlation between bill length, bill depth, flipper length, and body mass across species.
+#View(penguins)
+# ?ggcorr
+
+# Pearson correlation coefficients, using pairwise observations 
+# (default method)
+# Pearson’s correlation:
+# corresponds to the covariance of the two variables normalized (i.e., divided) by the product of their standard deviations.
+
+# By default, the midpoint of the gradient is set at 0
+#, which indicates a null correlation
+
+ggcorr(corr_data_penguins, label = TRUE)
+```
+
+* Strong positive correlation between flipper length and body mass.  
+Close to nearly perfect linear relationship.
+The longer the flippers the heavier the penguin
+* strong positive correlation between bill length and flipper length and body mass. Longer bills mean longer flippers and heavier penguins
+* Bill depth strong negative correlation  with flipper length and body mass, So as bill depth increases, flipper length and body mass tend to decrease
+* Bill length and and bill depth relatively weak negative correlation. As bill length increases, bill depth tends to decrease and vice versa, but the relationship is not very strong.
+
+
