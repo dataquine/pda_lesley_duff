@@ -13,14 +13,17 @@ library(tidyverse)
 ```{r}
 energy_scotland <- read_csv("data/energy_scotland.csv")
 energy_scotland
-
+```
+```{r}
 all_salaries <- read_csv("data/all_salaries.csv")
 all_salaries
 ```
+
+
 ## Task 1
 Goal: return the row in the data which has the maximum energy production, making sure the code would work if new data was added to the dataset.
 
-Old code:
+### Old code
 
 ```{r}
 max(energy_scotland$energy_prod)
@@ -29,22 +32,331 @@ max(energy_scotland$energy_prod)
 energy_scotland %>%
   filter(energy_prod == 25165.9)
 ```
+This code displays the required row but does not store the result so it can be 
+reused programmatically.
 
-New code
+### New code
+
 ```{r}
-energy_scotland %>% 
+# The brief does not described expected behaviour if more than one row has the 
+# same maximum value of energy_prod. We are assuming in this context that 
+# multiple rows should be returned if there are equal values for maximum
+# detected so no important data is discarded.
+row_maximum_energy_production <- energy_scotland %>% 
+  # N.B. Assumption is multiple rows with equal max energy_prod desired.
+  # If this is not the case add with_ties = FALSE to the slice_max call in 
+  # the next line
   slice_max(energy_prod, n = 1)
+
+# Return the row(s) with the maximum energy_prod
+row_maximum_energy_production
 ```
+
 In the old code the value obtained from max was manually hard-coded to one value.
-The filter line did not automatically use this maximimum value. Both lines 
-replaced by one more efficient line using slice_max which will always 
+The filter line did not automatically use this maximum value. Both lines 
+replaced by a single more efficient line using slice_max which will always 
 recalculate the maximum value for energy_prod.
 
+The following code chunk shows testing of the previous new code
+```{r}
+# The following is a test to ensure the same line of code works if new data was
+# added to the dataset test_energy_scotland will be created as a copy but with 
+# a new row added with dummy test data including a new max energy_prod of twice
+# the previous maximum
+test_energy_scotland <- energy_scotland %>% 
+  # Dummy test data with a new higher maximum energy_prod
+    add_row(
+    tibble_row(
+      year = 2024,
+      sector = "Renewables",
+      energy_prod = row_maximum_energy_production$energy_prod * 2
+    )
+    )
 
+test_row_maximum_energy_production <- test_energy_scotland %>% 
+  slice_max(energy_prod, n = 1)
+
+# Check our new dummy max highest is present TRUE = Yes
+test_row_maximum_energy_production$energy_prod == 
+  (row_maximum_energy_production$energy_prod * 2)
+
+# Clean up test data
+rm(test_row_maximum_energy_production, test_energy_scotland) 
+```
 
 ## Task 2
+Goal: create a new column called ‘rating’ to the energy table which will take 
+the following values in the table. The bins should be inclusive of the upper 
+value e.g. is the energy production is 20,000 exactly then will be ‘high’, if 
+it’s 10,000 exactly then will be ‘medium’, etc.
+
+| lower energy production | upper energy production | rating    |   
+|-------------------------|-------------------------|-----------|
+| 20000                   |                         | very high |   
+| 10000                   | 20000                   | high      |  
+| 5000                    | 10000                   | medium    |  
+| 2000                    | 5000                    | low       |   
+|                         | 2000                    | very low  | 
+
+### Old code
+
+```{r}
+rating <- if_else(energy_scotland$energy_prod > 20000, "very high", if_else(energy_scotland$energy_prod > 10000 & energy_scotland$energy_prod <= 20000, "high", if_else(energy_scotland$energy_prod > 5000 & energy_scotland$energy_prod <= 10000, "medium", if_else(energy_scotland$energy_prod > 2000 & energy_scotland$energy_prod <= 5000, "low", "very low"))))
+
+energy_scotland_rating <- bind_cols(energy_scotland, rating = rating)
+```
+
+The following chunk is testing whether the above is as expected
+```{r}
+# Testing old code test data test_energy_scotland replacing energy_scotland
+# Test outside ranges and on each range boundary.
+test_energy_scotland <- tibble(
+  energy_prod = c(30000,
+                  20000,
+                  15000,
+                  10000,
+                   5000,
+                  2000,
+                  1000)
+)
+
+test_rating <- if_else(test_energy_scotland$energy_prod > 20000, "very high", if_else(test_energy_scotland$energy_prod > 10000 & test_energy_scotland$energy_prod <= 20000, "high", if_else(test_energy_scotland$energy_prod > 5000 & test_energy_scotland$energy_prod <= 10000, "medium", if_else(test_energy_scotland$energy_prod > 2000 & test_energy_scotland$energy_prod <= 5000, "low", "very low"))))
+
+test_energy_scotland_rating <- bind_cols(test_energy_scotland, rating = test_rating)
+test_energy_scotland_rating
+rm(test_energy_scotland_rating, test_energy_scotland, test_rating) # remove test data
+```
+
+Old code appears to work correctly but is difficult to read and will be more
+awkward to change if new ratings are required.
+
+### New code
+
+```{r}
+energy_scotland_rating <- energy_scotland %>% 
+  mutate(
+    rating = case_when(
+      energy_prod > 20000 ~ "very high",
+      energy_prod > 10000  & energy_prod <= 20000 ~ "high",
+      energy_prod > 10000  & energy_prod <= 20000 ~ "high",
+      energy_prod > 5000  & energy_prod <= 10000 ~ "medium",
+      energy_prod > 2000  & energy_prod <= 5000 ~ "low",
+      energy_prod <= 2000 ~ "very low"
+    )
+  )
+```
+The old code created a vector of ratings then used `bind_cols` to combine this 
+with the existing dataframe. This code appears to work correctly but is a bit 
+hard to read. Using bind_cols also assumes that the two dataframes are in the 
+*exact* same order. This appears to work in this instance but could be more 
+brittle in the future if new code that changes order is inserted before the 
+`bind_cols` call. 
+
+Instead I've used `dplyr::mutate` to directly create a new column in the 
+dataframe to avoid having to bind or join. This code should be easier to read, 
+maintain and extend as the logical conditions determining the ranking bins are 
+clearer. 
+
 ## Task 3
+
+Goal: create a plot which shows how the energy production for the sectors 
+renewables, gas and pumped hydro compare over time.
+
+### Old code
+
+```{r}
+renewable <- energy_scotland %>%
+  filter(sector == "Renewables")
+
+gas <- energy_scotland %>%
+  filter(sector == "Gas")
+
+hydro <- energy_scotland %>%
+  filter(sector == "Pumped hydro")
+
+years <- unique(energy_scotland$year)
+
+ggplot() +
+  geom_line(aes(x = year, y = energy_prod,  color = sector), data = renewable) +
+  geom_line(aes(x = year, y = energy_prod, color = sector), data = gas) +
+  geom_line(aes(x = year, y = energy_prod, color = sector), data = hydro) +
+  scale_x_continuous(breaks = years) +
+  labs(title = "Energy production in Scotland over time split by sector", 
+       x ="Year", y = "Energy production")
+```
+
+This code works but some code not so flexible and the plot could have some 
+visual changes to make the values/differences between sectors clearer.
+
+### New code
+
+```{r}
+compare_sectors <- c("Renewables", "Gas", "Pumped hydro")
+# Which sectors are we interested in comparing?
+
+energy_scotland %>%
+  filter(sector %in% compare_sectors) %>%
+  ggplot(aes(x = year, y = energy_prod, colour = sector)) +
+  geom_line() +
+  geom_point() + # Make sure we add actual observation values
+  scale_y_continuous(labels = scales::comma) +
+  scale_x_continuous(breaks = scales::breaks_width(1)) + # Break by 1 year
+  theme_minimal() +
+  # Lighter theme and remove less important grid lines
+  theme(
+    panel.grid.minor.y = element_blank(),
+    panel.grid.major.x = element_blank(),
+    panel.grid.minor.x = element_blank()
+  ) +
+  labs(
+    title = "Energy production in Scotland over time split by sector",
+    subtitle = "Sectors: renewables, gas and pumped hydro only",
+    x = "\nYear",
+    y = "Energy production (megawatts)\n",
+    colour = "Sector"
+  )
+
+rm(compare_sectors)
+```
+
+* Added subtitle to make it clearer that the sectors on the plot are only a 
+subset rather than all sectors. 
+* Added megawatts as units to y axis
+* Add points for the actual observations each year.
+* Applied a lighter theme
+* Formatted large numbers with commas. 
+* Scaled x by 1 year intervals. Removed minor breaks.
+* Removed some grid lines to increase clarity and put more emphasis on sector 
+lines.
+* Added whitespace to labels
+
 ## Task 4
+
+Goal: calculate the average energy production for the Coal, Gas, and Oil sectors
+across the time period in the data.
+
+### Old code
+
+```{r}
+energy_scotland %>%
+  filter(sector == c("Coal", "Gas", "Oil")) %>%
+  group_by(sector) %>%
+  summarise(avg_energy_prod = mean(energy_prod))
+```
+
+I believe the original code is producing incorrect values. Line 
+`sector == c("Coal", "Gas", "Oil")` is checking if sector is equal to *all* 
+elements of vector c("Coal", "Gas", "Oil") rather than checking if sector 
+matches *any* element.
+
+### New Code:
+```{r}
+energy_scotland %>%
+  filter(sector %in% c("Coal", "Gas", "Oil")) %>% 
+  group_by(sector) %>%
+  summarise(avg_energy_prod = mean(energy_prod))
+```
+I am assuming the intention of this task is for separate average values for each
+of the Coal/Gas/Oil sectors individually rather than an average of Coal/Gas/Oil 
+combined.
+
 ## Task 5
+
+```{r}
+student <- tibble(
+  Name = c("Brian", "David", "Karen"),
+  age = c(25, 56, 40),
+  location = c("Scotland", "England", "scotland"),
+  `email address` = c("briang@yahoo.co.uk", "dsmith@gmail.co.uk", "karen")
+)
+
+student
+```
+Goal: clean up this tibble by only returning the name, location and email address information, putting the location information into lowercase and also creating a new column called valid_email to have values TRUE or FALSE whether the email address is valid. Here our definition is valid is that it contains an @ symbol followed by a combination of lowercase characters or a . symbol.
+
+### Old code
+
+```{r, eval=FALSE}
+student %>%
+  select(name, location, email_address) %>%
+  janitor::clean_names() %>%
+  str_to_lower(location) 
+  mutate(valid_email = str_detect(email_address, "@a-z.")
+
+```
+
+### New code
+
+```{r}
+student %>%
+  janitor::clean_names() %>%
+  select(name, location, email_address) %>%
+  mutate(location = str_to_lower(location),
+    valid_email = str_detect(email_address, "@[a-z\\.]+"))
+```
+
+Old code does not work - here's the problems the code has been changed for
+
+1. missing pipe on end of str_to_lower line.
+2. Missing closing bracket on mutate line
+3. select line does not work due to order of call of `janitor::clean_names()`
+4. str_to_lower needs to go inside a mutate to store the change
+5. valid_email check wasn't matching the character class for a-z. It was also 
+matching *any* character after 'z' rather than literally the '.' character. 
+
 ## Task 6
+
+Goal: create a function to work on the all_salaries dataframe (or a similar dataframe that has a column salary and job_area). The function should take in the dataframe (dataframe_input) and a job area (job_area_input) and a salary value (salary_input). The function should only return the employees in the dataframe that have a salary above this value salary_input and who work in job area job_area_input. For example if job_area_input was ‘Legal’ and salary_input was 30000 then the function would return the following output:
+
+### Old code
+
+```{r, eval=FALSE}
+subsetting_salaries <- function(dataframe_input,job_area_input,salary_input){ 
+  data <- dataframe_input %>% select(job_area) %>% filter(job_area == job_area_input)
+  data1 <- data[data$savings > salary_input, ]
+}
+
+subsetting_salaries(CodeClanData::all_salaries, Human Resources, 30000)
+```
+
+### New code
+
+```{r}
+# The function should only return the employees in the dataframe that have a salary above this value salary_input and who work in job area job_area_input  
+subsetting_salaries <- function(dataframe_input, job_area_input, salary_input) {
+  data <- dataframe_input %>%
+    filter((job_area == job_area_input) &
+             (salary > salary_input))
+
+  # Good practice to use an explicit return
+  return(data)
+}
+
+subsetting_salaries(all_salaries, "Legal", 30000)
+
+# Test of same job_area but lower salary = more results
+subsetting_salaries(all_salaries, "Legal", 20000)
+
+# Another test to check getting different results for other job area for 
+# for original salary
+subsetting_salaries(all_salaries, "Human Resources", 30000)
+```
+
+Old code problems and their solutions:
+
+1. job_area_input in function call not in quotes
+2. old code testing against 'savings' not 'salary' as requested
+3. Don't require the 'select' line
+4. don't require to create second data1 frame as filter can generate dataframe
+5. Add an explicit return of the modified dataframe for clarity
+5. Readability improvements - small formatting changes and whitespace have been added
+
+```{r}
+# Clean up environment
+rm(all_salaries)
+rm(energy_scotland, energy_scotland_rating)
+rm(gas, hydro, renewable)
+rm(rating, row_maximum_energy_production, years)
+rm(student)
+```
 
