@@ -8,6 +8,11 @@ output:
 author: "Lesley Duff"
 date: "`r format(Sys.Date())`"
 ---
+```{r}
+#set seed to ensure reproducible results
+set.seed(20)
+```
+
 # Decision Tree
 ```{r}
 library(modelr)
@@ -59,8 +64,7 @@ meteorite_landings_factored <- meteorite_landings_factored %>%
 
 glimpse(meteorite_landings_factored)
 ```
-split your dataset into training and testing datasets.
-
+Split dataset into training and testing datasets.
 
 ```{r}
 # 80% of our data going into the training set, and the
@@ -81,8 +85,7 @@ meteorite_landings_test <- slice(meteorite_landings_factored, test_index)
 meteorite_landings_train <- slice(meteorite_landings_factored, -test_index)
 ```
 
-
- check that our test and training sets have similar proportions of 
+Check that our test and training sets have similar proportions of 
 fall. 
 
 ```{r}
@@ -97,8 +100,9 @@ meteorite_landings_train %>%
   janitor::tabyl(fall)
 ```
 
-Build tree model based on training dataset
-Then create a decision tree with rpart
+Build tree model based on training dataset.
+
+Then create a decision tree with rpart.
 
 ```{r}
 # 4.3 Training datasets (Week 11)
@@ -110,15 +114,13 @@ meteorite_landings_fit <- rpart(
   data = meteorite_landings_train,
   method = "class"
 )
-# meteorite_landings_fit
-# Do once to save tree
-# saveRDS(meteorite_landings_fit, file = "clean_data/meteorite_landings_fit.RDS")
 ```
-plot it using rpart.plot
+
+Plot it using rpart.plot
 
 ```{r}
-meteorite_landings_fit <- readRDS(file = "clean_data/meteorite_landings_fit.RDS")
 #?rpart.plot
+
 # 4.3 Training datasets (Week 11)
 rpart.plot(meteorite_landings_fit,
   yesno = 2,
@@ -131,33 +133,30 @@ rpart.plot(meteorite_landings_fit,
 ### Interpretation of decision tree
 
 This meteorite model is a binary response Found/Fell. Each node shows the 
-feature (predictor variable) and value used for the split e.g. for the root node
-(Found, 0.85, 100%), The second line contains probability of a Found result expressed as a decimal i.e. 0.85, the third line is the percentage of data 
-points which pass through this node.
-From root node where data meets the split `year < 1936` for 
-years older than 1936, it follows the left branch, years from 1936 onwards it follows the right branch. Once you reach a leaf node,  the node tells you the predicted outcome, in this case 'Fell' or 'Found'.
+feature (predictor variable) and value used for the split e.g. for the root node (Found, 0.85, 100%). The second line contains probability of a Found 
+result expressed as a decimal i.e. 0.85, the third line is the percentage of data points which pass through this node.
 
-So from root if year was >= 1936 we'd take the right branch to
-Found, 0.93, 79%
-This tells us a very high percentage of meteorites discovered 1936 or later are 
-predicted to have been discovered **after** its impact than seen falling.
+From root node where data meets the split `year < 1935` for 
+years older than 1935, it follows the left branch, years from 1935 onwards it follows the right branch. Once you reach a leaf node,  the node tells you the predicted outcome, in this case 'Fell' or 'Found'.
+
+So from root if year was >= 1935 we'd take the right branch to
+Found, 0.93, 80%. This tells us a very high percentage of meteorites discovered 1935 or later are predicted to have been discovered **after** its impact than seen falling.
 
 For the left branch from root
 
-1. Root Node take 'year < 1936'(dark green) - take left branch
-2. Node: Found, 0.56, 21% (light green)
+1. Root Node take 'year < 1935'(dark green) - take left branch
+2. Node: Found, 0.57, 20% (light green)
 The split is now on mass rather than year.
 For mass in grammes < 11000 (11e+3) take left branch
-3. Node: Fell, 0.42, 10% (light blue)
-For the first time we see 'Fell' as predicted more common. 
+3. Node: Fell, 0.40, 10% (light blue)
+For the first time we see 'Fell' as predicted more common. The split is now on
+year < 1880
 4. Leaf Node: Fell, 0.21, 4%. (dark blue)
-So Fell is predicted to more likely for lighter meteorites < 11000g, where the 
-year is older than 1880 
-
+So Fell is predicted to be more likely for lighter meteorites < 11000g, where the year is older than 1880 
 
 ## Predictions
-Finally, test and add your predictions to your data
 
+Finally, test and add your predictions to your data
 
 ```{r}
 # 4.2 Testing datasets (Week 11)
@@ -175,7 +174,8 @@ meteorite_landings_test_pred %>%
 
 ## Confusion matrix
 
-check predictive performance by creating a confusion matrix
+Check predictive performance by creating a confusion matrix.
+
 ```{r}
 #?conf_mat
 # 4.2 Testing datasets (Week 11)
@@ -210,22 +210,25 @@ specificity <- meteorite_landings_test_pred %>%
 specificity
 ```
 ### Interpretation of confusion matrix
+
 The main diagonal represents correctly-predicted values, with the top right 
 values showing false positives and the bottom left being false negatives.
-So where 'Fell' was predicted this was true 32 times (True Positive), false 16 (False Positive)
+So where 'Fell' was predicted this was true 55 times (True Positive), false 23 
+times (False Positive).
 
-Prediction of Found and was actually Fell 119 is a False Negative
+Prediction of Found and was actually Fell 120 is a False Negative
 
 Our correctly predicted values are higher than the incorrect ones. This is
-reflected in the probability of our prediction being correct as over 85%.
+reflected in the accuracy - the probability of our prediction being correct as 
+over around 85%.
 
-Our sensitivity (AKA true positive rate) of 21% is the proportion of 
+Our sensitivity (AKA true positive rate) of around 31% is the proportion of 
 actual positive cases that are correctly identified as positive.
 
-Prediction of Found and was actually Found 795 is a True Negative, this value 
+Prediction of Found and was actually Found 764 is a True Negative, this value 
 is very high.
-Our specificity (AKA true negative rate) of over 98%  proportion of actual 
-negative cases that are correctly identified as negative
+Our specificity (AKA true negative rate) of over 97% proportion of actual 
+negative cases that are correctly identified as negative.
 
 The model is better at predicting when the meteorite is found rather than fell.
 
