@@ -125,54 +125,135 @@ highest standard deviation, observations are more spread out
 
 Perform a suitable hypothesis test to check whether the mean bill length of Gentoo is significantly longer than the mean bill length of Adelie.
 
+---
+
 Mean bill length Gentoo = 47.50488
 
 Mean bill length Adelie = 38.79139	
 
+With two species of penguins a two-sample test would seem appropriate.
+Each observation in the Gentoo samples does not have a connection with another observation in the Adelie samples. The samples are *independent*. 
+
+---
+
+This will be a one-tailed test - a statistical hypothesis test in which the critical area of a distribution is one-sided so that it is either greater than or less than a certain value, but not both.
+
+**Null hypothesis:**
 
 $H_0$: $\mu_{\textrm{bill_length_mm}}(Gentoo)$−$\mu_{\textrm{bill_length_mm}}(Adelie)$=0
 
+**alternative hypothesis:**
+
 $H_a$: $\mu_{\textrm{bill_length_mm}}(Gentoo)$−$\mu_{\textrm{bill_length_mm}}(Adelie)$>0
 
-$\alpha = 0.05$
+Set the conventional significance level $\alpha = 0.05$
+
+---
+Visualise the distributions and check the sizes of both samples.
+
+```{r}
+penguins_gentoo_adelie <- penguins %>% 
+  filter(species %in% c("Gentoo", "Adelie"))
+
+penguins_gentoo_adelie %>%
+  group_by(species) %>%
+  summarise(n = n())
+```
+```{r}
+penguins_gentoo_adelie %>%
+  ggplot(aes(y = bill_length_mm, x = species)) +
+  geom_boxplot()
+```
+
+The average seems quite different and higher for Gentoo. This shows that Gentoo bill lengths are higher.
+
+To check whether this difference in distributions could be down to sampling 
+variation (i.e. it may have occurred 'by chance') or whether it is a 
+statistically significant difference we will perform our hypothesis test.
+
+A null distribution is a theoretical distribution of a statistical test 
+statistic that represents what you would expect to observe if the null 
+hypothesis were true. 
+
+We use **permutation** to generate our null distribution. This is chosen as it
+carries out a randomisation test for independence between two variables and is 
+good for dealing with relatively small sample sizes. Permutation is less likely 
+to produce false-positive results (Type I errors).
+
+* Under $H_0$ the species of the penguin would have no bearing on the mean bill 
+length, i.e. the species and mean bill length are independent. There would be 
+no difference between species.
+* Permuting by randomly shuffling the species labels we lose any relationship 
+that there was between species and mean bill length. If there is no 
+relationship and they are independent then randomly shuffling them should 
+have no implication. If the difference between species is much larger than the 
+difference once the labels are shuffled it’s because there is a real difference 
+between the species, and it’s not just down to sampling variation.
+
+Once we shuffle the species labels, we calculate the sample statistic which is the difference in mean bill length for each species. We repeat the shuffle and 
+calculation of mean bill length many times i.e. 'reps' to create the null 
+distribution. In the following examples we generate 10000 reps.
 
 ```{r}
 # 4.1 Exploratory data analysis and targeted data analysis (hypothesis testing)
 # 4.3 Probability and probability distributions
 
-observed_stat <- penguins %>%
-  filter(species %in% c("Gentoo", "Adelie")) %>%
+# define a null distribution
+null_distribution <- penguins_gentoo_adelie %>%
+  # We test the relationship between bill_length_mm and species
+  specify(bill_length_mm ~ species) %>%
+  
+  #the null hypothesis is there is no relationship i.e. they are independent
+  hypothesize(null = "independence") %>%
+  
+  # Generates a distribution of 10000 resamples
+  generate(reps = 10000, type = "permute") %>%
+  
+  #return the observed statistic specified with the stat argument
+  # sample stat is mean of Gentoo minus mean of Adelie, 
+  # so this is the order we specify in the calculate step
+  # Calculates the difference between the mean of Gentoo minus mean of Adelie 
+  calculate(stat = "diff in means", order = c("Gentoo", "Adelie"))
+
+head(null_distribution)
+```
+
+```{r}
+# calculate the observed statistic
+observed_stat <- penguins_gentoo_adelie %>%
+  # We test the relationship between bill_length_mm and species
   specify(bill_length_mm ~ species) %>%
   calculate(stat = "diff in means", order = c("Gentoo", "Adelie"))
 
 observed_stat
+```
 
-null_distribution <- penguins %>%
-filter(species %in% c("Gentoo", "Adelie")) %>%
-  specify(bill_length_mm ~ species) %>%
-  hypothesize(null = "independence") %>%
-  generate(reps = 10000, type = "permute") %>%
-  calculate(stat = "diff in means", order = c("Gentoo", "Adelie"))
+Visualise the null distribution and where the observed statistic lies on the distribution.
 
+```{r}
 null_distribution %>%
-  visualise(bins = 30)+
-  shade_p_value(obs_stat = observed_stat$stat, 
+  visualise()+
+  
+  # one-tailed test because alternative is that the difference is greater 
+  # than zero i.e. right direction
+  shade_p_value(obs_stat = observed_stat, 
                 direction = "right")
 ```
 
-How likely is it to see a result as extreme as your observed result, if the null hypothesis is true?
-
 ```{r}
+# calculate a p-value
 p_value <- null_distribution %>%
-  get_p_value(obs_stat = observed_stat$stat, 
+  get_p_value(obs_stat = observed_stat, 
               direction = "right")
 p_value
 ```
-p <  $\alpha$
 
-p of 0 observed difference is unlikely to be due to chance.
+The observed statistic is on the extreme right edge of our null distribution. 
+So there would be a very small probability of getting a more extreme value than this under $H_0$.
 
-We reject $H_0$ as the p value is less than $\alpha$
- 
-There is strong evidence to conclude that the mean bill length of Gentoo is significantly longer than the mean bill length of Adelie. These are independent
-samples.
+**p < 0.001 is very small**, the observed difference is unlikely to be due to chance. A true p-value of 0 is impossible, This is due to the simulation-based nature of the {infer} package.
+
+Our null hypothesis was that "There is no difference between mean bill lengths of Gentoo and Adelie species.". We simulated a test statistic under the null hypothesis. However this probability was extremely low and 
+very unlikely so there is a very statistically significant difference between mean bill lengths of the two species of penguin.
+
+The p-value is less than $\alpha$ = 0.05 so we reject $H_0$. We reject the null hypothesis and conclude that there is **strong** evidence that the **mean bill length of Gentoo is significantly longer than the mean bill length of Adelie**.
