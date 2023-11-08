@@ -6,12 +6,15 @@ output:
   html_document:
     toc: yes
     toc_float: yes
+    df_print: paged
+
 title: "Citi Bike"
 ---
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
-  message = FALSE, warning = FALSE,
-  echo = FALSE #
+  message = FALSE, 
+  warning = FALSE,
+  echo = FALSE
   # eval = FALSE, fig.align = "center",
 )
 ```
@@ -89,9 +92,10 @@ Citi Bike would like to know more about the following:
 
 The main Key Performance Indicatior (KPI) that Citi Bike could use to measure 
 success is **hires**. A hire is defined as when a bike has been successfully 
-undocked at a start station and docked at a destination station. We will 
-plot hires against time/demographics and show a map where the number of hires 
-is visualised.
+undocked at a start station and docked at a destination station. 
+
+We have been given access to a small sample of available data. We will 
+initiallu examine the quality of the data. Visualisations will be created that break down hires by different time periods showing different demographics and user types. Maps will show the geographical spread by showing the location of stations used for hires. We will also try and visualise which stations are in active use at different times of day to identify any commuter-related directionality. Since payment schemes incentivise short journeys we will look at the durations of hires.
 
 ## Business processes and data flow
 <!-- (1.3) -->
@@ -129,9 +133,10 @@ Do you have any concerns about bias or quality in the dataset? Why/why not?
 ### Quality
 The data supplied as part of the sample appears to be of high quality, no 
 missing records were detected. Some parts directly are supplied by the user such
-as Gender/Year of birth. The preliminary analysis revealed over that for over 6%
-of trips the gender of the user was unknown. A couple of entries gave year of 
-birth of the person hiring the bike as being in the 1880s.
+as Gender/Year of birth. Others appear to be generated automatically 
+electronically via e.g. users using an app for unlocking bikes. The preliminary analysis revealed over that for over 6% of trips the gender of the user was 
+unknown. A couple of entries gave year of birth of the person hiring the bike 
+as being in the 1880s.
 
 ### Bias
 The dataset has been provided by the Citi Bike company obtained from 
@@ -143,7 +148,9 @@ Citi Bike bikes hire process involves users using their mobile phones to 'unlock
 bikes. Citi Bike will be unable to determine from this dataset whether there are 
 people who would like to use the bikes but do not have a mobile phone or can't
 use the apps involved. There is no information on failed attempts e.g. technical
-faults or not enough bikes available for users wishing to travel.
+faults or not enough bikes available for users wishing to travel. We do not have 
+a full list of available stations so are unable to guage how our sample aligns 
+with all stations or whether some are not being used at all.
 
 We have been provided with no initial information about about how this smaller 
 sample was generated e.g. whether truly random over the full data or whether the
@@ -151,8 +158,13 @@ sample is from a specific subcategory of e.g. stations/bikes/users or other data
 Citi Bike holds but not made public. We are unable to claim how well this sample 
 represents the full dataset to which we do not have access.
 
+Riding a bike usually involves people learning to balance themselves. If 
+someone has never learned to ride a bike they will initially be unable to use 
+these services. There is no indication of people who may wish to do so but are 
+physically unable.
+
 Possible undercoverage? The sample is only for over 4,000 trips over the 
-course of 2018 for just 10 different bikes and only around 50 stations. We can
+course of 2018 for just 10 different bikes and just over 50 stations. We can
 only examine that particular year in isolation without testing whether there are 
 year-to-year trends such seasonal variations.
 
@@ -166,9 +178,10 @@ deliberately choosing the wrong year.
 <!-- (1.7)
 
 Please include your cleaning/wrangling steps under this section. -->
-A preliminary analysis was used for examining the initial quality of the 
-data. As a result a separate cleaning script was created to small amount of cleaning/wrangling was done to add extra time-related columns to the data for 
-convenience when visualising it as plots.
+A separate preliminary analysis was used for examining the initial quality of 
+the data. As a result a separate cleaning script inside data_cleaning_scripts 
+was created to do a small amount of cleaning/wrangling was done to add extra time-related columns to thedata for convenience when visualising the dataset as 
+plots.
 
 The customer explicitly wanted age to be analysed so we calculated the age of 
 the rider at the time of the hire in 2018.
@@ -195,9 +208,11 @@ correctly labelled and used colour schemes to assist those with
 colour-blindness.
 
 For some visualisations the images raised questions regarding particular points 
-of interest. For these items I supplemented plots with some tabular information.
+of interest. For these items I supplemented plots with some tabular information 
+for more granular information.
 
-All visualisations were made in RStudio using the `ggplot` package.*
+Most visualisations were made in RStudio using the `ggplot` package.
+Maps used the `leaflet` package.
 
 ## Visualisations
 <!-- (2.2, 2.3, 2.4, 2.5, 2.6) 
@@ -241,18 +256,18 @@ citibike_hires_by_day_of_year
 ggsave("analysis_and_documentation/images/plot_01_citibike_hires_by_day_of_year.png")
 ```
 This line plot shows the pattern of hires per day of 2018.
-Hires are lower in winter months, higher in summer. Citi Bike could do 
-promotions at quieter times of year to try and encourage more usage. They could 
-further examine the top days and was there anything they did to boost hires in 
-the past and to repeat anything similar in future. On 21 days hires were 
-barely measurable with only a single hire. Check for reasons why this may be 
-e.g. was the weather particularly severe, were there road problems, was 
+Hires are lower in winter months, higher in summer. 
+
+Citi Bike could do promotions at quieter times of year to try and encourage more usage. They could further examine the top days and was there anything they did 
+to boost hires in the past and to repeat anything similar in future. On 21 days 
+hires were barely measurable with only a single hire. Check for reasons why this
+may be e.g. was the weather particularly severe, were there road problems, was 
 something affecting accurate usage recording like mobile phone network problems,
 were Citi Bike having other technical issues etc.
 
 See appendix for tables of [dates of highest and lowest hires](#tables-of-dates-of-highest-and-lowest-hires).
 
-#### Hires by month
+#### Hires by Month
 ```{r}
 # Aggregate by month of year
 citibike_hires_by_month <- citibike_hires %>%
@@ -337,9 +352,9 @@ citibike_hires_by_hour_of_day %>%
   geom_col() +
   scale_fill_colorblind("Office Hours") +
   plot_theme +
-  scale_x_continuous(breaks = 1:24) +
+  scale_x_continuous(breaks = 0:23) +
   labs(
-    title = "Hires by Hour of the Day",
+    title = "Hires by Hour of Day",
     subtitle = "Sample data from 2018",
     x = "\nHour of Day",
     y = "Number of Hires\n",
@@ -349,16 +364,17 @@ ggsave("analysis_and_documentation/images/plot_04_citibike_hires_by_hour_of_day.
 ```
 This bar plot shows hires for all 24 hours of the day across the whole of 2018.
 
-As might be expected, this shows peak movement before and after  
-"office hours" (traditionally 9-5 with an hour commuting either side, this is 
-marked by yellow bars). Remember this was before COVID-19 when many more people commuted into city centre offices for work. Could Citi Bike do deals with 
-larger organisations to help workers be more physically active to improve 
-wellbeing and reduce business expenses ?Hires are remarkably consistent from 
-10am to 3pm as seen by the dip in the middle of the day. Incentivise tourists 
-or retired people to encourage more use during these hours. No real sign of 
-workers going on bike trips during lunch (12-2pm). Exceptionally light usage 
-from 1-4am, target late shift workers in e.g. health/emergency or leisure 
-sectors.
+As might be expected, this shows peak movement before and after "office hours" 
+(traditionally 9am-5pm with an hour commuting either side, this is marked by 
+yellow bars). Remember this was before COVID-19 when many more people commuted 
+into city centre offices for work. Could Citi Bike do deals with larger 
+organisations to help workers be more physically active to improve wellbeing and 
+reduce business expenses? Hires are remarkably consistent from 11am to 3pm as 
+seen by the dip in the middle of the day. Incentivise tourists or retired people 
+to encourage more use during these hours. No real sign of workers going on bike 
+trips during lunch (12-2pm). Exceptionally light usage from 1-4am, target late 
+shift workers in e.g. health/emergency or leisure sectors such as the nearby 
+casinos along the waterfront.
 
 ### Demographics: Hires by User Type 
 
@@ -428,7 +444,7 @@ citibike_hires_user_age %>%
     y = "Number of Hires\n",
     fill = "Gender"
   )
-ggsave("analysis_and_documentation/images/plot_06_citibike_hires_user_age.png")
+ggsave("analysis_and_documentation/images/plot_06_citibike_hires_user_age_gender.png")
 ```
 This bar plot shows the numbers of users broken down by the age of the person 
 making the hire and their gender during 2018.
@@ -465,13 +481,14 @@ citibike_hires_gender
 ```
 
 Percentage of those providing a gender female = 930/3069 * 100 = 30.3%
-This suggests there could be at least 2,000 females in this sample not using 
-the service.
+This suggests there could be well over 2,000 available females in this sample 
+not using the service compared to males.
 
 More research should be done into why females are less likely to use the
 Citi Bike service. Do we know whether females are deliberately choosing not to 
 use the services or are there factors like whether they've learned to ride a 
-bike when younger?
+bike when younger? Are there concerns about personal safety travelling alone or 
+at night and in the dark?
 
 Citi Bike should consider demographically targeted marketing campaigns to 
 women e.g. online adverts.
@@ -495,7 +512,10 @@ citibike_hires_user_age_unknown
 We see that those who claimed to be 49 (born in 1969) account for an 
 extraordinarily high proportion of people not supplying a gender.
 This maybe suggests these particular users do not want to give accurate 
-information about themselves and seem to be selecting a dummy value for age.
+information about themselves and seem to be selecting a dummy value for age. 
+Other potential cause, it may be worth doing some technical checks with 
+web/app staff - was there something in the user interface that was defaulting 
+to a birth year of 1969 that people maybe simpl didn't bother changing?
 
 Developers could test if they also offered to make providing an age optional 
 the same way as gender whether the number claiming a birth_year of 1969 would 
@@ -503,21 +523,26 @@ drop and improve the accuracy of the age data.
 
 ### Hires by geographical spread
 
+#### Start station
+
 ```{r}
-citibike_hires_station_locations <- tibble(citibike_hires) %>%
+# A hire needs at least a start_station
+citibike_hires_station_start_locations <- tibble(citibike_hires) %>%
   select(start_station, start_lat, start_long) %>%
   group_by(start_station, start_lat, start_long) %>%
   summarise(number_of_hires = n()) %>%
   ungroup()
+```
 
-citibike_hires_station_start_map <- leaflet(citibike_hires_station_locations) %>%
+```{r}
+citibike_hires_station_start_map <- leaflet(citibike_hires_station_start_locations) %>%
   addTiles() %>% # use the default base map which is OpenStreetMap tiles
   # ?addMarkers
 
   addCircleMarkers(
     lng = ~start_long,
     lat = ~start_lat,
-    radius = ~ number_of_hires / 20,
+    radius = ~ number_of_hires / 50,
     # popup = ~paste("<strong>Number of Hires:</strong>", number_of_hires),
     popup = ~ paste(
       "<strong>Number of Hires:</strong>", number_of_hires,
@@ -525,13 +550,251 @@ citibike_hires_station_start_map <- leaflet(citibike_hires_station_locations) %>
       start_station
     ),
     label = ~ paste("Number of Hires:", number_of_hires)
-  )
+  ) 
 
 citibike_hires_station_start_map
-#ggsave("analysis_and_documentation/images/plot_07_citibike_hires_station_start_map.png")
+```
+This map shows the locations where hires started, the larger the circle 
+the more hires.
+
+#### End station
+```{r}
+citibike_hires_station_end_locations <- tibble(citibike_hires) %>%
+  select(end_station, end_lat, end_long) %>%
+  group_by(end_station, end_lat, end_long) %>%
+  summarise(number_of_hires = n()) %>%
+  ungroup()
 ```
 
+```{r}
+citibike_hires_station_end_map <- leaflet(citibike_hires_station_end_locations) %>%
+  addTiles() %>% # use the default base map which is OpenStreetMap tiles
+  # ?addMarkers
+
+  addCircleMarkers(
+    lng = ~end_long,
+    lat = ~end_lat,
+    radius = ~ number_of_hires / 50,
+    # popup = ~paste("<strong>Number of Hires:</strong>", number_of_hires),
+    popup = ~ paste(
+      "<strong>Number of Hires:</strong>", number_of_hires,
+      "<br /><strong>Station Number:</strong>",
+      end_station
+    ),
+    label = ~ paste("Number of Hires:", number_of_hires),
+    color = "red"
+  ) 
+
+citibike_hires_station_end_map
+```
+
+This map shows the locations where hires ended, the larger the circle 
+the more hires.
+
+**Comments re geographical locations**
+
+Since we know that Citi Bike operates throughout New York City, after plotting 
+locations of hires it makes us assume that the sample data we have been provided 
+with is itself filtered to restrict it to a smaller geographical area of study. 
+This now frames our dataset as being much more relevant to short, local journeys
+close to Jersey City than those going long distances elsewhere.
+
+What is striking comparing start stations and end stations maps is how similar 
+the patterns are, especially when looking at the larger circles with more hires. 
+As they are so similar this suggests a high proportion of 'return' journeys 
+where the user goes between two stops initially then later completes the same 
+journey *in reverse*, making the number of hires more balanced. As there is no 
+tracking of individuals and a user returning later in the day may choose a 
+different bike (by `bike_id`) in this dataset it is not possible to verify 
+return journeys. But as the peaks shown in the previous chart of hires by hours 
+of day are around traditional work commuting times this may support the idea 
+that some of the peak usage of bikes during the day is for commuting between 
+work and home. We'll look at this again in the the "Station usage" section.
+
+Station number 3186 near the junctions of Christopher Columbus Drive and Grove 
+Street is by far the most popular individual station with used 433 times as 
+start station and 577 as end station. This particular station is positioned 
+between the 'old' downtown area and the newer multi-storey residential 
+apartments and business blocks further east. Such locations may make for a 
+higher density of potential users so it might be worth positioning stations 
+close to taller buildings. Is is also very close to [Grove Street station (PATH)](https://en.wikipedia.org/wiki/Grove_Street_station_(PATH)) train station 
+which may suggest people using the bikes for a leg of a longer journey via 
+public transport.
+
+In general the other more popular stations are closer to the heart of Jersey 
+City in high rise accommodation or business, many towards the newer waterfront 
+areas where many businesses are located and entertainment such as casinos. These 
+hires could possibly also be people connecting with ferries if they are 
+travelling to/from further away. Others are nearby stops on the light railway 
+system. There may be scope for experimenting with "park and ride" schemes to 
+link up with other public transport systems.
+
 ## Other insights
+### Station usage
+
+We'll now take a closer look at patterns of from (`start_station)` to 
+(`end_station`) journeys to see which routes are more popular.
+
+The following charts show all the recorded start and end stations by unique 
+station number with the number of hires for each over the entire year. The 
+darker the blue the more hires. There are two grids showing patterns at 
+different times of day, one for AM and another for PM. 
+
+```{r}
+# Journey between start station and end station
+citibike_journeys <- tibble(citibike_hires) %>% 
+  select(start_station, end_station,
+          start_lat, start_long,
+          end_lat, end_long, start_hour_of_day) %>% 
+  mutate(is_am = if_else(start_hour_of_day < 12, TRUE, FALSE) ) %>% 
+  group_by(start_station, start_lat, start_long,
+           end_station, end_lat, end_long, is_am) %>% 
+  summarise(number_of_journeys = n()) %>%
+  ungroup()
+```
+
+```{r}
+# Show a grid of hires between a start and end station
+plot_bike_journeys <- function(df) {
+  plot <- df %>%
+    ggplot(aes(x = end_station, y = start_station, fill = number_of_journeys)) +
+    # ?geom_tile
+    geom_tile(color = "white") +
+    coord_fixed() + # make boxes square
+    guides(fill = guide_colourbar( # barwidth = 20,
+      # barheight = 10,
+      title = "Hires"
+    )) +
+    plot_theme +
+    scale_fill_gradient(low = "lightblue", high = "darkblue") +
+    theme(
+      legend.position = "bottom",
+      axis.text.x = element_text(angle = 90),
+      axis.text.y = element_text(angle = 0)
+    ) +
+    labs(
+      title = "Station activity by number of hires",
+      subtitle = "Hires for each unique start and end station combination",
+      x = "End station",
+      y = "Start station",
+    )
+  return(plot)
+}
+```
+```{r fig.height = 8, fig.width = 8}
+# Night and orning Journeys made from 0-11 (am)
+citibike_journeys_am <- citibike_journeys %>%
+  filter(is_am == TRUE)
+
+plot_bike_journeys(citibike_journeys_am) + 
+  labs(title = "Station Activity by Hires, AM (0-11hrs)")
+ggsave("analysis_and_documentation/images/plot_07_station_usage_am.png")
+```
+
+```{r fig.height = 8, fig.width = 8}
+# afternoon, evening and night Journeys made from 12-23 (pm)
+citibike_journeys_pm <- citibike_journeys %>%
+  filter(is_am == FALSE)
+
+plot_bike_journeys(citibike_journeys_pm) + 
+  labs(title = "Station activity by Hires, PM (12-23 hrs)")
+ggsave("analysis_and_documentation/images/plot_08_station_usage_pm.png")
+```
+
+Both charts show the majority of start stations being used to go to **multiple** 
+different end stations.
+
+```{r}
+citibike_journeys_least_used_start_station <-  citibike_journeys %>% 
+  count(start_station) %>% 
+  slice_min(n) %>% 
+  mutate(n = NULL)
+
+citibike_journeys_least_used_end_station <-  citibike_journeys %>% 
+  count(end_station) %>% 
+  slice_min(n)%>% 
+  mutate(n = NULL)
+
+distinct_start_stations <- citibike_journeys %>% 
+  distinct(start_station)
+
+number_distinct_start_stations <- pull(count(distinct_start_stations))
+
+distinct_end_stations <- citibike_journeys %>% 
+  distinct(end_station)
+number_distinct_end_stations <- pull(count(distinct_end_stations))
+
+number_of_journeys <- pull(count(citibike_journeys))
+
+# Calculate how many return to the same station they started
+citibike_journeys_return_to_start <- citibike_journeys %>% 
+  filter(as.numeric(start_station) == as.numeric(end_station))
+
+number_of_journeys_return_to_start <- pull(count(citibike_journeys_return_to_start))
+percent_of_journeys_return_to_start <- round( number_of_journeys_return_to_start/number_of_journeys * 100, digits = 1)
+```
+`r number_distinct_start_stations` different start stations were used.
+
+`r number_distinct_end_stations` different end stations were used.
+
+There are `r number_of_journeys` unique combinations of start and end station 
+used for journeys. Only `r percent_of_journeys_return_to_start`% journey routes 
+end with the same bike being returned to the station the user started from. So 
+it's rare for someone to take the same bike out e.g. going shopping nearby then 
+returning without docking at another station first. This is good as it keeps bikes 
+available for other users and users are avoiding paying financial penalties for 
+long durations.
+
+The variety of stations used for journeys suggests users utilise the wide range 
+of choice of different available places from the distributed network of stations.
+This is a current strength of Citi Bike but could this make it expensive to 
+expand in future to maintain user expectation of choice available?
+
+**Commuting revisited**
+
+To check again about commuting using the most popular station as an 
+example. In AM the most popular journey in the mornings is from 
+3203 to 3186. In PM it's from 3186 to 3203. 3186 is [Citi Bike: Grove St PATH](https://maps.app.goo.gl/t95TnV2cwXLwTKZz9), 
+Station 3203 is to the north is [Citi Bike: Hamilton Park](https://maps.app.goo.gl/GcytqV34AL794rJEA). Although not far away 
+physically, the Hamilton Park stop is in a much more residential area compared 
+to the more 'business' like Grove Street, which might show people returning home 
+from work. 3203 is also near to a huge mall complex so other possibilities are 
+people going shopping/eating etc. after work.
+
+#### Least used stations
+
+```{r}
+#citibike_journeys_least_used_start_station
+# Contains:  3188
+
+#citibike_journeys_least_used_end_station
+# Contains: 514, 3188, 3216
+
+# 3188 appears in both so we could just use the end stations
+citibike_journeys_least_used_stations <- citibike_journeys_least_used_end_station 
+
+citibike_hires_least_used_station_locations <- citibike_hires_station_end_locations %>% 
+  filter(end_station %in% citibike_journeys_least_used_stations$end_station)
+
+citibike_hires_least_used_station_map <- leaflet(citibike_hires_least_used_station_locations) %>%
+  addTiles() %>% # use the default base map which is OpenStreetMap tiles
+  
+  addMarkers(
+    lng = ~end_long,
+    lat = ~end_lat,
+    label = ~ paste("Number of Hires:", number_of_hires),
+  ) 
+
+citibike_hires_least_used_station_map
+```
+
+N.B. We have not been given a full list of available bike stations so we cannot 
+tell from the sample data we've been provided with whether there are any bike 
+stations completely unused. However, on this map we show the **least used** 
+stations where they have only been recorded as having been used **once** for a 
+hire start or end station for the whole year. Geographically these are more 
+remote from the centre of Jersey City. 
+
 ### Duration
 ```{r}
 # View(nyc_bikes)
@@ -554,42 +817,74 @@ citibike_hires_duration_duration <- citibike_hires %>%
   )
 
 citibike_hires_duration_duration %>%
-  ggplot(aes(x = fct_infreq(duration_category))) +
+  ggplot(aes(x = fct_infreq(duration_category), fill = type)) +
   geom_histogram(stat = "count") +
   plot_theme +
   scale_fill_colorblind() +
+  scale_y_continuous(labels = scales::comma) +
   labs(
-    title = "Hires by Duration Category",
+    title = "Hires by Duration Category and User Type",
     subtitle = "Sample data from 2018",
     x = "\nDuration Category",
-    y = "Number of Hires\n"
+    y = "Number of Hires\n",
+    fill = "User Type"
   )
-ggsave("analysis_and_documentation/images/plot_08_citibike_hires_duration.png")
+ggsave("analysis_and_documentation/images/plot_09_citibike_hires_duration.png")
 ```
 
-This plot shows number of hires broken down by duration. Duration is the time 
-taken between a bike being undocked at a starting station and docked at a
-destination station.
+This plot shows number of hires broken down by duration and user type. Duration 
+is the time taken between a bike being undocked at a starting station and docked
+at a destination 'end' station.
 
 [Citi Bike pricing](https://citibikenyc.com/pricing) already offers financial 
 incentives to keep trips < 30 minutes by charging extra per 15 mins over. 
 Majority of trips are well within this with the highest usage being very short 
-trips lasting less than 10 minutes. Suggests users find Citi Bike worthwhile even 
-for relatively short journeys outweighing any time spent walking to find a bike.
+trips lasting less than 10 minutes. Users find Citi Bike worthwhile especially 
+for relatively short journeys outweighing any inconvenience of time spent 
+walking to find a bike.
+Subscribers with yearly membership massively favour journeys under 10 minutes 
+reinforcing that those who use the service regularly are making very short 
+trips. Whereas for customers, their most popular duration was greater than 30 
+minutes closely followed by 10-19 minutes This may be down to people trying 
+out the service before committing to a subscription or greater use by 
+occasional users possibly including tourists for longer sight-seeing trips. 
+As mention previously there are relatively few customer users but they may be 
+generating proportionally more income per hire by going 'over' the 30 minute 
+boundary.
+
+```{r}
+citibike_hires_duration_totals = as_tibble(citibike_hires_duration_duration) %>% 
+  select(duration_category, type) %>% 
+  group_by(duration_category, type) %>% 
+    summarise(count = n()) %>% 
+  arrange(desc(count))
+citibike_hires_duration_totals
+```
+
 
 ## Recommendations
 
 * Different patterns of usage across a calendar year. Much less usage 
 in winter. Suggest further research to see if people feel too unsafe to use 
 the service in poor weather. 
-* Promote better short passes deals for fair weather "day trip" users, these are potential new subscribers who might wish to experiment with the service before 
-commiting to a full yeqr.
+* Promote better short passes deals for fair weather "day trip" users, these are 
+potential new subscribers who might wish to experiment with the service before 
+commiting to a full year.
 * Heaviest usage during weekday work commute times. Work with employers for 
 Citi Bike to be part of employee benefit schemes.
-* Males use the service considerably more than females. Quick win could be to attempt to grow female usage through targeted marketing campaigns and working 
+* Older people could be targeted using more traditional forms of advertising 
+like through newspapers/radio/TV. Retired people could be offered discounts to 
+possibly help take up the spare capacity available in the middle of the day. 
+* Males use the service considerably more than females. Quick win could be to 
+attempt to grow female usage through targeted marketing campaigns and working 
 with female-oriented groups in New York City.
-* Developers/designers should check whether the user information interface provided could be adjusted to make birth_year optional to improve quality of age data 
-reducing those deliberately choosing to give a false year.
+* Developers/designers should check whether the user information interface 
+provided could be adjusted to make birth_year optional to improve quality of 
+age data reducing those deliberately choosing to enter a false year.
+* 3 stations have only been used once in a year, these could be good candidates 
+for removal from service without greatly disrupting existing users. If the 
+company wishes to economise they could consider whether these stations are 
+worth retaining, would the resources be better redeployed to other locations?
 
 ## Appendix
 ### Technical Data types 
@@ -645,6 +940,7 @@ lowest_hire_dates <- citibike_hires_by_date %>%
   filter(hires == 1) %>%
   arrange(hires)
 
-print(lowest_hire_dates, n = Inf)
+#print(lowest_hire_dates, n = Inf)
+lowest_hire_dates
 ```
 
