@@ -165,7 +165,9 @@ We have been provided with no initial information about about how this smaller
 sample was generated e.g. whether truly random over the full data or whether the
 sample is from a specific subcategory of e.g. stations/bikes/users/location or 
 other data Citi Bike holds but not made public. We are unable to claim how well 
-this sample represents the full dataset to which we do not have access.
+this sample represents the full dataset to which we do not have access. Later 
+after showing some visualisations we will suggest some of the kinds of data that
+might have been specifically excluded to create our sample.
 
 Riding a bike usually involves people learning to balance themselves on two 
 wheels. If someone has never learned to ride a bike they will initially be 
@@ -176,7 +178,7 @@ under-represented as potential users.
 
 Possible undercoverage? We are in a population-dense urban environment. The 
 sample is only for over 4,000 trips over the course of 2018 for just 10 
-different bikes and just over 50 stations. We canonly examine that particular 
+different bikes and just over 50 stations. We can only examine that particular 
 year in isolation without testing whether there are year-to-year trends such 
 seasonal variations.
 
@@ -777,7 +779,7 @@ of choice of different available places from the distributed network of stations
 This is a current strength of Citi Bike but could this make it expensive to 
 expand in future to maintain user expectation of choice available?
 
-**Commuting revisited**
+##### Commuting revisited
 
 To check again about commuting using the most popular station as an 
 example. In AM the most popular journey in the mornings is from 
@@ -890,6 +892,40 @@ citibike_hires_duration_totals = as_tibble(citibike_hires_duration_duration) %>%
 citibike_hires_duration_totals
 ```
 
+### Sample data excluded?
+We saw from the maps that the geographical area covered is a subset of the 
+larger Citi Bike network so is restricted in physical coverage. Looking at the 
+high degree of symmetry from the maps and the station usage visualisations it 
+feels like the type of trip that is under-represented is a 
+**one-way journey from point A to B**.
+
+Looking again at the [documentation for the dataset](https://rdrr.io/github/tidyverts/tsibbledata/man/nyc_bikes.html)
+
+>  "Type:	The type of trip. A "Customer" has purchased either a 24-hour or 3-day 
+pass, and a "Subscriber" has purchased an annual subscription."
+
+The Citi Bike website publishes [monthly operating reports](https://citibikenyc.com/system-data/operating-reports) based on data 
+from their service.
+For e.g. [July 2018 (PDF)](https://d21xlh2maitm24.cloudfront.net/nyc/July-2019-Citi-Bike-Monthly-Report.pdf?mtime=20190913182531). In the section marked "Membership"
+
+> Citi Bike members purchased or renewed 22,429 annual passes, 
+184,887 single-trip passes, 59,353 single-day passes, and 4,715 three-day passes
+in July. 
+
+This will be for the entire Citi Bike network that month, not just the 
+geographical area in our sample. So our sample dataset appears to not include 
+data for the **single-trip** passes mentioned. So any interpretation of results 
+here will not reflect a large portion of such journeys actually made in practice.
+Single-trip passes are the cheapest option for users and are the most popular 
+option, high in number but bring in less revenue than annual or single-day 
+passes e.g. for [Citi Bike prices in 2018](https://web.archive.org/web/20190302090833/https://www.citibikenyc.com/pricing/single-ride) applied to the July 2018 report.
+
+| Pass | Purchased | Price(\$) | Revenue(\$) |
+| ---- | -----:| --------:| -------:| 
+| annual | 22,429 | 169 | `r format(22429*169,nsmall=0,big.mark = ",")` |
+| single-day | 59,353 | 12 | `r format(59353*12,nsmall=0,big.mark = ",")` |
+| single-trip | 184,887 | 3 | `r format(184887*3,nsmall=0,big.mark = ",")` |
+| three-day | 4,715 | 24 | `r format(4715*24,nsmall=0,big.mark = ",")` |
 
 ## Recommendations
 
