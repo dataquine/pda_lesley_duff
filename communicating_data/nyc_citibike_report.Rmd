@@ -134,6 +134,55 @@ help make sure that enough bikes are provisioned and ready at popular stations
 and that less popular stations could be withdrawn without inconveniencing many 
 people.
 
+## Data types
+<!-- (1.5) -->
+<!-- List the different types of variables contained in the dataset and explain 
+each of them to a non-technical audience. (e.g. integer, character, datetime) -->
+
+Inside the original sample dataset we have the following types of data 
+available.
+
+`factor` - used to work with categorical data, data that has a fixed and known 
+set of possible values. These are both numbers and text.
+
+`double` -  for numerical data, any decimal number. In our data location is continuous numeric and things like year of birth are discrete.
+
+`POSIXct` - represent dates and times (ct = calendar time).
+
+Here is further information about the data provided which uses these data types 
+in the sample.
+
+### Factor
+
+* `bike_id`: Which particular bike is used during the hire.  
+
+* `start_station`,`end_station`: Which particular starting station
+the bike began it's trip and which destination station it ended up at the end 
+of the journey.
+
+* `type`: User type.  
+**'Customer'** purchased a short-term 24-hour or 3-day pass  
+**'Subscriber'** is a long-term Annual Member
+
+### Date and time (S3: POSIXct)
+`start_time`,`stop_time`: What date and time the bike trip started/ended a trip 
+as part of a hire.
+
+### Location (double)
+We have the latitude and longitude as numbers telling us the exactly where the 
+bike stations used during a hire are located.
+
+* `start_lat`,`end_lat`: Latitude of starting/ending station. 
+* `start_long`,`end_long`: Longitude of starting/ending station.
+
+### User-supplied information
+* `birth_year`: (double) The bike rider’s year of birth.  
+* `gender`: (factor) User can optionally declare their gender 
+(Male/Female/Unknown).
+
+
+
+
 ## Data quality and data bias
 <!-- (1.6) 
 Do you have any concerns about bias or quality in the dataset? Why/why not?
@@ -952,44 +1001,10 @@ company wishes to economise they could consider whether these stations are
 worth retaining, would the resources be better redeployed to other locations?
 
 ## Appendix
-### Technical Data types 
-<!-- (1.5) 
 
-List the different types of variables contained in the dataset and explain each 
-of them to a non-technical audience. (e.g. integer, character, datetime)
--->
+### Tables of dates of highest and lowest hires
 
-Inside the original dataset we have the following information available
-
-### Factors
-* `bike_id`: Which bike used during the hire
-
-* `start_station`,`end_station`: Which particular starting station
-the bike began it's trip and which destination station it ended up at the end of the journey.
-* `type`: 
-User type.  
-**'Customer'** purchased a short-term 24-hour or 3-day pass  
-**'Subscriber'** is a long-term Annual Member
-
-### Date and time (S3: POSIXct)
-`start_time`,`stop_time`: What date and time the bike trip started/ended a trip 
-as part of a hire.
-
-### Location (double)
-We have the latitude and longitude as numbers telling us the exactly where the 
-bike stations used during a hire are located.
-`start_lat`,`end_lat`: Latitude of starting/ending station. 
-`start_long`,`end_long`: Longitude of starting/ending station
-
-### User-supplied information
-* `birth_year`: (double) The bike rider’s year of birth.  
-* `gender`: (factor) User can optionally declare their gender 
-(Male/Female/Unknown)
-
-
-## Tables of dates of highest and lowest hires
-
-### Top 10 highest hires dates
+#### Top 10 highest hires dates
 ```{r}
 top_10_hire_dates <- citibike_hires_by_date %>%
   arrange(desc(hires)) %>%
@@ -998,7 +1013,7 @@ top_10_hire_dates <- citibike_hires_by_date %>%
 top_10_hire_dates
 ```
 
-### Lowest (single) hire dates
+#### Lowest (single) hire dates
 
 ```{r}
 lowest_hire_dates <- citibike_hires_by_date %>%
