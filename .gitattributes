@@ -1,2 +1,5 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+
+# Apply override to all files and directories in the directory
+*.html linguist-documentation
